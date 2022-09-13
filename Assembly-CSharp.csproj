@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{BF8A8C72-F538-6022-4DFF-AC29980A743A}</ProjectGuid>
+    <ProjectGuid>{5E65376F-21CA-74EE-E52E-992A02FB49E1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -57,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CreditsUpMovement.cs" />
-    <Compile Include="Assets\Scripts\Left.cs" />
     <Compile Include="Assets\Scripts\StartButton.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyOUTDestroy.cs" />
@@ -66,12 +65,12 @@
     <Compile Include="Assets\Scripts\RunTimeText.cs" />
     <Compile Include="Assets\Scripts\LastEnemyKilledReload.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Controller.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\CreditsButton.cs" />
     <Compile Include="Assets\Scripts\Level1Button.cs" />
     <Compile Include="Assets\Scripts\BombOUTDestroy.cs" />
     <Compile Include="Assets\Scripts\Level2Button.cs" />
-    <Compile Include="Assets\Scripts\MoveControl.cs" />
+    <Compile Include="Assets\Scripts\Background\BackgroundController.cs" />
     <Compile Include="Assets\Scripts\Level3Button.cs" />
     <Compile Include="Assets\Scripts\Propeller.cs" />
     <Compile Include="Assets\Scripts\EnemyRightMovement.cs" />
