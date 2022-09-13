@@ -5,11 +5,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private GameObject bulletPrefab;
 
+    [SerializeField] private Transform ammoSpawner;
+
     [SerializeField] private float speed;
 
     private CharacterController characterController;
 
     private Vector3 moveDirection;
+
+    private float fireElapsedTime = 0f;
 
     private void Start()
     {
@@ -24,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
         FitScreenBorders();
 
+        fireElapsedTime += Time.deltaTime;
+
         Fire();
     }
 
@@ -34,8 +40,8 @@ public class PlayerController : MonoBehaviour
 
     private void FitScreenBorders()
     {
-        float verticalBorder = 4.0f;
-        float horizontalBorder = 8.0f;
+        const float verticalBorder = 4.0f;
+        const float horizontalBorder = 8.0f;
 
         if (transform.position.y > verticalBorder)
         {
@@ -55,15 +61,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Fire() 
+    private void Fire()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        const float bombFireDelay = 3f;
+        const float bulletFireDelay = 0.15f;
+
+        if (Input.GetKeyDown(KeyCode.Mouse1) && fireElapsedTime > bombFireDelay)
         {
-            Instantiate(bombPrefab, transform.position, bombPrefab.transform.rotation);
+            fireElapsedTime = 0;
+
+            Instantiate(bombPrefab, ammoSpawner.position, transform.rotation);
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) && fireElapsedTime > bulletFireDelay)
         {
-            Instantiate(bulletPrefab, transform.position, bulletPrefab.transform.rotation);
+            fireElapsedTime = 0;
+
+            Instantiate(bulletPrefab, ammoSpawner.position, transform.rotation);
         }
     }
 }

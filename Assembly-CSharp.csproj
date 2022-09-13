@@ -60,7 +60,6 @@
     <Compile Include="Assets\Scripts\StartButton.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyOUTDestroy.cs" />
-    <Compile Include="Assets\Scripts\Right.cs" />
     <Compile Include="Assets\Scripts\BackToMenuButton.cs" />
     <Compile Include="Assets\Scripts\RunTimeText.cs" />
     <Compile Include="Assets\Scripts\LastEnemyKilledReload.cs" />
@@ -68,7 +67,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\CreditsButton.cs" />
     <Compile Include="Assets\Scripts\Level1Button.cs" />
-    <Compile Include="Assets\Scripts\BombOUTDestroy.cs" />
+    <Compile Include="Assets\Scripts\Player\AmmoController.cs" />
     <Compile Include="Assets\Scripts\Level2Button.cs" />
     <Compile Include="Assets\Scripts\Background\BackgroundController.cs" />
     <Compile Include="Assets\Scripts\Level3Button.cs" />

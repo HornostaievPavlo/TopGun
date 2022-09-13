@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6881847376924221653}
   - component: {fileID: 6881847376924221651}
   - component: {fileID: 6881847376924221650}
-  - component: {fileID: -1818578904863738848}
   - component: {fileID: 1577929864372630565}
   m_Layer: 0
   m_Name: Bullet
@@ -28,8 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6881847376924221652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.114, y: 3.73, z: -2.138}
-  m_LocalScale: {x: 0.00025239168, y: 0.0002523918, z: 0.0002523918}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.0002, y: 0.0002, z: 0.0002}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6881847377589964426}
   m_Father: {fileID: 0}
@@ -64,19 +64,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1328.3638, y: 470.16464, z: 486.68268}
   m_Center: {x: 467.11188, y: 113.96477, z: -24.247824}
---- !u!114 &-1818578904863738848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6881847376924221652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6763ba1c5bd78f64c919242c2224b76b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bombSpeed: 8
 --- !u!114 &1577929864372630565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7857eb3a53ee14abd1f5fa7f3f0074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoSpeed: 10
 --- !u!1 &6881847377589964429
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +105,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 499.67532, y: 103.66803, z: -54.29017}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6881847376924221653}
   m_RootOrder: 0
@@ -140,6 +129,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
