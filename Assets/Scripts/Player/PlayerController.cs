@@ -7,9 +7,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Transform ammoSpawner;
 
-    [SerializeField] private float speed;
+    [SerializeField] private float horizontalMovementSpeed;
+    [SerializeField] private float verticalMovementSpeed;
 
-    private CharacterController characterController;
+    private Transform propeller;
 
     private Vector3 moveDirection;
 
@@ -17,28 +18,38 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        propeller = GetComponentInChildren<BoxCollider>().transform;
     }
 
     private void Update()
     {
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 
-        MovePlayer(moveDirection);
+        Move(moveDirection);
 
-        FitScreenBorders();
+        CheckScreenBorders();
 
         fireElapsedTime += Time.deltaTime;
 
         Fire();
+
+        RotatePropeller();
     }
 
-    private void MovePlayer(Vector3 direction)
+    private void Move(Vector3 direction)
     {
-        characterController.Move(direction * speed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.W) ||
+            Input.GetKey(KeyCode.A) ||
+            Input.GetKey(KeyCode.S) ||
+            Input.GetKey(KeyCode.D)) transform.Translate(direction * Time.deltaTime * horizontalMovementSpeed);
+
+        //if (Input.GetKey(KeyCode.W)) transform.Translate(Vector3.up * Time.deltaTime * horizontalMovementSpeed);
+        //if (Input.GetKey(KeyCode.A)) transform.Translate(Vector3.left * Time.deltaTime * verticalMovementSpeed);
+        //if (Input.GetKey(KeyCode.S)) transform.Translate(Vector3.down * Time.deltaTime * horizontalMovementSpeed);
+        //if (Input.GetKey(KeyCode.D)) transform.Translate(Vector3.right * Time.deltaTime * verticalMovementSpeed);
     }
 
-    private void FitScreenBorders()
+    private void CheckScreenBorders()
     {
         const float verticalBorder = 4.0f;
         const float horizontalBorder = 8.0f;
@@ -77,6 +88,16 @@ public class PlayerController : MonoBehaviour
             fireElapsedTime = 0;
 
             Instantiate(bulletPrefab, ammoSpawner.position, transform.rotation);
+        }
+    }
+
+    private void RotatePropeller()
+    {
+        propeller.Rotate(Vector3.left * 5);
+
+        if (Input.GetKey("d"))
+        {
+            propeller.Rotate(Vector3.left * 7.5f);
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour
 {
-    [SerializeField] private float backgroundSpeed;
+    [SerializeField] private float movementSpeed;
 
     private Vector3 startPosition;
 
@@ -17,7 +17,7 @@ public class BackgroundController : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.right * backgroundSpeed * Time.deltaTime);
+        transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
 
         if (transform.position.x < startPosition.x - width)
         {
