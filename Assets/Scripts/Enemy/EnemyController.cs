@@ -2,19 +2,18 @@ using System.Collections;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
-{
-    //[SerializeField] private ParticleSystem fire;
-    //[SerializeField] private ParticleSystem hitSmoke;
-    //[SerializeField] private ParticleSystem playerFire;
+{   
+    //[SerializeField]
+    //[Range(1, 10)] private float horizontalMovementSpeed;
 
-    //public float horizontalMovementSpeed;
-    public float verticalMovementSpeed;
+    [SerializeField]
+    [Range(1, 10)] private float verticalMovementSpeed;
 
-    public bool isMovingUp;
+    private bool isMovingUp;
 
     private void Update()
     {
-        Move();
+        //Move();
 
         //if (isDeath == true)
         //{
@@ -28,11 +27,11 @@ public class EnemyController : MonoBehaviour
     {
         const float border = 4;
 
-        if (this.transform.position.y > border)
+        if (transform.position.y > border)
         {
             isMovingUp = false;
         }
-        if (this.transform.position.y < -border)
+        if (transform.position.y < -border)
         {
             isMovingUp = true;
         }
@@ -53,15 +52,4 @@ public class EnemyController : MonoBehaviour
 
         GetComponent<Rigidbody>().useGravity = true;
     }
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Player")) // v eb
-    //    {
-    //        hitSmoke.Play();
-    //        playerFire.Play();
-
-    //        FindObjectOfType<GameManager>().EndGame();
-    //    }
-    //}
 }
