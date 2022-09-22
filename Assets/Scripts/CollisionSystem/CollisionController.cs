@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CollisionController : MonoBehaviour
@@ -7,9 +8,11 @@ public class CollisionController : MonoBehaviour
     //[SerializeField] private ParticleSystem playerFire;
 
     [SerializeField]
-    [Range(0, 10)] private float fallSpeed;
+    [Range(0, 10)] private float fallRotationSpeed;
 
     private EnemyController _enemyController;
+
+    private Rigidbody _rigidbody;
 
     public bool isDeath;
 
@@ -18,23 +21,10 @@ public class CollisionController : MonoBehaviour
         isDeath = false;
 
         _enemyController = GetComponent<EnemyController>();
+
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Player")) // v eb
-    //    {
-    //        hitSmoke.Play();
-    //        playerFire.Play();
-
-    //        FindObjectOfType<GameManager>().EndGame();
-    //    }
-    //}   
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    Debug.Log("baza");
-    //}
     private void Update()
     {
         UpdateState();
@@ -45,10 +35,6 @@ public class CollisionController : MonoBehaviour
         Debug.Log("baza");
         Destroy(other.gameObject);
 
-        fire.Play();
-
-        _enemyController.enabled = false;
-
         isDeath = true;
     }
 
@@ -56,8 +42,26 @@ public class CollisionController : MonoBehaviour
     {
         const float lowerBorder = -7;
 
-        if (isDeath) transform.Translate(Vector3.down * Time.deltaTime * fallSpeed);
+        if (isDeath)
+        {
+            StartCoroutine(EnableGravity());
+
+            transform.Rotate(Vector3.back * fallRotationSpeed);
+
+            fire.Play();
+
+            _enemyController.enabled = false;
+        }
 
         if (transform.position.y < lowerBorder) Destroy(this.gameObject);
+    }
+
+    private IEnumerator EnableGravity()
+    {
+        yield return new WaitForSeconds(2);
+
+        _rigidbody.useGravity = true;
+
+        fallRotationSpeed = 0.5f;
     }
 }
