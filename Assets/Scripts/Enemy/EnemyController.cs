@@ -45,11 +45,4 @@ public class EnemyController : MonoBehaviour
             transform.Translate(Vector3.up * Time.deltaTime * verticalMovementSpeed);
         }
     }
-
-    IEnumerator EnableGravity()
-    {
-        yield return new WaitForSeconds(2);
-
-        GetComponent<Rigidbody>().useGravity = true;
-    }
 }
