@@ -6,53 +6,35 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
 
     [SerializeField] private Transform ammoSpawner;
+    [SerializeField] private Transform propeller;
 
-    [SerializeField] private float horizontalMovementSpeed;
-    [SerializeField] private float verticalMovementSpeed;
+    [SerializeField]
+    [Range(0, 10)] private float horizontalMovementSpeed;
 
-    private Transform propeller;
+    [SerializeField]
+    [Range(0, 10)] private float verticalMovementSpeed;
 
-    private Vector3 moveDirection;
-
-    private float fireElapsedTime = 0f;
-
-    private void Start()
-    {
-        propeller = GetComponentInChildren<BoxCollider>().transform;
-    }
+    private float bulletFireElapsedTime = 0f;
+    private float bombFireElapsedTime = 0f;
 
     private void Update()
     {
-        moveDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-
-        Move(moveDirection);
-
-        CheckScreenBorders();
-
-        fireElapsedTime += Time.deltaTime;
+        Move();
 
         Fire();
-
-        RotatePropeller();
     }
 
-    private void Move(Vector3 direction)
+    private void Move()
     {
+        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+
+        const float verticalBorder = 4.0f;
+        const float horizontalBorder = 8.0f;
+
         if (Input.GetKey(KeyCode.W) ||
             Input.GetKey(KeyCode.A) ||
             Input.GetKey(KeyCode.S) ||
             Input.GetKey(KeyCode.D)) transform.Translate(direction * Time.deltaTime * horizontalMovementSpeed);
-
-        //if (Input.GetKey(KeyCode.W)) transform.Translate(Vector3.up * Time.deltaTime * horizontalMovementSpeed);
-        //if (Input.GetKey(KeyCode.A)) transform.Translate(Vector3.left * Time.deltaTime * verticalMovementSpeed);
-        //if (Input.GetKey(KeyCode.S)) transform.Translate(Vector3.down * Time.deltaTime * horizontalMovementSpeed);
-        //if (Input.GetKey(KeyCode.D)) transform.Translate(Vector3.right * Time.deltaTime * verticalMovementSpeed);
-    }
-
-    private void CheckScreenBorders()
-    {
-        const float verticalBorder = 4.0f;
-        const float horizontalBorder = 8.0f;
 
         if (transform.position.y > verticalBorder)
         {
@@ -70,6 +52,13 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(-horizontalBorder, transform.position.y, transform.position.z);
         }
+
+        propeller.Rotate(Vector3.left * 5);
+
+        if (Input.GetKey("d"))
+        {
+            propeller.Rotate(Vector3.left * 7.5f);
+        }
     }
 
     private void Fire()
@@ -77,27 +66,20 @@ public class PlayerController : MonoBehaviour
         const float bombFireDelay = 3f;
         const float bulletFireDelay = 0.15f;
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && fireElapsedTime > bombFireDelay)
+        bulletFireElapsedTime += Time.deltaTime;
+        bombFireElapsedTime += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Mouse1) && bombFireElapsedTime > bombFireDelay)
         {
-            fireElapsedTime = 0;
+            bombFireElapsedTime = 0;
 
             Instantiate(bombPrefab, ammoSpawner.position, transform.rotation);
         }
-        if (Input.GetKey(KeyCode.Mouse0) && fireElapsedTime > bulletFireDelay)
+        if (Input.GetKey(KeyCode.Mouse0) && bulletFireElapsedTime > bulletFireDelay)
         {
-            fireElapsedTime = 0;
+            bulletFireElapsedTime = 0;
 
             Instantiate(bulletPrefab, ammoSpawner.position, transform.rotation);
-        }
-    }
-
-    private void RotatePropeller()
-    {
-        propeller.Rotate(Vector3.left * 5);
-
-        if (Input.GetKey("d"))
-        {
-            propeller.Rotate(Vector3.left * 7.5f);
         }
     }
 }
