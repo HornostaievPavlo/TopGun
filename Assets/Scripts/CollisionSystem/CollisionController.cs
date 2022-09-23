@@ -3,18 +3,20 @@ using UnityEngine;
 
 public class CollisionController : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem fire;
+    //[SerializeField] private ParticleSystem fire;
     //[SerializeField] private ParticleSystem hitSmoke;
     //[SerializeField] private ParticleSystem playerFire;
 
-    [SerializeField]
-    [Range(0, 10)] private float fallRotationSpeed;
+    //[SerializeField]
+    //[Range(0, 10)] private float fallRotationSpeed;
 
     private EnemyController _enemyController;
 
-    private Rigidbody _rigidbody;
-
     public bool isDeath;
+
+    // explosion experiment
+
+    public Transform[] children;
 
     private void Start()
     {
@@ -22,7 +24,17 @@ public class CollisionController : MonoBehaviour
 
         _enemyController = GetComponent<EnemyController>();
 
-        _rigidbody = GetComponent<Rigidbody>();
+        // explosion experiment
+        children = GetComponentsInChildren<Transform>();
+
+        foreach (Transform item in children)
+        {
+            Rigidbody rb = item.gameObject.AddComponent<Rigidbody>();
+
+            rb.useGravity = false;
+
+            rb.drag = 4f;
+        }
     }
 
     private void Update()
@@ -33,35 +45,49 @@ public class CollisionController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("baza");
-        Destroy(other.gameObject);
 
         isDeath = true;
+
+        Destroy(other.gameObject);
     }
 
     private void UpdateState()
     {
-        const float lowerBorder = -7;
-
         if (isDeath)
         {
+            _enemyController.enabled = false;
+
+            // explosion experiment
+
+            foreach (Transform item in children)
+            {
+                item.gameObject.AddComponent<BoxCollider>();
+            }
+
             StartCoroutine(EnableGravity());
 
-            transform.Rotate(Vector3.back * fallRotationSpeed);
-
-            fire.Play();
-
-            _enemyController.enabled = false;
+            isDeath = false;
         }
 
-        if (transform.position.y < lowerBorder) Destroy(this.gameObject);
+        float lowerBorder = -7;
+
+        if (transform.position.y < lowerBorder)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator EnableGravity()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1f);
 
-        _rigidbody.useGravity = true;
+        foreach (Transform item in children)
+        {
+            Rigidbody rb = item.gameObject.GetComponent<Rigidbody>();
 
-        fallRotationSpeed = 0.5f;
+            rb.useGravity = true;
+
+            rb.drag = 0;
+        }
     }
 }

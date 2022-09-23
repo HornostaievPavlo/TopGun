@@ -28,8 +28,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 
-        const float verticalBorder = 4.0f;
-        const float horizontalBorder = 8.0f;
+        float verticalBorder = 4.0f;
+        float horizontalBorder = 8.0f;
 
         if (Input.GetKey(KeyCode.W) ||
             Input.GetKey(KeyCode.A) ||
@@ -63,8 +63,8 @@ public class PlayerController : MonoBehaviour
 
     private void Fire()
     {
-        const float bombFireDelay = 3f;
-        const float bulletFireDelay = 0.15f;
+        float bombFireDelay = 3f;
+        float bulletFireDelay = 0.15f;
 
         bulletFireElapsedTime += Time.deltaTime;
         bombFireElapsedTime += Time.deltaTime;

@@ -1,8 +1,7 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
-{   
+{
     //[SerializeField]
     //[Range(1, 10)] private float horizontalMovementSpeed;
 
@@ -14,24 +13,17 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         //Move();
-
-        //if (isDeath == true)
-        //{
-        //    transform.Rotate(Vector3.back * Time.deltaTime * 25);
-        //    transform.Rotate(Vector3.right * Time.deltaTime * 50);
-        //    transform.Translate(Vector3.forward * Time.deltaTime * 2);
-        //    StartCoroutine(EnableGravity());
-        //}
     }
+
     private void Move()
     {
-        const float border = 4;
+        int movingRestrictionPoint = Screen.height / 270;
 
-        if (transform.position.y > border)
+        if (transform.position.y > movingRestrictionPoint)
         {
             isMovingUp = false;
         }
-        if (transform.position.y < -border)
+        if (transform.position.y < -movingRestrictionPoint)
         {
             isMovingUp = true;
         }
