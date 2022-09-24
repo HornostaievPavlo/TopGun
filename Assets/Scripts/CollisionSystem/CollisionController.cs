@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using System.Linq.Expressions;
 
 public class CollisionController : MonoBehaviour
 {
@@ -13,7 +11,7 @@ public class CollisionController : MonoBehaviour
 
     private EnemyController _enemyController;
 
-    public BulletExplosion _bulletExplosion; 
+    
 
     private void Start()
     {
@@ -42,11 +40,13 @@ public class CollisionController : MonoBehaviour
         Destroy(other.gameObject);
     }
 
-    private void ApplyBulletDamage()
+    private void ApplyBulletDamage() // explosion for bomb
     {
         Debug.LogWarning("Bullet hit");
 
-        _bulletExplosion.ExplodePlane(transform.position);
+        _enemyController.health -= 1;
+
+
     }
 
     private void ApplyBombDamage()

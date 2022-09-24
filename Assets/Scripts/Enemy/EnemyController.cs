@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
@@ -8,11 +9,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     [Range(1, 10)] private float verticalMovementSpeed;
 
+    public BulletExplosion _bulletExplosion;
+
     private bool isMovingUp;
 
     public bool isDeath;
 
-    //public int health;
+    public int health;
 
     private void Start()
     {
@@ -55,20 +58,25 @@ public class EnemyController : MonoBehaviour
         {
             Debug.LogError("death fucker");
 
-            // test falling
-            //transform.Translate(Vector3.down * Time.deltaTime * 10);
+            Destroy(gameObject.GetComponent<Collider>());
 
-            float lowerBorder = Screen.width / -154;
 
-            if (transform.position.y < lowerBorder)
-            {
-                //Destroy(gameObject);
-            }
+            _bulletExplosion.ExplodePlane(transform.position);
+
+            //StartCoroutine(IEnemyDestruction());
         }
     }
 
     private void CalculateHealth()
     {
-        //if(health <= 0) isDeath = true;
+        if(health <= 0) isDeath = true;
+    }
+
+    private IEnumerator IEnemyDestruction()
+    {
+        yield return new WaitForSeconds(5);
+
+        Debug.Log("nahui");
+        Destroy(gameObject);
     }
 }

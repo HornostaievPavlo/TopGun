@@ -18,8 +18,14 @@ public class BulletExplosion : MonoBehaviour
 
             if (rb != null)
             {
+                rb.mass = 10;
+
+                rb.drag = 1;
+
                 rb.isKinematic = false;
                 rb.AddExplosionForce(force, forceStartPos, radius);
+
+                rb.useGravity = true;
             }
         }
     }
