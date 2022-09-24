@@ -10,31 +10,65 @@ public class EnemyController : MonoBehaviour
 
     private bool isMovingUp;
 
+    public bool isDeath;
+
+    //public int health;
+
+    private void Start()
+    {
+        isDeath = false;
+
+    }
+
     private void Update()
     {
-        //Move();
+        Move();
+
+        CalculateHealth();
     }
 
     private void Move()
     {
-        int movingRestrictionPoint = Screen.height / 270;
+        if (!isDeath)
+        {
+            //int movingRestrictionPoint = Screen.height / 270;
 
-        if (transform.position.y > movingRestrictionPoint)
-        {
-            isMovingUp = false;
-        }
-        if (transform.position.y < -movingRestrictionPoint)
-        {
-            isMovingUp = true;
-        }
+            //if (transform.position.y > movingRestrictionPoint)
+            //{
+            //    isMovingUp = false;
+            //}
+            //if (transform.position.y < -movingRestrictionPoint)
+            //{
+            //    isMovingUp = true;
+            //}
 
-        if (!isMovingUp)
-        {
-            transform.Translate(Vector3.down * Time.deltaTime * verticalMovementSpeed);
+            //if (!isMovingUp)
+            //{
+            //    transform.Translate(Vector3.down * Time.deltaTime * verticalMovementSpeed);
+            //}
+            //else
+            //{
+            //    transform.Translate(Vector3.up * Time.deltaTime * verticalMovementSpeed);
+            //}
         }
         else
         {
-            transform.Translate(Vector3.up * Time.deltaTime * verticalMovementSpeed);
+            Debug.LogError("death fucker");
+
+            // test falling
+            //transform.Translate(Vector3.down * Time.deltaTime * 10);
+
+            float lowerBorder = Screen.width / -154;
+
+            if (transform.position.y < lowerBorder)
+            {
+                //Destroy(gameObject);
+            }
         }
+    }
+
+    private void CalculateHealth()
+    {
+        //if(health <= 0) isDeath = true;
     }
 }

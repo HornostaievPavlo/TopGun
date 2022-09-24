@@ -1,5 +1,6 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
+using System.Linq.Expressions;
 
 public class CollisionController : MonoBehaviour
 {
@@ -12,82 +13,75 @@ public class CollisionController : MonoBehaviour
 
     private EnemyController _enemyController;
 
-    public bool isDeath;
-
-    // explosion experiment
-
-    public Transform[] children;
+    public BulletExplosion _bulletExplosion; 
 
     private void Start()
     {
-        isDeath = false;
-
-        _enemyController = GetComponent<EnemyController>();
-
-        // explosion experiment
-        children = GetComponentsInChildren<Transform>();
-
-        foreach (Transform item in children)
-        {
-            Rigidbody rb = item.gameObject.AddComponent<Rigidbody>();
-
-            rb.useGravity = false;
-
-            rb.drag = 4f;
-        }
-    }
-
-    private void Update()
-    {
-        UpdateState();
+        _enemyController = GetComponent<EnemyController>();        
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("baza");
 
-        isDeath = true;
+        AmmoType hitType = other.gameObject.GetComponent<AmmoController>().type;
 
+        // better change to Dict<>
+        switch (hitType)
+        {
+            case AmmoType.Bullet:
+
+                ApplyBulletDamage();
+                break;
+
+            case AmmoType.Bomb:
+
+                ApplyBombDamage();
+                break;
+        }
         Destroy(other.gameObject);
     }
 
-    private void UpdateState()
+    private void ApplyBulletDamage()
     {
-        if (isDeath)
-        {
-            _enemyController.enabled = false;
+        Debug.LogWarning("Bullet hit");
 
-            // explosion experiment
-
-            foreach (Transform item in children)
-            {
-                item.gameObject.AddComponent<BoxCollider>();
-            }
-
-            StartCoroutine(EnableGravity());
-
-            isDeath = false;
-        }
-
-        float lowerBorder = -7;
-
-        if (transform.position.y < lowerBorder)
-        {
-            Destroy(gameObject);
-        }
+        _bulletExplosion.ExplodePlane(transform.position);
     }
 
-    private IEnumerator EnableGravity()
+    private void ApplyBombDamage()
     {
-        yield return new WaitForSeconds(1f);
+        Debug.LogWarning("Bomb hit");
+    }    
 
-        foreach (Transform item in children)
-        {
-            Rigidbody rb = item.gameObject.GetComponent<Rigidbody>();
+    //private void UpdateState()
+    //{
+    //    if (isDeath)
+    //    {
+    //        _enemyController.enabled = false;
 
-            rb.useGravity = true;
+    //        // explosion experiment
 
-            rb.drag = 0;
-        }
-    }
+    //        foreach (Transform item in children)
+    //        {
+    //            item.gameObject.AddComponent<BoxCollider>();
+    //        }
+
+    //        StartCoroutine(EnableGravity());
+
+    //        isDeath = false;
+    //    }
+
+    //    float lowerBorder = Screen.width / -154;
+
+    //    if (transform.position.y < lowerBorder)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
+
+    //private IEnumerator EnableGravity()
+    //{
+    //    yield return new WaitForSeconds(3f);
+    //}
 }
