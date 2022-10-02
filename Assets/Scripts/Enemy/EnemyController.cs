@@ -7,13 +7,16 @@ public class EnemyController : MonoBehaviour
     //[SerializeField]
     //[Range(1, 10)] private float horizontalMovementSpeed;
 
-    // 
+     
     [SerializeField]
-    [Range(1, 10)] private float verticalMovementSpeed;
+    [Range(0, 10)] private float verticalMovementSpeed;
 
     [SerializeField]
     [Range(0, 10)] private float bulletKilledFallForce;
-    
+
+    //[SerializeField]
+    [Range(0, 1)] public float slowMotion;
+
     public int health;
 
     //Explosion 
@@ -72,7 +75,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("death fucker");
+            //Debug.LogError("death fucker");
 
             Destroy(gameObject.GetComponent<Collider>());
 

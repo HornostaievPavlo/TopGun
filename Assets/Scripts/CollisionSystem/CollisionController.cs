@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CollisionController : MonoBehaviour
@@ -57,6 +58,19 @@ public class CollisionController : MonoBehaviour
         _enemyController.DestroyWithBomb();
 
         _enemyController.health = 0;
+
+        Time.timeScale = _enemyController.slowMotion;
+
+        StartCoroutine(TurnOnTimeScale());
+    }
+
+    private IEnumerator TurnOnTimeScale()
+    {
+        // multiply to fit reduced timescale
+
+        yield return new WaitForSeconds(1.5f * _enemyController.slowMotion);
+
+        Time.timeScale = 1;
     }
 
     //private void UpdateState()

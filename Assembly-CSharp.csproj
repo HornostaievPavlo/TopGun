@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\CollisionSystem\CollisionController.cs" />
     <Compile Include="Assets\Scripts\Background\BackgroundController.cs" />
     <Compile Include="Assets\Scripts\Background\BackgroundMovement.cs" />
+    <Compile Include="Assets\Scripts\LevelReloader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
