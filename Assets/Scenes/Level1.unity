@@ -1485,7 +1485,6 @@ GameObject:
   - component: {fileID: 1159276843}
   - component: {fileID: 1159276847}
   - component: {fileID: 1159276848}
-  - component: {fileID: 1159276849}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1506,9 +1505,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verticalMovementSpeed: 1.85
-  _bulletExplosion: {fileID: 1159276849}
-  isDeath: 0
+  bulletKilledFallForce: 2.65
   health: 2
+  radius: 50
+  force: 1000
+  rbMass: 5
+  rbDrag: 2
+  isDeath: 0
 --- !u!4 &1159276845
 Transform:
   m_ObjectHideFlags: 0
@@ -1574,21 +1577,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.3256854, y: 1, z: 1.577113}
   m_Center: {x: 0.16284221, y: 0, z: -0.064434774}
---- !u!114 &1159276849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159276842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9656b19bd89bc74e9dda265f65fb758, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 1
-  force: 10
-  colliders: []
 --- !u!1 &1159648398
 GameObject:
   m_ObjectHideFlags: 0

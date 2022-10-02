@@ -8,7 +8,7 @@ public class AmmoController : MonoBehaviour
 
     private int boundary = 9;
     
-    void Update()
+    private void Update()
     {
         transform.Translate(Vector3.right * ammoSpeed * Time.deltaTime);
 

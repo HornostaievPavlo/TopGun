@@ -2,20 +2,18 @@ using UnityEngine;
 
 public class CollisionController : MonoBehaviour
 {
+    //particles to implement from the begging
+    //(have prefab with old particles)
+
     //[SerializeField] private ParticleSystem fire;
     //[SerializeField] private ParticleSystem hitSmoke;
     //[SerializeField] private ParticleSystem playerFire;
 
-    //[SerializeField]
-    //[Range(0, 10)] private float fallRotationSpeed;
-
     private EnemyController _enemyController;
-
-    
 
     private void Start()
     {
-        _enemyController = GetComponent<EnemyController>();        
+        _enemyController = GetComponent<EnemyController>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,6 +35,7 @@ public class CollisionController : MonoBehaviour
                 ApplyBombDamage();
                 break;
         }
+
         Destroy(other.gameObject);
     }
 
@@ -46,13 +45,19 @@ public class CollisionController : MonoBehaviour
 
         _enemyController.health -= 1;
 
+        // add particle playing after half hp left
+
 
     }
 
     private void ApplyBombDamage()
     {
         Debug.LogWarning("Bomb hit");
-    }    
+
+        _enemyController.DestroyWithBomb();
+
+        _enemyController.health = 0;
+    }
 
     //private void UpdateState()
     //{

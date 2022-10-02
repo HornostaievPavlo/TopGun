@@ -63,15 +63,16 @@ public class PlayerController : MonoBehaviour
 
     private void Fire()
     {
-        float bombFireDelay = 3f;
+        //float bombFireDelay = 3f;
         float bulletFireDelay = 0.15f;
 
         bulletFireElapsedTime += Time.deltaTime;
         bombFireElapsedTime += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && bombFireElapsedTime > bombFireDelay)
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        //&& bombFireElapsedTime > bombFireDelay)
         {
-            bombFireElapsedTime = 0;
+            //bombFireElapsedTime = 0;
 
             Instantiate(bombPrefab, ammoSpawner.position, transform.rotation);
         }
