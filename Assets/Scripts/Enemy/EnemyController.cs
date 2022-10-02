@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
 
     // 
     [SerializeField]
-    [Range(1, 10)] private float verticalMovementSpeed;
+    [Range(0, 10)] private float verticalMovementSpeed;
 
     [SerializeField]
     [Range(0, 10)] private float bulletKilledFallForce;
