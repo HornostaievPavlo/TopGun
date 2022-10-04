@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     //[SerializeField]
     //[Range(1, 10)] private float horizontalMovementSpeed;
 
-     
+
     [SerializeField]
     [Range(0, 10)] private float verticalMovementSpeed;
 
@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     public float radius;
     public float force;
 
-    private Collider[] colliders;
+    public Collider[] colliders;
     //
 
     //rigidbody setup after explosion
@@ -120,6 +120,18 @@ public class EnemyController : MonoBehaviour
 
                 rb.useGravity = true;
             }
+
+            StartCoroutine(DestroyColliders());
+        }
+    }
+
+    private IEnumerator DestroyColliders()
+    {
+        yield return new WaitForFixedUpdate();
+
+        foreach (Collider item in colliders)
+        {
+            Destroy(item.gameObject.GetComponent<Collider>());
         }
     }
 }

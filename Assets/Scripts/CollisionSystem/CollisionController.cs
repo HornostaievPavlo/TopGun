@@ -45,7 +45,7 @@ public class CollisionController : MonoBehaviour
 
     private void ApplyBulletDamage() // explosion for bomb
     {
-        Debug.LogWarning("Bullet hit");
+        //Debug.LogWarning("Bullet hit");
 
         _enemyController.health -= 1;
 
@@ -54,7 +54,7 @@ public class CollisionController : MonoBehaviour
 
     private void ApplyBombDamage()
     {
-        Debug.LogWarning("Bomb hit");
+        //Debug.LogWarning("Bomb hit");
 
         _enemyController.DestroyWithBomb();
 
@@ -73,7 +73,7 @@ public class CollisionController : MonoBehaviour
     private void SetTimeScale(float timeScale)
     {
         Time.timeScale = timeScale;
-        
+
         Time.fixedDeltaTime = _fixedDeltaTime * Time.timeScale;
     }
 
@@ -83,10 +83,9 @@ public class CollisionController : MonoBehaviour
     /// <returns>WaitForSeconds</returns>
     private IEnumerator ResetTimeScale()
     {
-        // multiply to fit reduced timescale
-        float delay = 3 * _timeScaleVar;
+        float delay = 3;
 
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
 
         SetTimeScale(1);
     }
