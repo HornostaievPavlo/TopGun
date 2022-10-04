@@ -12,18 +12,21 @@ public class CollisionController : MonoBehaviour
 
     private EnemyController _enemyController;
 
-    private void Start()
+    [Range(0, 1)] public float _timeScaleVar;
+
+    private float _fixedDeltaTime;
+
+    private void Awake()
     {
+        _fixedDeltaTime = Time.fixedDeltaTime;
+
         _enemyController = GetComponent<EnemyController>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("baza");
-
         AmmoType hitType = other.gameObject.GetComponent<AmmoController>().type;
 
-        // better change to Dict<>
         switch (hitType)
         {
             case AmmoType.Bullet:
@@ -47,8 +50,6 @@ public class CollisionController : MonoBehaviour
         _enemyController.health -= 1;
 
         // add particle playing after half hp left
-
-
     }
 
     private void ApplyBombDamage()
@@ -59,48 +60,34 @@ public class CollisionController : MonoBehaviour
 
         _enemyController.health = 0;
 
-        Time.timeScale = _enemyController.slowMotion;
+        SetTimeScale(_timeScaleVar);
 
-        StartCoroutine(TurnOnTimeScale());
+        StartCoroutine(ResetTimeScale());
     }
 
-    private IEnumerator TurnOnTimeScale()
+    /// <summary>
+    /// Sets timescale and fixedDeltaTime
+    /// to make slow motion effect
+    /// </summary>
+    /// <param name="timeScale">Needed timeScale value</param>
+    private void SetTimeScale(float timeScale)
+    {
+        Time.timeScale = timeScale;
+        
+        Time.fixedDeltaTime = _fixedDeltaTime * Time.timeScale;
+    }
+
+    /// <summary>
+    /// Resets timeScale and fixedDeltaTime after delay
+    /// </summary>
+    /// <returns>WaitForSeconds</returns>
+    private IEnumerator ResetTimeScale()
     {
         // multiply to fit reduced timescale
+        float delay = 3 * _timeScaleVar;
 
-        yield return new WaitForSeconds(1.5f * _enemyController.slowMotion);
+        yield return new WaitForSeconds(delay);
 
-        Time.timeScale = 1;
+        SetTimeScale(1);
     }
-
-    //private void UpdateState()
-    //{
-    //    if (isDeath)
-    //    {
-    //        _enemyController.enabled = false;
-
-    //        // explosion experiment
-
-    //        foreach (Transform item in children)
-    //        {
-    //            item.gameObject.AddComponent<BoxCollider>();
-    //        }
-
-    //        StartCoroutine(EnableGravity());
-
-    //        isDeath = false;
-    //    }
-
-    //    float lowerBorder = Screen.width / -154;
-
-    //    if (transform.position.y < lowerBorder)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
-
-    //private IEnumerator EnableGravity()
-    //{
-    //    yield return new WaitForSeconds(3f);
-    //}
 }

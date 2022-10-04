@@ -14,9 +14,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     [Range(0, 10)] private float bulletKilledFallForce;
 
-    //[SerializeField]
-    [Range(0, 1)] public float slowMotion;
-
     public int health;
 
     //Explosion 
@@ -39,7 +36,6 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         isDeath = false;
-
     }
 
     private void Update()
@@ -88,10 +84,11 @@ public class EnemyController : MonoBehaviour
     private void CalculateHealth()
     {
         if (health <= 0) isDeath = true;
-    }    
+    }
 
-    // falls down after bullets hits
-    // depends on lives calculation
+    /// <summary>
+    /// Moves enemy down after bullet hit depending on lives 
+    /// </summary>
     public void DestroyWithBullet()
     {
         transform.Translate(Vector3.down * Time.deltaTime * bulletKilledFallForce);
@@ -124,6 +121,5 @@ public class EnemyController : MonoBehaviour
                 rb.useGravity = true;
             }
         }
-
     }
 }
