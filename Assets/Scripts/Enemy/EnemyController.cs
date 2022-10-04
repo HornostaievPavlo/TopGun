@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
     // try the hor movement added to enemy for better interactability
     //[SerializeField]
     //[Range(1, 10)] private float horizontalMovementSpeed;
-
+    public Collider[] childColliders;
 
     [SerializeField]
     [Range(0, 10)] private float verticalMovementSpeed;
@@ -19,9 +19,6 @@ public class EnemyController : MonoBehaviour
     //Explosion 
     public float radius;
     public float force;
-
-    public Collider[] colliders;
-    //
 
     //rigidbody setup after explosion
     public float rbMass;
@@ -36,6 +33,8 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         isDeath = false;
+
+        childColliders = GetComponentsInChildren<Collider>();
     }
 
     private void Update()
@@ -71,10 +70,6 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            //Debug.LogError("death fucker");
-
-            Destroy(gameObject.GetComponent<Collider>());
-
             DestroyWithBullet();
         }
 
@@ -91,18 +86,22 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     public void DestroyWithBullet()
     {
+        //Destroy(gameObject.GetComponent<Collider>());
+
+        StartCoroutine(DestroyColliders());
+
         transform.Translate(Vector3.down * Time.deltaTime * bulletKilledFallForce);
+
+
 
     }
 
     // just explosion from single bomb
     public void DestroyWithBomb()
     {
-        Debug.Log("vzriv");
-
         Vector3 forceStartPos = transform.position;
 
-        colliders = Physics.OverlapSphere(forceStartPos, radius);
+        Collider[] colliders = Physics.OverlapSphere(forceStartPos, radius);
 
         foreach (Collider collider in colliders)
         {
@@ -127,11 +126,14 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator DestroyColliders()
     {
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForSecondsRealtime(0.1f);
 
-        foreach (Collider item in colliders)
+        foreach (Collider item in childColliders)
         {
-            Destroy(item.gameObject.GetComponent<Collider>());
+            if (item != null)
+            {
+                Destroy(item.gameObject.GetComponent<Collider>());
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ public class LevelReloader : MonoBehaviour
         {
             Debug.LogWarning("SCENE RELOADING");
             Time.timeScale = 1;
+            Time.fixedDeltaTime = 0.02f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
