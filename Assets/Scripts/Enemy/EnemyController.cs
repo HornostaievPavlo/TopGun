@@ -6,29 +6,33 @@ public class EnemyController : MonoBehaviour
     // try the hor movement added to enemy for better interactability
     //[SerializeField]
     //[Range(1, 10)] private float horizontalMovementSpeed;
-    public Collider[] childColliders;
 
     [SerializeField]
     [Range(0, 10)] private float verticalMovementSpeed;
 
-    [SerializeField]
-    [Range(0, 10)] private float bulletKilledFallForce;
-
-    public int health;
-
     //Explosion 
-    public float radius;
-    public float force;
+    public float radius = 0.5f;
+    public float force = 750;
 
     //rigidbody setup after explosion
-    public float rbMass;
-    public float rbDrag;
-    //
+    public float rbMass = 1;
+    public float rbDrag = 1;
 
-    // state bool
-    private bool isMovingUp;
+    ///////////////
+
     [SerializeField] private bool isDeath;
-    //
+
+    [SerializeField] private Rigidbody parentRigidbody;
+
+    [SerializeField] private MeshRenderer _bodyMeshRenderer;
+
+    [SerializeField] private Material damagedMaterial;
+
+    private Collider[] childColliders;
+
+    private bool isMovingUp;
+
+    public int health;
 
     private void Start()
     {
@@ -79,6 +83,8 @@ public class EnemyController : MonoBehaviour
     private void CalculateHealth()
     {
         if (health <= 0) isDeath = true;
+
+        if (health > 0 && health <= 2) _bodyMeshRenderer.material = damagedMaterial;
     }
 
     /// <summary>
@@ -86,14 +92,17 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     public void DestroyWithBullet()
     {
-        //Destroy(gameObject.GetComponent<Collider>());
+        float fallSpeed = 1.5f;
+
+        Vector3 fallDirection = new Vector3(0.5f, -1, 0);
+
+        Vector3 torqueDirection = new Vector3(7.5f, 0, 5);
+
+        transform.Translate(fallDirection * Time.deltaTime * fallSpeed);
+
+        parentRigidbody.AddRelativeTorque(torqueDirection);
 
         StartCoroutine(DestroyColliders());
-
-        transform.Translate(Vector3.down * Time.deltaTime * bulletKilledFallForce);
-
-
-
     }
 
     // just explosion from single bomb
@@ -101,9 +110,7 @@ public class EnemyController : MonoBehaviour
     {
         Vector3 forceStartPos = transform.position;
 
-        Collider[] colliders = Physics.OverlapSphere(forceStartPos, radius);
-
-        foreach (Collider collider in colliders)
+        foreach (Collider collider in childColliders)
         {
             Rigidbody rb = collider.GetComponent<Rigidbody>();
 
@@ -119,9 +126,9 @@ public class EnemyController : MonoBehaviour
 
                 rb.useGravity = true;
             }
-
-            StartCoroutine(DestroyColliders());
         }
+
+        StartCoroutine(DestroyColliders());
     }
 
     private IEnumerator DestroyColliders()

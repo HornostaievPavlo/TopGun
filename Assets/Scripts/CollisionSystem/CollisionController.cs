@@ -80,7 +80,7 @@ public class CollisionController : MonoBehaviour
     /// <summary>
     /// Resets timeScale and fixedDeltaTime after delay
     /// </summary>
-    /// <returns>WaitForSeconds</returns>
+    /// <returns>WaitForSecondsRealtime</returns>
     private IEnumerator ResetTimeScale()
     {
         float delay = 3;
