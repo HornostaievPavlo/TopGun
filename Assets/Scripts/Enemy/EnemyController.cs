@@ -122,6 +122,8 @@ public class EnemyController : MonoBehaviour
     // just explosion from single bomb
     public void DestroyWithBomb()
     {
+        FallDown();
+
         Vector3 forceStartPos = transform.position;
 
         foreach (Collider collider in childColliders)
@@ -143,8 +145,6 @@ public class EnemyController : MonoBehaviour
         }
 
         explosionParticle.SetActive(true);
-
-        // fireParticle.SetActive(false);
 
         StartCoroutine(DestroyColliders());        
     }

@@ -55,8 +55,6 @@ public class CollisionController : MonoBehaviour
 
         _enemyController.DestroyWithBomb();
 
-        _enemyController.health = 0;
-
         SetTimeScale(_timeScaleVar);
 
         StartCoroutine(ResetTimeScale());
