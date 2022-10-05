@@ -11,16 +11,18 @@ public class EnemyController : MonoBehaviour
     [Range(0, 10)] private float verticalMovementSpeed;
 
     //Explosion 
-    public float radius = 0.5f;
-    public float force = 750;
+    private float radius = 0.75f;
+
+    public float explosionForce;
 
     //rigidbody setup after explosion
-    public float rbMass = 1;
-    public float rbDrag = 1;
+    private float rbMass = 1;
+    private float rbDrag = 1;
 
     ///////////////
 
-    [SerializeField] private bool isDeath;
+    [SerializeField]
+    private bool isDeath;
 
     [SerializeField] private Rigidbody parentRigidbody;
 
@@ -43,6 +45,8 @@ public class EnemyController : MonoBehaviour
         isDeath = false;
 
         childColliders = GetComponentsInChildren<Collider>();
+
+        explosionForce = Random.Range(500, 5000);
     }
 
     private void Update()
@@ -111,7 +115,7 @@ public class EnemyController : MonoBehaviour
 
         StartCoroutine(DestroyColliders());
 
-        if (transform.position.y < -15)
+        if (transform.position.y < -10)
         {
             Debug.LogWarning("Out of the game");
 
@@ -122,7 +126,7 @@ public class EnemyController : MonoBehaviour
     // just explosion from single bomb
     public void DestroyWithBomb()
     {
-        FallDown();
+        isDeath = true;
 
         Vector3 forceStartPos = transform.position;
 
@@ -138,7 +142,7 @@ public class EnemyController : MonoBehaviour
 
                 rb.isKinematic = false;
 
-                rb.AddExplosionForce(force, forceStartPos, radius);
+                rb.AddExplosionForce(explosionForce, forceStartPos, radius);
 
                 rb.useGravity = true;
             }
@@ -146,7 +150,7 @@ public class EnemyController : MonoBehaviour
 
         explosionParticle.SetActive(true);
 
-        StartCoroutine(DestroyColliders());        
+        StartCoroutine(DestroyColliders());
     }
 
     private IEnumerator DestroyColliders()

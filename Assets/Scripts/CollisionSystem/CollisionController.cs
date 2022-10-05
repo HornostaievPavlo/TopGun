@@ -78,7 +78,7 @@ public class CollisionController : MonoBehaviour
     /// <returns>WaitForSecondsRealtime</returns>
     private IEnumerator ResetTimeScale()
     {
-        float delay = 3;
+        float delay = 2;
 
         yield return new WaitForSecondsRealtime(delay);
 
