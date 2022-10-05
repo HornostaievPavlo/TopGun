@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class CollisionController : MonoBehaviour
 {
-    //particles to implement from the begging
+    //particles to implement from the beginning
     //(have prefab with old particles)
 
     //[SerializeField] private ParticleSystem fire;
     //[SerializeField] private ParticleSystem hitSmoke;
-    //[SerializeField] private ParticleSystem playerFire;
 
     private EnemyController _enemyController;
 
@@ -43,13 +42,11 @@ public class CollisionController : MonoBehaviour
         Destroy(other.gameObject);
     }
 
-    private void ApplyBulletDamage() // explosion for bomb
+    private void ApplyBulletDamage() 
     {
         //Debug.LogWarning("Bullet hit");
 
         _enemyController.health -= 1;
-
-        // add particle playing after half hp left
     }
 
     private void ApplyBombDamage()

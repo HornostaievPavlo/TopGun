@@ -28,6 +28,10 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private Material damagedMaterial;
 
+    [SerializeField] private GameObject explosionParticle;
+
+    [SerializeField] private GameObject fireParticle;
+
     private Collider[] childColliders;
 
     private bool isMovingUp;
@@ -74,23 +78,26 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            DestroyWithBullet();
+            FallDown();
         }
-
-        if (transform.position.y < Screen.height / -154) Destroy(gameObject);
     }
 
     private void CalculateHealth()
     {
-        if (health <= 0) isDeath = true;
+        if (health == 0)
+        {
+            isDeath = true;
+        }
 
-        if (health > 0 && health <= 2) _bodyMeshRenderer.material = damagedMaterial;
+        if (health <= 2)
+        {
+            _bodyMeshRenderer.material = damagedMaterial;
+
+            fireParticle.SetActive(true);
+        }
     }
 
-    /// <summary>
-    /// Moves enemy down after bullet hit depending on lives 
-    /// </summary>
-    public void DestroyWithBullet()
+    private void FallDown()
     {
         float fallSpeed = 1.5f;
 
@@ -103,6 +110,13 @@ public class EnemyController : MonoBehaviour
         parentRigidbody.AddRelativeTorque(torqueDirection);
 
         StartCoroutine(DestroyColliders());
+
+        if (transform.position.y < -15)
+        {
+            Debug.LogWarning("Out of the game");
+
+            Destroy(gameObject);
+        }
     }
 
     // just explosion from single bomb
@@ -128,7 +142,11 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        StartCoroutine(DestroyColliders());
+        explosionParticle.SetActive(true);
+
+        // fireParticle.SetActive(false);
+
+        StartCoroutine(DestroyColliders());        
     }
 
     private IEnumerator DestroyColliders()
