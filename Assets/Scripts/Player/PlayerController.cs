@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
 
     [SerializeField] private Transform ammoSpawner;
-    [SerializeField] private Transform propeller;
 
     [SerializeField]
     [Range(0, 10)] private float horizontalMovementSpeed;
@@ -51,14 +50,7 @@ public class PlayerController : MonoBehaviour
         if (transform.position.x < -horizontalBorder)
         {
             transform.position = new Vector3(-horizontalBorder, transform.position.y, transform.position.z);
-        }
-
-        propeller.Rotate(Vector3.left * 5);
-
-        if (Input.GetKey("d"))
-        {
-            propeller.Rotate(Vector3.left * 7.5f);
-        }
+        }        
     }
 
     private void Fire()

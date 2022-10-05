@@ -184,6 +184,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 759933519}
+  - {fileID: 156871820}
   - {fileID: 1934341944}
   - {fileID: 1385268965}
   - {fileID: 1721170574}
@@ -207,7 +208,6 @@ Transform:
   - {fileID: 1526642663}
   - {fileID: 2056882020}
   - {fileID: 1984278777}
-  - {fileID: 156871820}
   m_Father: {fileID: 1159276845}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 156871821}
   - component: {fileID: 156871824}
   - component: {fileID: 156871825}
+  - component: {fileID: 156871826}
   m_Layer: 0
   m_Name: Propeller
   m_TagString: Untagged
@@ -341,6 +342,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 216.41263, y: 2409.2046, z: 1916.3567}
   m_Center: {x: 0, y: 0, z: -0.000015258789}
+--- !u!114 &156871826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156871819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d92f35743d29549b7e7086586fea48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &194495676
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,7 +1261,6 @@ MonoBehaviour:
   bombPrefab: {fileID: 6881847376924221652, guid: 003a8b5993539ce4c8646c48538f0ae5, type: 3}
   bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
   ammoSpawner: {fileID: 4338195208421944856}
-  propeller: {fileID: 3240097727839538129}
   horizontalMovementSpeed: 7
   verticalMovementSpeed: 5
 --- !u!1 &759933518
@@ -1556,6 +1568,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1159276845}
   - component: {fileID: 1159276848}
+  - component: {fileID: 1159276849}
+  - component: {fileID: 1159276850}
   - component: {fileID: 1159276843}
   - component: {fileID: 1159276847}
   m_Layer: 0
@@ -1577,16 +1591,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409d4726471e16040ad641ee1c944665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalMovementSpeed: 3.51
-  radius: 0.5
-  force: 750
-  rbMass: 1
-  rbDrag: 1
+  verticalMovementSpeed: 0.97
   isDeath: 0
   parentRigidbody: {fileID: 145409595}
   _bodyMeshRenderer: {fileID: 759933520}
   damagedMaterial: {fileID: 2100000, guid: f58298428778c8f4b87f13c47b6975a5, type: 2}
-  explosionParticle: {fileID: 0}
+  explosionParticle: {fileID: 2461939709458799138}
   fireParticle: {fileID: 4515095248861645392}
   health: 3
 --- !u!4 &1159276845
@@ -1631,8 +1641,34 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.15382265, y: 0.73273873, z: 1.4790274}
-  m_Center: {x: 0.74877435, y: 0.0059895054, z: -0.015391807}
+  m_Size: {x: 0.15382265, y: 0.7157631, z: 1.4790276}
+  m_Center: {x: 0.74877435, y: -0.0024991732, z: -0.015391841}
+--- !u!65 &1159276849
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159276842}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9798986, y: 0.047781534, z: 1.5096805}
+  m_Center: {x: 0.29529825, y: 0.47611064, z: -0.013268259}
+--- !u!65 &1159276850
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159276842}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9798986, y: 0.047781534, z: 1.5096805}
+  m_Center: {x: 0.12, y: -0.33, z: -0.013268259}
 --- !u!1 &1159648398
 GameObject:
   m_ObjectHideFlags: 0
@@ -3931,7 +3967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2461939709459285506
 Transform:
   m_ObjectHideFlags: 0
@@ -4028,7 +4064,7 @@ ParticleSystem:
   m_GameObject: {fileID: 2461939709458799138}
   serializedVersion: 8
   lengthInSec: 1
-  simulationSpeed: 0.75
+  simulationSpeed: 0.6
   stopAction: 0
   cullingMode: 1
   ringBufferMode: 0
@@ -14065,10 +14101,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172667624262491}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.782, y: 0, z: 0}
+  m_LocalPosition: {x: -0.6, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 3240097727839538129}
+  - {fileID: 119638108}
   - {fileID: 1088933727328270297}
   - {fileID: 2367121251475310120}
   - {fileID: 1055331856976863888}
@@ -14093,8 +14131,6 @@ Transform:
   - {fileID: 2098249865586871714}
   - {fileID: 6575355412693607182}
   - {fileID: 3562121496543263170}
-  - {fileID: 3240097727839538129}
-  - {fileID: 119638108}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14993,6 +15029,7 @@ GameObject:
   - component: {fileID: 5006512736903526728}
   - component: {fileID: 8296172667624262492}
   - component: {fileID: 739275250}
+  - component: {fileID: 8296172667624262493}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -15013,6 +15050,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.2445898, y: 1.8006754, z: 3.5794137}
   m_Center: {x: 0.13228789, y: 0.009501576, z: 0.007722825}
+--- !u!54 &8296172667624262493
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172667624262491}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!23 &8405317063729894632
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15240,6 +15293,7 @@ GameObject:
   - component: {fileID: 3240097727839538129}
   - component: {fileID: 529903988184290760}
   - component: {fileID: 3166507015600576349}
+  - component: {fileID: 8829191933376348118}
   m_Layer: 0
   m_Name: Propeller
   m_TagString: Untagged
@@ -15247,6 +15301,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8829191933376348118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829191933376348117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d92f35743d29549b7e7086586fea48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8900294488175036873
 Transform:
   m_ObjectHideFlags: 0

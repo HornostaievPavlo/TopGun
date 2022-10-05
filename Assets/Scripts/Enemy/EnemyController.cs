@@ -8,18 +8,7 @@ public class EnemyController : MonoBehaviour
     //[Range(1, 10)] private float horizontalMovementSpeed;
 
     [SerializeField]
-    [Range(0, 10)] private float verticalMovementSpeed;
-
-    //Explosion 
-    private float radius = 0.75f;
-
-    public float explosionForce;
-
-    //rigidbody setup after explosion
-    private float rbMass = 1;
-    private float rbDrag = 1;
-
-    ///////////////
+    [Range(0, 10)] private float verticalMovementSpeed;    
 
     [SerializeField]
     private bool isDeath;
@@ -32,13 +21,20 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private GameObject explosionParticle;
 
-    [SerializeField] private GameObject fireParticle;
+    [SerializeField] private GameObject fireParticle;    
 
     private Collider[] childColliders;
 
     private bool isMovingUp;
 
-    public int health;
+    public int health; 
+
+    private float radius = 0.75f;
+
+    private float explosionForce;
+
+    private float rbMass = 1;
+    private float rbDrag = 1;
 
     private void Start()
     {
