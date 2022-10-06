@@ -12,12 +12,12 @@ public class BackgroundController : MonoBehaviour
     {
         startPosition = transform.position;
 
-        width = GetComponent<MeshRenderer>().bounds.size.x / 2;
+        width = GetComponent<SpriteRenderer>().size.x / 2;
     }
 
     private void Update()
     {
-        transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+        transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
 
         if (transform.position.x < startPosition.x - width)
         {
