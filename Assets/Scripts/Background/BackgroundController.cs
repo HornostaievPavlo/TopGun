@@ -6,20 +6,20 @@ public class BackgroundController : MonoBehaviour
 
     private Vector3 startPosition;
 
-    private float width;
+    private float halfWidth;
 
     private void Start()
     {
         startPosition = transform.position;
 
-        width = GetComponent<MeshRenderer>().bounds.size.x / 2;
+        halfWidth = GetComponent<SpriteRenderer>().bounds.size.x / 2;
     }
 
     private void Update()
     {
-        transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+        transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
 
-        if (transform.position.x < startPosition.x - width)
+        if (transform.position.x < startPosition.x - halfWidth)
         {
             transform.position = startPosition;
         }
