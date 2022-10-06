@@ -12,7 +12,7 @@ public class BackgroundController : MonoBehaviour
     {
         startPosition = transform.position;
 
-        width = GetComponent<SpriteRenderer>().size.x / 2;
+        width = GetComponent<SpriteRenderer>().bounds.size.x / 2;
     }
 
     private void Update()
