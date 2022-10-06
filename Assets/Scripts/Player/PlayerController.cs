@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-
+        
         float verticalBorder = 4.0f;
         float horizontalBorder = 8.0f;
 

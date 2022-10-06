@@ -9,7 +9,7 @@ public class PropellerRotator : MonoBehaviour
         _propeller = transform;
     }
 
-    void Update()
+    private void Update()
     {
         RotatePropeller();
     }
@@ -19,4 +19,4 @@ public class PropellerRotator : MonoBehaviour
         float rotationSpeed = 5;
         _propeller.Rotate(Vector3.left * rotationSpeed);
     }
-}
+} 
