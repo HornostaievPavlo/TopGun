@@ -53,7 +53,7 @@ public class CollisionController : MonoBehaviour
     {
         //Debug.LogWarning("Bomb hit");
 
-        _enemyController.DestroyWithBomb();
+        _enemyController.ExplodeEnemy();
 
         SetTimeScale(_timeScaleVar);
 

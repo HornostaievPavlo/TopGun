@@ -937,8 +937,39 @@ MonoBehaviour:
   endPosition: {x: 3, y: 2, z: 0}
   duration: 3
   elapsedTime: 0
-  movementTimer: 0
-  newPosition: {x: 1.5, y: 2, z: -2}
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.0047332
+      outSlope: 1.0047332
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4982755
+      value: 0.50063396
+      inSlope: -4.595979
+      outSlope: -4.595979
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.098463744
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.99529934
+      outSlope: 0.99529934
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1889399099
 GameObject:
   m_ObjectHideFlags: 0

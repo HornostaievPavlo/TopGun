@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class LerpTest : MonoBehaviour
@@ -11,11 +10,13 @@ public class LerpTest : MonoBehaviour
 
     public float elapsedTime;
 
+    public AnimationCurve curve;
+
     // test
 
-    public float movementTimer;
+    //public float movementTimer;
 
-    public Vector3 newPosition;
+    //public Vector3 newPosition;
 
     // test
 
@@ -26,40 +27,44 @@ public class LerpTest : MonoBehaviour
 
     void Update()
     {
-        //elapsedTime += Time.deltaTime;
+        elapsedTime += Time.deltaTime;
 
-        //float percentageComplete = elapsedTime / duration;
+        float percentageComplete = elapsedTime / duration;
 
+        // float paremeter 
         //transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
+
+        // curve paremeter
+        transform.position = Vector3.Lerp(startPosition, endPosition, curve.Evaluate(percentageComplete));
 
         // test
 
-        if (transform.position != endPosition)
-        {
-            elapsedTime += Time.deltaTime;
+        //if (transform.position != endPosition)
+        //{
+        //    elapsedTime += Time.deltaTime;
 
-            float percentageComplete = elapsedTime / duration;
+        //    float percentageComplete = elapsedTime / duration;
 
-            transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
-        }
-        else
-        {
-            Debug.Log("Priexali");
+        //    transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
+        //}
+        //else
+        //{
+        //    Debug.Log("Priexali");
 
-            StartCoroutine(ChangeEndLerpVector(newPosition));
-        }
+        //    StartCoroutine(ChangeEndLerpVector(newPosition));
+        //}
     }
 
     // test
 
-    private IEnumerator ChangeEndLerpVector(Vector3 vector)
-    {
-        yield return new WaitForSeconds(movementTimer);
+    //private IEnumerator ChangeEndLerpVector(Vector3 vector)
+    //{
+    //    yield return new WaitForSeconds(movementTimer);
 
-        endPosition = vector;
+    //    endPosition = vector;
 
-        elapsedTime = 0;
+    //    elapsedTime = 0;
 
-        startPosition = transform.position;
-    }
+    //    startPosition = transform.position;
+    //}
 }

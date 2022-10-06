@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    // Base class for enemy entity, implements movement and destroy methods 
+
+
     // try the hor movement added to enemy for better interactability
     //[SerializeField]
     //[Range(1, 10)] private float horizontalMovementSpeed;
 
     [SerializeField]
-    [Range(0, 10)] private float verticalMovementSpeed;    
+    [Range(0, 10)] private float verticalMovementSpeed;
 
     [SerializeField]
     private bool isDeath;
@@ -21,13 +24,13 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private GameObject explosionParticle;
 
-    [SerializeField] private GameObject fireParticle;    
+    [SerializeField] private GameObject fireParticle;
 
     private Collider[] childColliders;
 
     private bool isMovingUp;
 
-    public int health; 
+    public int health;
 
     private float radius = 0.75f;
 
@@ -120,7 +123,7 @@ public class EnemyController : MonoBehaviour
     }
 
     // just explosion from single bomb
-    public void DestroyWithBomb()
+    public void ExplodeEnemy()
     {
         isDeath = true;
 

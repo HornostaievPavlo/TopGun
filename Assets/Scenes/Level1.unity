@@ -1468,7 +1468,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960976881}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3147bc1d096ab4408bcc47191902cb4, type: 3}
   m_Name: 
@@ -1593,11 +1593,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalMovementSpeed: 0.97
   isDeath: 0
-  parentRigidbody: {fileID: 145409595}
-  _bodyMeshRenderer: {fileID: 759933520}
-  damagedMaterial: {fileID: 2100000, guid: f58298428778c8f4b87f13c47b6975a5, type: 2}
-  explosionParticle: {fileID: 2461939709458799138}
-  fireParticle: {fileID: 4515095248861645392}
+  parentRigidbody: {fileID: 0}
+  _bodyMeshRenderer: {fileID: 0}
+  damagedMaterial: {fileID: 0}
+  explosionParticle: {fileID: 0}
+  fireParticle: {fileID: 0}
   health: 3
 --- !u!4 &1159276845
 Transform:
@@ -1629,7 +1629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbd38040fea9a7468bc9289944a6f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeScaleVar: 0.1
+  _timeScaleVar: 0
 --- !u!65 &1159276848
 BoxCollider:
   m_ObjectHideFlags: 0
