@@ -11,41 +11,39 @@ public class EnemyController : MonoBehaviour
     //[Range(1, 10)] private float horizontalMovementSpeed;
 
     [SerializeField]
-    [Range(0, 10)] private float verticalMovementSpeed;
+    [Range(0, 10)] private float _verticalMovementSpeed;
 
-    [SerializeField]
-    private bool isDeath;
+    [SerializeField] private Material _damagedMaterial;
 
-    [SerializeField] private Rigidbody parentRigidbody;
+    [SerializeField] private GameObject _explosionParticleSystem;
 
-    [SerializeField] private MeshRenderer _bodyMeshRenderer;
+    [SerializeField] private GameObject _fireParticleSystem;
 
-    [SerializeField] private Material damagedMaterial;
+    public int _health;
 
-    [SerializeField] private GameObject explosionParticle;
+    private Rigidbody _parentRigidbody;
 
-    [SerializeField] private GameObject fireParticle;
+    private MeshRenderer _bodyMeshRenderer;
 
-    private Collider[] childColliders;
+    private Collider[] _childColliders;
 
-    private bool isMovingUp;
+    private bool _isDeath;
 
-    public int health;
+    private bool _isMovingUp;
 
-    private float radius = 0.75f;
-
-    private float explosionForce;
-
-    private float rbMass = 1;
-    private float rbDrag = 1;
+    private float _explosionForce;
 
     private void Start()
     {
-        isDeath = false;
+        _isDeath = false;
 
-        childColliders = GetComponentsInChildren<Collider>();
+        _parentRigidbody = GetComponentInChildren<Rigidbody>();
 
-        explosionForce = Random.Range(500, 5000);
+        _bodyMeshRenderer = GetComponentInChildren<MeshRenderer>();
+
+        _childColliders = GetComponentsInChildren<Collider>();
+
+        _explosionForce = Random.Range(500, 5000);
     }
 
     private void Update()
@@ -57,26 +55,26 @@ public class EnemyController : MonoBehaviour
 
     private void Move()
     {
-        if (!isDeath)
+        if (!_isDeath)
         {
             int movingRestrictionPoint = Screen.height / 270;
 
             if (transform.position.y > movingRestrictionPoint)
             {
-                isMovingUp = false;
+                _isMovingUp = false;
             }
             if (transform.position.y < -movingRestrictionPoint)
             {
-                isMovingUp = true;
+                _isMovingUp = true;
             }
 
-            if (!isMovingUp)
+            if (!_isMovingUp)
             {
-                transform.Translate(Vector3.down * Time.deltaTime * verticalMovementSpeed);
+                transform.Translate(Vector3.down * Time.deltaTime * _verticalMovementSpeed);
             }
             else
             {
-                transform.Translate(Vector3.up * Time.deltaTime * verticalMovementSpeed);
+                transform.Translate(Vector3.up * Time.deltaTime * _verticalMovementSpeed);
             }
         }
         else
@@ -87,16 +85,16 @@ public class EnemyController : MonoBehaviour
 
     private void CalculateHealth()
     {
-        if (health == 0)
+        if (_health == 0)
         {
-            isDeath = true;
+            _isDeath = true;
         }
 
-        if (health <= 2)
+        if (_health <= 2)
         {
-            _bodyMeshRenderer.material = damagedMaterial;
+            _bodyMeshRenderer.material = _damagedMaterial;
 
-            fireParticle.SetActive(true);
+            _fireParticleSystem.SetActive(true);
         }
     }
 
@@ -110,7 +108,7 @@ public class EnemyController : MonoBehaviour
 
         transform.Translate(fallDirection * Time.deltaTime * fallSpeed);
 
-        parentRigidbody.AddRelativeTorque(torqueDirection);
+        _parentRigidbody.AddRelativeTorque(torqueDirection);
 
         StartCoroutine(DestroyColliders());
 
@@ -125,29 +123,34 @@ public class EnemyController : MonoBehaviour
     // just explosion from single bomb
     public void ExplodeEnemy()
     {
-        isDeath = true;
+        _isDeath = true;
+
+        float _explosionRadius = 1;
+
+        float _explodedRigidbodyMass = 1;
+        float _explodedRigidbodyDrag = 1;
 
         Vector3 forceStartPos = transform.position;
 
-        foreach (Collider collider in childColliders)
+        foreach (Collider collider in _childColliders)
         {
             Rigidbody rb = collider.GetComponent<Rigidbody>();
 
             if (rb != null)
             {
-                rb.mass = rbMass;
+                rb.mass = _explodedRigidbodyMass;
 
-                rb.drag = rbDrag;
+                rb.drag = _explodedRigidbodyDrag;
 
                 rb.isKinematic = false;
 
-                rb.AddExplosionForce(explosionForce, forceStartPos, radius);
+                rb.AddExplosionForce(_explosionForce, forceStartPos, _explosionRadius);
 
                 rb.useGravity = true;
             }
         }
 
-        explosionParticle.SetActive(true);
+        _explosionParticleSystem.SetActive(true);
 
         StartCoroutine(DestroyColliders());
     }
@@ -156,7 +159,7 @@ public class EnemyController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.1f);
 
-        foreach (Collider item in childColliders)
+        foreach (Collider item in _childColliders)
         {
             if (item != null)
             {

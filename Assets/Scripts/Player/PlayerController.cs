@@ -2,19 +2,26 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private GameObject bombPrefab;
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform _ammoSpawner;
 
-    [SerializeField] private Transform ammoSpawner;
+    [SerializeField] private GameObject _bulletPrefab;
 
-    [SerializeField]
-    [Range(0, 10)] private float horizontalMovementSpeed;
+    [SerializeField] private GameObject _bombPrefab;
 
     [SerializeField]
-    [Range(0, 10)] private float verticalMovementSpeed;
+    [Range(0, 10)] private float _horizontalMovementSpeed;
 
-    private float bulletFireElapsedTime = 0f;
-    private float bombFireElapsedTime = 0f;
+    [SerializeField]
+    [Range(0, 10)] private float _verticalMovementSpeed;
+
+    private float _bulletFireElapsedTime;
+    private float _bombFireElapsedTime;
+
+    private void Start()
+    {
+        _bulletFireElapsedTime = 0f;
+        _bombFireElapsedTime = 0f;
+    }
 
     private void Update()
     {
@@ -26,14 +33,14 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-        
+
         float verticalBorder = 4.0f;
         float horizontalBorder = 8.0f;
 
         if (Input.GetKey(KeyCode.W) ||
             Input.GetKey(KeyCode.A) ||
             Input.GetKey(KeyCode.S) ||
-            Input.GetKey(KeyCode.D)) transform.Translate(direction * Time.deltaTime * horizontalMovementSpeed);
+            Input.GetKey(KeyCode.D)) transform.Translate(direction * Time.deltaTime * _horizontalMovementSpeed);
 
         if (transform.position.y > verticalBorder)
         {
@@ -50,7 +57,7 @@ public class PlayerController : MonoBehaviour
         if (transform.position.x < -horizontalBorder)
         {
             transform.position = new Vector3(-horizontalBorder, transform.position.y, transform.position.z);
-        }        
+        }
     }
 
     private void Fire()
@@ -58,21 +65,21 @@ public class PlayerController : MonoBehaviour
         //float bombFireDelay = 3f;
         float bulletFireDelay = 0.15f;
 
-        bulletFireElapsedTime += Time.deltaTime;
-        bombFireElapsedTime += Time.deltaTime;
+        _bulletFireElapsedTime += Time.deltaTime;
+        _bombFireElapsedTime += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
-        //&& bombFireElapsedTime > bombFireDelay)
+        //&& _bombFireElapsedTime > bombFireDelay)
         {
-            //bombFireElapsedTime = 0;
+            _bombFireElapsedTime = 0;
 
-            Instantiate(bombPrefab, ammoSpawner.position, transform.rotation);
+            Instantiate(_bombPrefab, _ammoSpawner.position, transform.rotation);
         }
-        if (Input.GetKey(KeyCode.Mouse0) && bulletFireElapsedTime > bulletFireDelay)
+        if (Input.GetKey(KeyCode.Mouse0) && _bulletFireElapsedTime > bulletFireDelay)
         {
-            bulletFireElapsedTime = 0;
+            _bulletFireElapsedTime = 0;
 
-            Instantiate(bulletPrefab, ammoSpawner.position, transform.rotation);
+            Instantiate(_bulletPrefab, _ammoSpawner.position, transform.rotation);
         }
     }
 }
