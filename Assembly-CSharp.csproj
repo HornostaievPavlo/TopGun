@@ -64,7 +64,6 @@
     <Compile Include="Assets\Scripts\Ammo\AmmoController.cs" />
     <Compile Include="Assets\Scripts\CollisionSystem\CollisionController.cs" />
     <Compile Include="Assets\Scripts\Background\BackgroundController.cs" />
-    <Compile Include="Assets\Scripts\Background\BackgroundMovement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

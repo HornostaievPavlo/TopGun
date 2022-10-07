@@ -4,15 +4,19 @@ public class BackgroundController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
 
-    private Vector3 startPosition;
+    public Vector3 startPosition;
 
-    private float width;
+    public float width;
+
+    public SpriteRenderer _renderer;
 
     private void Start()
     {
         startPosition = transform.position;
 
-        width = GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        _renderer = GetComponentInChildren<SpriteRenderer>();
+
+        width = _renderer.bounds.size.x;
     }
 
     private void Update()
