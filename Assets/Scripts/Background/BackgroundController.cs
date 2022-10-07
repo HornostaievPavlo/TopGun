@@ -4,22 +4,26 @@ public class BackgroundController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
 
-    private Vector3 startPosition;
+    public Vector3 startPosition;
 
-    private float halfWidth;
+    public float width;
+
+    public SpriteRenderer _renderer;
 
     private void Start()
     {
         startPosition = transform.position;
 
-        halfWidth = GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        _renderer = GetComponentInChildren<SpriteRenderer>();
+
+        width = _renderer.bounds.size.x;
     }
 
     private void Update()
     {
         transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
 
-        if (transform.position.x < startPosition.x - halfWidth)
+        if (transform.position.x < startPosition.x - width)
         {
             transform.position = startPosition;
         }
