@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class BackgroundController : MonoBehaviour
+public class BackgroundMovementSystem : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
 
-    public Vector3 startPosition;
+    private SpriteRenderer _renderer;
 
-    public float width;
+    private Vector3 startPosition;
 
-    public SpriteRenderer _renderer;
+    private float width;
 
     private void Start()
     {
