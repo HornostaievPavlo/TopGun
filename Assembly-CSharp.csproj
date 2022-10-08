@@ -59,14 +59,17 @@
     <Compile Include="Assets\Scripts\UI\CreditsUpMovement.cs" />
     <Compile Include="Assets\Scripts\LerpTest.cs" />
     <Compile Include="Assets\Scripts\LevelReloader.cs" />
-    <Compile Include="Assets\Scripts\PlaneDefaultFunctionality\Enemy\EnemyMovementSystem.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\EnemyMovementSystem.cs" />
     <Compile Include="Assets\Scripts\Ammo\AmmoType.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Player\PlayerMovementSystem.cs" />
     <Compile Include="Assets\Scripts\Ammo\AmmoController.cs" />
-    <Compile Include="Assets\Scripts\CollisionSystem\CollisionController.cs" />
-    <Compile Include="Assets\Scripts\Background\BackgroundMovementSystem.cs" />
-    <Compile Include="Assets\Scripts\Player\PropellerRotator.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\CollisionSystem.cs" />
+    <Compile Include="Assets\Scripts\Background\BackgroundController.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PropellerRotator.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\ShootingSystem.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\HealthSystem.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

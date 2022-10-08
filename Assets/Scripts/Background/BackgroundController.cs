@@ -1,29 +1,25 @@
 using UnityEngine;
 
-public class BackgroundMovementSystem : MonoBehaviour
+public class BackgroundController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
 
-    private SpriteRenderer _renderer;
-
     private Vector3 startPosition;
 
-    private float width;
+    private float halfWidth;
 
     private void Start()
     {
         startPosition = transform.position;
 
-        _renderer = GetComponentInChildren<SpriteRenderer>();
-
-        width = _renderer.bounds.size.x;
+        halfWidth = GetComponent<SpriteRenderer>().bounds.size.x / 2;
     }
 
     private void Update()
     {
         transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
 
-        if (transform.position.x < startPosition.x - width)
+        if (transform.position.x < startPosition.x - halfWidth)
         {
             transform.position = startPosition;
         }
