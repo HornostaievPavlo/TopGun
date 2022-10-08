@@ -1,32 +1,39 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class CollisionSystem : MonoBehaviour
 {
+    [Range(0, 1)] public float _explosionTimeScaleValue;
+
     [SerializeField] private GameManager _gameManager;
 
-    [SerializeField] private HealthSystem _healthSystem;
+    [SerializeField] private GameObject _explosionParticleSystem;
 
-    [Range(0, 1)] public float _explosionTimeScaleVar;
-
-    private Collider[] _childColliders;
+    private HealthSystem _healthSystem;
 
     private Rigidbody _parentRigidbody;
 
+    public GameObject _fireParticleSystem;
 
+    private Collider[] _childColliders;
 
     private float _explosionForce;
 
     private void Start()
     {
-        _explosionForce = Random.Range(500, 5000);
+        InitializeVariables();
+    }
+
+    private void InitializeVariables()
+    {
+        _healthSystem = GetComponent<HealthSystem>();
 
         _parentRigidbody = GetComponentInChildren<Rigidbody>();
 
         _childColliders = GetComponentsInChildren<Collider>();
 
+        _explosionForce = Random.Range(500, 5000);
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -57,39 +64,16 @@ public class CollisionSystem : MonoBehaviour
 
     private void ApplyBombDamage()
     {
-        //Debug.LogWarning("Bomb hit");
+        Debug.LogError("Bomb hit");
 
-        ExplodeEnemy();
+        Explode();
 
-        _gameManager.SetTimeScale(_explosionTimeScaleVar);
+        _gameManager.SetTimeScale(_explosionTimeScaleValue);
 
         StartCoroutine(_gameManager.ResetTimeScale(2));
     }
 
-    public void FallDown()
-    {
-        float fallSpeed = 1.5f;
-
-        Vector3 fallDirection = new Vector3(0.5f, -1, 0);
-
-        Vector3 torqueDirection = new Vector3(7.5f, 0, 5);
-
-        transform.Translate(fallDirection * Time.deltaTime * fallSpeed);
-
-        _parentRigidbody.AddRelativeTorque(torqueDirection);
-
-        StartCoroutine(DestroyColliders());
-
-        if (transform.position.y < -10)
-        {
-            Debug.LogWarning("Out of the game");
-
-            Destroy(gameObject);
-        }
-    }
-
-    // just explosion from single bomb
-    public void ExplodeEnemy()
+    private void Explode()
     {
         _healthSystem._isDeath = true;
 
@@ -118,9 +102,31 @@ public class CollisionSystem : MonoBehaviour
             }
         }
 
-        _healthSystem._explosionParticleSystem.SetActive(true);
+        _explosionParticleSystem.SetActive(true);
 
         StartCoroutine(DestroyColliders());
+    }
+
+    public void FallDown()
+    {
+        float fallSpeed = 1.5f;
+
+        Vector3 fallDirection = new Vector3(0.5f, -1, 0);
+
+        Vector3 torqueDirection = new Vector3(7.5f, 0, 5);
+
+        transform.Translate(fallDirection * Time.deltaTime * fallSpeed);
+
+        _parentRigidbody.AddRelativeTorque(torqueDirection);
+
+        StartCoroutine(DestroyColliders());
+
+        if (transform.position.y < -10)
+        {
+            Debug.LogWarning("Out of the game");
+
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator DestroyColliders()

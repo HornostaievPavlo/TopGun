@@ -1,33 +1,36 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CollisionSystem))]
 public class HealthSystem : MonoBehaviour
 {
+    [SerializeField] private Material _damagedMaterial;
+
+    private CollisionSystem _collisionSystem;
+
+    private MeshRenderer _bodyMeshRenderer;
+
     public int _health;
 
     public bool _isDeath;
 
-    private MeshRenderer _bodyMeshRenderer;
-
-    //[SerializeField] private Material _damagedMaterial;
-
-    public GameObject _explosionParticleSystem;
-
-    public GameObject _fireParticleSystem;
-
-
     void Start()
     {
-        _bodyMeshRenderer = GetComponentInChildren<MeshRenderer>();
-
+        InitializeVariables();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        CalculateHealth();
+        UpdateState();
     }
 
-    private void CalculateHealth()
+    private void InitializeVariables()
+    {
+        _collisionSystem = GetComponent<CollisionSystem>();
+
+        _bodyMeshRenderer = GetComponentInChildren<MeshRenderer>();
+    }
+
+    private void UpdateState()
     {
         if (_health == 0)
         {
@@ -36,9 +39,9 @@ public class HealthSystem : MonoBehaviour
 
         if (_health <= 2)
         {
-            //_bodyMeshRenderer.material = _damagedMaterial;
+            _bodyMeshRenderer.material = _damagedMaterial;
 
-            _fireParticleSystem.SetActive(true);
+            _collisionSystem._fireParticleSystem.SetActive(true);
         }
     }
 }

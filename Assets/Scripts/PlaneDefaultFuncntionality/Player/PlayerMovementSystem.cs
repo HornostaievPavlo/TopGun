@@ -8,6 +8,17 @@ public class PlayerMovementSystem : MonoBehaviour
     [SerializeField]
     [Range(0, 10)] private float _verticalMovementSpeed;
 
+    private HealthSystem _healthSystem;
+
+    private CollisionSystem _collisionSystem;
+
+    private void Start()
+    {
+        _healthSystem = GetComponent<HealthSystem>();
+
+        _collisionSystem = GetComponent<CollisionSystem>();
+    }
+
     private void Update()
     {
         Move();
@@ -20,26 +31,33 @@ public class PlayerMovementSystem : MonoBehaviour
         float verticalBorder = 4.0f;
         float horizontalBorder = 8.0f;
 
-        if (Input.GetKey(KeyCode.W) ||
+        if (!_healthSystem._isDeath)
+        {
+            if (Input.GetKey(KeyCode.W) ||
             Input.GetKey(KeyCode.A) ||
             Input.GetKey(KeyCode.S) ||
             Input.GetKey(KeyCode.D)) transform.Translate(direction * Time.deltaTime * _horizontalMovementSpeed);
 
-        if (transform.position.y > verticalBorder)
-        {
-            transform.position = new Vector3(transform.position.x, verticalBorder, transform.position.z);
+            if (transform.position.y > verticalBorder)
+            {
+                transform.position = new Vector3(transform.position.x, verticalBorder, transform.position.z);
+            }
+            if (transform.position.y < -verticalBorder)
+            {
+                transform.position = new Vector3(transform.position.x, -verticalBorder, transform.position.z);
+            }
+            if (transform.position.x > horizontalBorder)
+            {
+                transform.position = new Vector3(horizontalBorder, transform.position.y, transform.position.z);
+            }
+            if (transform.position.x < -horizontalBorder)
+            {
+                transform.position = new Vector3(-horizontalBorder, transform.position.y, transform.position.z);
+            }
         }
-        if (transform.position.y < -verticalBorder)
+        else
         {
-            transform.position = new Vector3(transform.position.x, -verticalBorder, transform.position.z);
-        }
-        if (transform.position.x > horizontalBorder)
-        {
-            transform.position = new Vector3(horizontalBorder, transform.position.y, transform.position.z);
-        }
-        if (transform.position.x < -horizontalBorder)
-        {
-            transform.position = new Vector3(-horizontalBorder, transform.position.y, transform.position.z);
+            _collisionSystem.FallDown();
         }
     }
 }

@@ -68,8 +68,8 @@
     <Compile Include="Assets\Scripts\Background\BackgroundController.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PropellerRotator.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\ShootingSystem.cs" />
-    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\HealthSystem.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

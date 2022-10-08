@@ -1,11 +1,7 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyMovementSystem : MonoBehaviour
 {
-    // Base class for enemy entity, implements movement and destroy methods 
-
-
     // try the hor movement added to enemy for better interactability
     //[SerializeField]
     //[Range(1, 10)] private float horizontalMovementSpeed;
@@ -13,11 +9,23 @@ public class EnemyMovementSystem : MonoBehaviour
     [SerializeField]
     [Range(0, 10)] private float _verticalMovementSpeed;
 
-    [SerializeField] private HealthSystem _healthSystem;
+    private HealthSystem _healthSystem;
 
-    public CollisionSystem _collisionSystem;
+    private CollisionSystem _collisionSystem;
 
     private bool _isMovingUp;
+
+    private void Start()
+    {
+        InitializeVariables();
+    }
+
+    private void InitializeVariables()
+    {
+        _healthSystem = GetComponent<HealthSystem>();
+
+        _collisionSystem = GetComponent<CollisionSystem>();
+    }
 
     private void Update()
     {
@@ -52,5 +60,5 @@ public class EnemyMovementSystem : MonoBehaviour
         {
             _collisionSystem.FallDown();
         }
-    }    
+    }
 }

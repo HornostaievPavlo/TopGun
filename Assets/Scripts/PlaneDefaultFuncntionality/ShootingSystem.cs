@@ -31,41 +31,41 @@ public class ShootingSystem : MonoBehaviour
             case PlaneType.Player:
 
                 PlayerFire();
+
                 break;
 
             case PlaneType.Shooter_Enemy:
 
                 ShooterEnemyFire();
-                break;
-
-            case PlaneType.Bomber_Enemy:
 
                 break;
-
         }
     }
 
     private void PlayerFire()
     {
-        Debug.Log("Switch to PLAYER shooting mode");
-
-        float bombFireDelay = 3f;
+        //float bombFireDelay = 3f;
         float bulletFireDelay = 0.15f;
 
         _bulletFireElapsedTime += Time.deltaTime;
         _bombFireElapsedTime += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Mouse1)) //&& _bombFireElapsedTime > bombFireDelay)
-        {
-            _bombFireElapsedTime = 0;
-
-            Instantiate(_bombPrefab, _ammoSpawner.position, transform.rotation);
-        }
         if (Input.GetKey(KeyCode.Mouse0) && _bulletFireElapsedTime > bulletFireDelay)
         {
+            Debug.Log("Switch to PLAYER BULLET mode");
+
             _bulletFireElapsedTime = 0;
 
             Instantiate(_bulletPrefab, _ammoSpawner.position, transform.rotation);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))// && _bombFireElapsedTime > bombFireDelay)
+        {
+            Debug.Log("Switch to PLAYER BOMB mode");
+
+            _bombFireElapsedTime = 0;
+
+            Instantiate(_bombPrefab, _ammoSpawner.position, transform.rotation);
         }
     }
 
@@ -73,15 +73,16 @@ public class ShootingSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.LogWarning("Switch to ENEMY shooting mode");
+            Debug.LogWarning("Switch to ENEMY BOMB mode");
 
             Instantiate(_bombPrefab, _ammoSpawner.position, transform.rotation);
-
         }
-    }
 
-    private void BomberEnemyFire()
-    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Debug.LogWarning("Switch to ENEMY BULLET mode");
 
+            Instantiate(_bulletPrefab, _ammoSpawner.position, transform.rotation);
+        }
     }
 }
