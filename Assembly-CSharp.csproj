@@ -59,7 +59,7 @@
     <Compile Include="Assets\Scripts\UI\CreditsUpMovement.cs" />
     <Compile Include="Assets\Scripts\LerpTest.cs" />
     <Compile Include="Assets\Scripts\LevelReloader.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFunctionality\Enemy\EnemyMovementSystem.cs" />
     <Compile Include="Assets\Scripts\Ammo\AmmoType.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />

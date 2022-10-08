@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyMovementSystem : MonoBehaviour
 {
     // Base class for enemy entity, implements movement and destroy methods 
 

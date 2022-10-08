@@ -9,7 +9,7 @@ public class CollisionController : MonoBehaviour
     //[SerializeField] private ParticleSystem fire;
     //[SerializeField] private ParticleSystem hitSmoke;
 
-    private EnemyController _enemyController;
+    private EnemyMovementSystem _enemyMovementSystem;
 
     [Range(0, 1)] public float _timeScaleVar;
 
@@ -19,7 +19,7 @@ public class CollisionController : MonoBehaviour
     {
         _fixedDeltaTime = Time.fixedDeltaTime;
 
-        _enemyController = GetComponent<EnemyController>();
+        _enemyMovementSystem = GetComponent<EnemyMovementSystem>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,14 +46,14 @@ public class CollisionController : MonoBehaviour
     {
         //Debug.LogWarning("Bullet hit");
 
-        _enemyController.health -= 1;
+        _enemyMovementSystem.health -= 1;
     }
 
     private void ApplyBombDamage()
     {
         //Debug.LogWarning("Bomb hit");
 
-        _enemyController.ExplodeEnemy();
+        _enemyMovementSystem.ExplodeEnemy();
 
         SetTimeScale(_timeScaleVar);
 
