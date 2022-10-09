@@ -66,7 +66,7 @@
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Player\PlayerMovementSystem.cs" />
     <Compile Include="Assets\Scripts\Ammo\AmmoController.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\CollisionSystem.cs" />
-    <Compile Include="Assets\Scripts\Background\BackgroundController.cs" />
+    <Compile Include="Assets\Scripts\Background\BackgroundMovementSystem.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\ShootingSystem.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PropellerRotator.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
