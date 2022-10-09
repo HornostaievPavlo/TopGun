@@ -32,7 +32,7 @@ public class CollisionSystem : MonoBehaviour
 
         _childColliders = GetComponentsInChildren<Collider>();
 
-        //_explosionForce = Random.Range(500, 5000);
+        //_explosionForce = Random.Range(1, 1000);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -101,6 +101,8 @@ public class CollisionSystem : MonoBehaviour
                 rb.useGravity = true;
             }
         }
+
+        _fireParticleSystem.SetActive(false);
 
         _explosionParticleSystem.SetActive(true);
 
