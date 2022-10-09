@@ -7,6 +7,8 @@ public class HealthSystem : MonoBehaviour
 
     private CollisionSystem _collisionSystem;
 
+    private ShootingSystem _shootingSystem;
+
     private MeshRenderer _bodyMeshRenderer;
 
     public int _health;
@@ -27,6 +29,8 @@ public class HealthSystem : MonoBehaviour
     {
         _collisionSystem = GetComponent<CollisionSystem>();
 
+        _shootingSystem = GetComponent<ShootingSystem>();
+
         _bodyMeshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
@@ -35,6 +39,10 @@ public class HealthSystem : MonoBehaviour
         if (_health == 0)
         {
             _isDeath = true;
+
+            _collisionSystem.enabled = false;
+
+            _shootingSystem.enabled = false;
         }
 
         if (_health <= 2)
