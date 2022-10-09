@@ -40,7 +40,8 @@ public class HealthSystem : MonoBehaviour
         if (_health <= 2)
         {
             _bodyMeshRenderer.material = _damagedMaterial;
-
+            
+            if(_collisionSystem._fireParticleSystem != null)
             _collisionSystem._fireParticleSystem.SetActive(true);
         }
     }

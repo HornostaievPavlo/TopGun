@@ -11904,7 +11904,7 @@ MonoBehaviour:
   _gameManager: {fileID: 1743662300}
   _explosionParticleSystem: {fileID: 2461939709458799138}
   _fireParticleSystem: {fileID: 4515095248861645392}
-  _explosionForce: 0.1
+  _explosionForce: 1
 --- !u!65 &1159276848
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11933,7 +11933,7 @@ MonoBehaviour:
   _planeType: 1
   _ammoSpawner: {fileID: 261368716}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
-  _bombPrefab: {fileID: 6881847376924221652, guid: 003a8b5993539ce4c8646c48538f0ae5, type: 3}
+  _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
 --- !u!114 &1159276852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20142,7 +20142,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -26332,7 +26332,7 @@ MonoBehaviour:
   _planeType: 0
   _ammoSpawner: {fileID: 119638108}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
-  _bombPrefab: {fileID: 6881847376924221652, guid: 003a8b5993539ce4c8646c48538f0ae5, type: 3}
+  _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
 --- !u!23 &8405317063729894632
 MeshRenderer:
   m_ObjectHideFlags: 0

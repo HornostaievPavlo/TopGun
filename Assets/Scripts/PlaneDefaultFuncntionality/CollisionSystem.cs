@@ -102,9 +102,9 @@ public class CollisionSystem : MonoBehaviour
             }
         }
 
-        _fireParticleSystem.SetActive(false);
-
         _explosionParticleSystem.SetActive(true);
+
+        Destroy(_fireParticleSystem.gameObject);
 
         StartCoroutine(DestroyColliders());
     }
