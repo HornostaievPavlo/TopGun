@@ -17,7 +17,7 @@ public class CollisionSystem : MonoBehaviour
 
     private Collider[] _childColliders;
 
-    private float _explosionForce;
+    [SerializeField] private float _explosionForce;
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class CollisionSystem : MonoBehaviour
 
         _childColliders = GetComponentsInChildren<Collider>();
 
-        _explosionForce = Random.Range(500, 5000);
+        //_explosionForce = Random.Range(500, 5000);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -64,7 +64,7 @@ public class CollisionSystem : MonoBehaviour
 
     private void ApplyBombDamage()
     {
-        Debug.LogError("Bomb hit");
+        //Debug.LogError("Bomb hit");
 
         Explode();
 

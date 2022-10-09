@@ -912,7 +912,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261368715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4, y: 0, z: 0}
+  m_LocalPosition: {x: 1.156, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11846,8 +11846,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1159276845}
   - component: {fileID: 1159276848}
-  - component: {fileID: 1159276849}
-  - component: {fileID: 1159276850}
   - component: {fileID: 1159276843}
   - component: {fileID: 1159276847}
   - component: {fileID: 1159276852}
@@ -11871,7 +11869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409d4726471e16040ad641ee1c944665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalMovementSpeed: 3
+  _verticalMovementSpeed: 0
 --- !u!4 &1159276845
 Transform:
   m_ObjectHideFlags: 0
@@ -11906,6 +11904,7 @@ MonoBehaviour:
   _gameManager: {fileID: 1743662300}
   _explosionParticleSystem: {fileID: 2461939709458799138}
   _fireParticleSystem: {fileID: 4515095248861645392}
+  _explosionForce: 0.1
 --- !u!65 &1159276848
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11919,32 +11918,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.15382265, y: 0.7157631, z: 1.4790276}
   m_Center: {x: 0.74877435, y: -0.0024991732, z: -0.015391841}
---- !u!65 &1159276849
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159276842}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9798986, y: 0.047781534, z: 1.5096805}
-  m_Center: {x: 0.29529825, y: 0.47611064, z: -0.013268259}
---- !u!65 &1159276850
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159276842}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9798986, y: 0.047781534, z: 1.5096805}
-  m_Center: {x: 0.12, y: -0.33, z: -0.013268259}
 --- !u!114 &1159276851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11958,7 +11931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _planeType: 1
-  _ammoSpawner: {fileID: 759933519}
+  _ammoSpawner: {fileID: 261368716}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
   _bombPrefab: {fileID: 6881847376924221652, guid: 003a8b5993539ce4c8646c48538f0ae5, type: 3}
 --- !u!114 &1159276852
@@ -26343,6 +26316,7 @@ MonoBehaviour:
   _gameManager: {fileID: 1743662300}
   _explosionParticleSystem: {fileID: 395171024}
   _fireParticleSystem: {fileID: 537422005}
+  _explosionForce: 1
 --- !u!114 &8296172667624262496
 MonoBehaviour:
   m_ObjectHideFlags: 0
