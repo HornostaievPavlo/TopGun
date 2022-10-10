@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovementSystem : MonoBehaviour
@@ -17,6 +18,13 @@ public class PlayerMovementSystem : MonoBehaviour
     public Rigidbody rb;
     public Vector3 torqueDir;
     public float torquePower;
+
+    public float slowingTimer;
+    public float resetTimer;
+
+    public float slowingMultiplier;
+
+    public float timer = 0f;
 
     private void Start()
     {
@@ -63,28 +71,57 @@ public class PlayerMovementSystem : MonoBehaviour
                 transform.position = new Vector3(-horizontalBorder, transform.position.y, transform.position.z);
             }
 
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                //Debug.Log("i pognal");
-                rb.AddTorque(torqueDir * torquePower);
-                Debug.Log(rb.transform.eulerAngles.x);
-            }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                Debug.Log("stop");
-
-                //Quaternion _currentRotation = new Quaternion
-                //   (rb.transform.rotation.x, rb.transform.rotation.y, rb.transform.rotation.z, 0);
-
-                rb.transform.eulerAngles = new Vector3(rb.transform.eulerAngles.x, rb.transform.eulerAngles.y, rb.transform.eulerAngles.z);
-
-                rb.isKinematic = true;
-                rb.isKinematic = false;
-            }
+            Dodge();
         }
         else
         {
             _collisionSystem.FallDown();
         }
+    }
+
+    private void Dodge()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            rb.AddTorque(torqueDir * torquePower);
+
+            timer += Time.deltaTime;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            if (timer >= 3)
+            {
+                Debug.LogError("baza");
+                StartCoroutine(SlowTorque());
+            }
+            if (timer < 3)
+            {
+                Debug.LogWarning("too short");
+                StartCoroutine(StopTorque(1f));
+            }
+
+            timer = 0;
+
+        }
+    }
+    private IEnumerator SlowTorque()
+    {
+        yield return new WaitForSecondsRealtime(slowingTimer);
+
+        rb.AddTorque(torqueDir * (-torquePower * slowingMultiplier));
+
+        StartCoroutine(StopTorque(resetTimer));
+    }
+
+    private IEnumerator StopTorque(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+
+        Vector3 _currentRotation = new Vector3(rb.transform.eulerAngles.x, rb.transform.eulerAngles.y, rb.transform.eulerAngles.z);
+
+        rb.transform.eulerAngles = _currentRotation;
+
+        rb.isKinematic = true;
+        rb.isKinematic = false;
     }
 }

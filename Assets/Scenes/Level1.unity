@@ -8071,6 +8071,10 @@ MonoBehaviour:
   rb: {fileID: 0}
   torqueDir: {x: -1, y: 0, z: 0}
   torquePower: 1.5
+  slowingTimer: 0.5
+  resetTimer: 4
+  slowingMultiplier: 125
+  timer: 0
 --- !u!1 &759933518
 GameObject:
   m_ObjectHideFlags: 0
