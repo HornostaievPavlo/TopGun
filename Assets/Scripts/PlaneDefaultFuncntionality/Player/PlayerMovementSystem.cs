@@ -12,11 +12,19 @@ public class PlayerMovementSystem : MonoBehaviour
 
     private CollisionSystem _collisionSystem;
 
+    //
+
+    public Rigidbody rb;
+    public Vector3 torqueDir;
+    public float torquePower;
+
     private void Start()
     {
         _healthSystem = GetComponent<HealthSystem>();
 
         _collisionSystem = GetComponent<CollisionSystem>();
+
+        rb = GetComponentInChildren<Rigidbody>();
     }
 
     private void Update()
@@ -53,6 +61,25 @@ public class PlayerMovementSystem : MonoBehaviour
             if (transform.position.x < -horizontalBorder)
             {
                 transform.position = new Vector3(-horizontalBorder, transform.position.y, transform.position.z);
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                //Debug.Log("i pognal");
+                rb.AddTorque(torqueDir * torquePower);
+                Debug.Log(rb.transform.eulerAngles.x);
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                Debug.Log("stop");
+
+                //Quaternion _currentRotation = new Quaternion
+                //   (rb.transform.rotation.x, rb.transform.rotation.y, rb.transform.rotation.z, 0);
+
+                rb.transform.eulerAngles = new Vector3(rb.transform.eulerAngles.x, rb.transform.eulerAngles.y, rb.transform.eulerAngles.z);
+
+                rb.isKinematic = true;
+                rb.isKinematic = false;
             }
         }
         else
