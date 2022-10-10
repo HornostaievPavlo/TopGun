@@ -4,7 +4,9 @@ public class ShootingSystem : MonoBehaviour
 {
     [SerializeField] private PlaneType _planeType;
 
-    [SerializeField] private Transform _ammoSpawner;
+    [SerializeField] private Transform _bulletSpawner;
+
+    [SerializeField] private Transform _bombSpawner;
 
     [SerializeField] private GameObject _bulletPrefab;
 
@@ -56,7 +58,7 @@ public class ShootingSystem : MonoBehaviour
 
             _bulletFireElapsedTime = 0;
 
-            Instantiate(_bulletPrefab, _ammoSpawner.position, transform.rotation);
+            Instantiate(_bulletPrefab, _bulletSpawner.position, transform.rotation);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))// && _bombFireElapsedTime > bombFireDelay)
@@ -65,7 +67,7 @@ public class ShootingSystem : MonoBehaviour
 
             _bombFireElapsedTime = 0;
 
-            Instantiate(_bombPrefab, _ammoSpawner.position, transform.rotation);
+            Instantiate(_bombPrefab, _bombSpawner.position, transform.rotation);
         }
     }
 
@@ -73,16 +75,16 @@ public class ShootingSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.LogWarning("Switch to ENEMY BOMB mode");
+            Debug.LogWarning("Switch to ENEMY BULLET mode");
 
-            Instantiate(_bombPrefab, _ammoSpawner.position, transform.rotation);
+            Instantiate(_bulletPrefab, _bulletSpawner.position, transform.rotation);
         }
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            Debug.LogWarning("Switch to ENEMY BULLET mode");
+            Debug.LogWarning("Switch to ENEMY BOMB mode");
 
-            Instantiate(_bulletPrefab, _ammoSpawner.position, transform.rotation);
+            Instantiate(_bombPrefab, _bombSpawner.position, transform.rotation);
         }
     }
 }
