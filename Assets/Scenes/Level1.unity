@@ -8066,15 +8066,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5992f6c86c3ee8f49bcdbbde30ae0dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _horizontalMovementSpeed: 7
-  _verticalMovementSpeed: 7
-  rb: {fileID: 0}
-  torqueDir: {x: -1, y: 0, z: 0}
-  torquePower: 1.5
-  slowingTimer: 0.5
-  resetTimer: 4
-  slowingMultiplier: 125
-  timer: 0
+  _horizontalMovementSpeed: 3
+  _verticalMovementSpeed: 3
+  _torquePower: 1
+  slowingTimer: 0.1
+  stopTimer: 3
+  _slowingMultiplier: 150
+  _torqueTimer: 0
 --- !u!1 &759933518
 GameObject:
   m_ObjectHideFlags: 0

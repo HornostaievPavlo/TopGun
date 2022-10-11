@@ -20,8 +20,11 @@ public class PlayerMovementSystem : MonoBehaviour
 
     public float _torquePower;
 
-    //public float slowingTimer;
-    //public float stopTimer;
+    [Tooltip("Time until slowing begins")]
+    public float slowingTimer;
+
+    [Tooltip("Time until stopping begins")]
+    public float stopTimer;
 
     [Tooltip("Multiplier for opposite torque")]
     public float _slowingMultiplier;
@@ -98,14 +101,14 @@ public class PlayerMovementSystem : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            //if (timer >= 3)
-            //{
-            //    Debug.LogError("baza");
-            //    StartCoroutine(SlowTorque());
-            //}
+            if (_torqueTimer >= 2)
+            {
+                Debug.LogError("baza");
+                StartCoroutine(SlowTorque(slowingTimer));
+            }
             if (_torqueTimer < 2)
             {
-                float _torqueStopDelay = 1f;
+                float _torqueStopDelay = 0.5f;
                 Debug.LogWarning("too short");
                 StartCoroutine(StopTorque(_torqueStopDelay));
             }
@@ -115,16 +118,16 @@ public class PlayerMovementSystem : MonoBehaviour
         }
     }
 
-    private IEnumerator SlowTorque(float delay) // крутим в обратку и начинаем stop
+    private IEnumerator SlowTorque(float delay) 
     {
         yield return new WaitForSecondsRealtime(delay);
 
         _rigidbody.AddTorque(_torqueDirection * (-_torquePower * _slowingMultiplier));
 
-        //StartCoroutine(StopTorque(stopTimer));
+        StartCoroutine(StopTorque(stopTimer));
     }
 
-    private IEnumerator StopTorque(float delay) // стоп сразу после delay
+    private IEnumerator StopTorque(float delay)
     {
         yield return new WaitForSecondsRealtime(delay);
 
