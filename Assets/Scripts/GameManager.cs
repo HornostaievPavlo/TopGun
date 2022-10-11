@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     private float restartDelay;
 
     // Time
+
+    public GameObject visualizer;
+
     private float _fixedDeltaTime;
 
     private void Awake()
@@ -41,6 +44,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = timeScaleValue;
 
         Time.fixedDeltaTime = _fixedDeltaTime * Time.timeScale;
+
+        visualizer.SetActive(true);
     }
 
     /// <summary>
@@ -55,5 +60,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(resetDelay);
 
         SetTimeScale(defaultTimeScale);
+
+        visualizer.SetActive(false);
     }
 }
