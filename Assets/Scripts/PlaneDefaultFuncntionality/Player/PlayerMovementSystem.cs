@@ -17,6 +17,8 @@ public class PlayerMovementSystem : MonoBehaviour
 
     private CollisionSystem _collisionSystem;
 
+    private ShootingSystem _shootingSystem;
+
     //
 
     private Rigidbody _rigidbody;
@@ -49,6 +51,8 @@ public class PlayerMovementSystem : MonoBehaviour
         _healthSystem = GetComponent<HealthSystem>();
 
         _collisionSystem = GetComponent<CollisionSystem>();
+
+        _shootingSystem = GetComponent<ShootingSystem>();
 
         _rigidbody = GetComponentInChildren<Rigidbody>();
 
@@ -107,36 +111,54 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            float _dodgeTimeScale = 0.75f;
-
-            _rigidbody.AddTorque(_torqueDirection * _torquePower);
-
-            _collider.enabled = false;
-
-            _gameManager.SetTimeScale(_dodgeTimeScale);
-
-            _torqueTimer += (Time.deltaTime * Time.timeScale);
+            EnableDodge();
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            StartCoroutine(_gameManager.ResetTimeScale(2f));
-
-            _collider.enabled = true;
-
-            if (_torqueTimer >= 1)
-            {
-                Debug.LogError("baza");
-                StartCoroutine(SlowTorque(slowingTimer));
-            }
-            if (_torqueTimer < 1)
-            {
-                float _torqueStopDelay = 0.5f;
-                Debug.LogWarning("too short");
-                StartCoroutine(StopTorque(_torqueStopDelay));
-            }
-
-            _torqueTimer = 0;
+            DisableDodge();
         }
+    }
+
+    private void EnableDodge()
+    {
+        float _dodgeTimeScale = 0.75f;
+
+        _rigidbody.AddTorque(_torqueDirection * _torquePower);
+
+        _shootingSystem.enabled = false;
+
+        _collider.enabled = false;
+
+        _gameManager.SetTimeScale(_dodgeTimeScale);
+
+        _torqueTimer += (Time.deltaTime * Time.timeScale);
+    }
+
+    private void DisableDodge()
+    {
+        float _dodgeStateChangingValue = 1f;
+
+        float _timeScaleResetDelay = 2f;
+
+        StartCoroutine(_gameManager.ResetTimeScale(_timeScaleResetDelay));
+
+        _shootingSystem.enabled = true;
+
+        _collider.enabled = true;
+
+        if (_torqueTimer >= _dodgeStateChangingValue)
+        {
+            Debug.LogError("baza");
+            StartCoroutine(SlowTorque(slowingTimer));
+        }
+        if (_torqueTimer < _dodgeStateChangingValue)
+        {
+            float _torqueStopDelay = 0.5f;
+            Debug.LogWarning("too short");
+            StartCoroutine(StopTorque(_torqueStopDelay));
+        }
+
+        _torqueTimer = 0;
     }
 
     private IEnumerator SlowTorque(float delay)
