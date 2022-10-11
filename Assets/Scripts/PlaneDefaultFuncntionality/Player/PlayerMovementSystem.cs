@@ -15,24 +15,33 @@ public class PlayerMovementSystem : MonoBehaviour
 
     //
 
-    public Rigidbody rb;
-    public Vector3 torqueDir;
-    public float torquePower;
+    private Rigidbody _rigidbody;
+    private Vector3 _torqueDirection;
 
-    public float slowingTimer;
-    public float resetTimer;
+    public float _torquePower;
 
-    public float slowingMultiplier;
+    //public float slowingTimer;
+    //public float stopTimer;
 
-    public float timer = 0f;
+    [Tooltip("Multiplier for opposite torque")]
+    public float _slowingMultiplier;
+
+    public float _torqueTimer = 0f;
 
     private void Start()
+    {
+        InitializeVariables();
+    }
+
+    private void InitializeVariables()
     {
         _healthSystem = GetComponent<HealthSystem>();
 
         _collisionSystem = GetComponent<CollisionSystem>();
 
-        rb = GetComponentInChildren<Rigidbody>();
+        _rigidbody = GetComponentInChildren<Rigidbody>();
+
+        _torqueDirection = new Vector3(-1, 0, 0);
     }
 
     private void Update()
@@ -83,45 +92,47 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            rb.AddTorque(torqueDir * torquePower);
+            _rigidbody.AddTorque(_torqueDirection * _torquePower);
 
-            timer += Time.deltaTime;
+            _torqueTimer += Time.deltaTime;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            if (timer >= 3)
+            //if (timer >= 3)
+            //{
+            //    Debug.LogError("baza");
+            //    StartCoroutine(SlowTorque());
+            //}
+            if (_torqueTimer < 2)
             {
-                Debug.LogError("baza");
-                StartCoroutine(SlowTorque());
-            }
-            if (timer < 3)
-            {
+                float _torqueStopDelay = 1f;
                 Debug.LogWarning("too short");
-                StartCoroutine(StopTorque(1f));
+                StartCoroutine(StopTorque(_torqueStopDelay));
             }
 
-            timer = 0;
+            _torqueTimer = 0;
 
         }
     }
-    private IEnumerator SlowTorque()
-    {
-        yield return new WaitForSecondsRealtime(slowingTimer);
 
-        rb.AddTorque(torqueDir * (-torquePower * slowingMultiplier));
-
-        StartCoroutine(StopTorque(resetTimer));
-    }
-
-    private IEnumerator StopTorque(float delay)
+    private IEnumerator SlowTorque(float delay) // крутим в обратку и начинаем stop
     {
         yield return new WaitForSecondsRealtime(delay);
 
-        Vector3 _currentRotation = new Vector3(rb.transform.eulerAngles.x, rb.transform.eulerAngles.y, rb.transform.eulerAngles.z);
+        _rigidbody.AddTorque(_torqueDirection * (-_torquePower * _slowingMultiplier));
 
-        rb.transform.eulerAngles = _currentRotation;
+        //StartCoroutine(StopTorque(stopTimer));
+    }
 
-        rb.isKinematic = true;
-        rb.isKinematic = false;
+    private IEnumerator StopTorque(float delay) // стоп сразу после delay
+    {
+        yield return new WaitForSecondsRealtime(delay);
+
+        Vector3 _currentRotation = new Vector3(_rigidbody.transform.eulerAngles.x, _rigidbody.transform.eulerAngles.y, _rigidbody.transform.eulerAngles.z);
+
+        _rigidbody.transform.eulerAngles = _currentRotation;
+
+        _rigidbody.isKinematic = true;
+        _rigidbody.isKinematic = false;
     }
 }
