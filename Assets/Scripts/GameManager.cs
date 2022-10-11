@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     // Scene reloading
     public bool isGameOver = false;
 
-    public float restartDelay;
+    private float restartDelay;
 
     // Time
     private float _fixedDeltaTime;

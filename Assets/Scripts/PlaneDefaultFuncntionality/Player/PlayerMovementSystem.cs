@@ -4,10 +4,14 @@ using UnityEngine;
 public class PlayerMovementSystem : MonoBehaviour
 {
     [SerializeField]
+    [Tooltip("3 should be ok for game ready")]
     [Range(0, 10)] private float _horizontalMovementSpeed;
 
     [SerializeField]
+    [Tooltip("3 should be ok for game ready")]
     [Range(0, 10)] private float _verticalMovementSpeed;
+
+    [SerializeField] private GameManager _gameManager;
 
     private HealthSystem _healthSystem;
 
@@ -18,18 +22,22 @@ public class PlayerMovementSystem : MonoBehaviour
     private Rigidbody _rigidbody;
     private Vector3 _torqueDirection;
 
-    public float _torquePower;
+    [SerializeField] private float _torquePower; // 1
 
     [Tooltip("Time until slowing begins")]
-    public float slowingTimer;
+    [SerializeField] private float slowingTimer; // 0.1f
 
     [Tooltip("Time until stopping begins")]
-    public float stopTimer;
+    [SerializeField] private float stopTimer; // 3
 
     [Tooltip("Multiplier for opposite torque")]
-    public float _slowingMultiplier;
+    [SerializeField] private float _slowingMultiplier; // 150
 
-    public float _torqueTimer = 0f;
+    public float _torqueTimer;
+
+    private BoxCollider _collider;
+
+    //public float timeScale; // test
 
     private void Start()
     {
@@ -44,7 +52,11 @@ public class PlayerMovementSystem : MonoBehaviour
 
         _rigidbody = GetComponentInChildren<Rigidbody>();
 
+        _collider = GetComponent<BoxCollider>();
+
         _torqueDirection = new Vector3(-1, 0, 0);
+
+        _torqueTimer = 0f;
     }
 
     private void Update()
@@ -95,18 +107,28 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            float _dodgeTimeScale = 0.75f;
+
             _rigidbody.AddTorque(_torqueDirection * _torquePower);
 
-            _torqueTimer += Time.deltaTime;
+            _collider.enabled = false;
+
+            _gameManager.SetTimeScale(_dodgeTimeScale);
+
+            _torqueTimer += (Time.deltaTime * Time.timeScale);
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            if (_torqueTimer >= 2)
+            StartCoroutine(_gameManager.ResetTimeScale(2f));
+
+            _collider.enabled = true;
+
+            if (_torqueTimer >= 1)
             {
                 Debug.LogError("baza");
                 StartCoroutine(SlowTorque(slowingTimer));
             }
-            if (_torqueTimer < 2)
+            if (_torqueTimer < 1)
             {
                 float _torqueStopDelay = 0.5f;
                 Debug.LogWarning("too short");
@@ -114,11 +136,10 @@ public class PlayerMovementSystem : MonoBehaviour
             }
 
             _torqueTimer = 0;
-
         }
     }
 
-    private IEnumerator SlowTorque(float delay) 
+    private IEnumerator SlowTorque(float delay)
     {
         yield return new WaitForSecondsRealtime(delay);
 

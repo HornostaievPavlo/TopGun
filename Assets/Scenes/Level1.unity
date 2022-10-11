@@ -8066,9 +8066,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5992f6c86c3ee8f49bcdbbde30ae0dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _horizontalMovementSpeed: 3
-  _verticalMovementSpeed: 3
-  _torquePower: 1
+  _horizontalMovementSpeed: 5
+  _verticalMovementSpeed: 5
+  _gameManager: {fileID: 1743662300}
+  _torquePower: 1.25
   slowingTimer: 0.1
   stopTimer: 3
   _slowingMultiplier: 150
@@ -15950,7 +15951,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameOver: 0
-  restartDelay: 0
 --- !u!4 &1743662301
 Transform:
   m_ObjectHideFlags: 0
