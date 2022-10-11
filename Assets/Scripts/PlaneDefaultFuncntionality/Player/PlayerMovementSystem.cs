@@ -23,6 +23,8 @@ public class PlayerMovementSystem : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private Vector3 _torqueDirection;
+    private float _dodgeTimer;
+    private BoxCollider _collider;
 
     [SerializeField] private float _torquePower; // 1
 
@@ -34,10 +36,6 @@ public class PlayerMovementSystem : MonoBehaviour
 
     [Tooltip("Multiplier for opposite torque")]
     [SerializeField] private float _slowingMultiplier; // 150
-
-    public float _torqueTimer;
-
-    private BoxCollider _collider;
 
     //public float timeScale; // test
 
@@ -60,7 +58,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
         _torqueDirection = new Vector3(-1, 0, 0);
 
-        _torqueTimer = 0f;
+        _dodgeTimer = 0f;
     }
 
     private void Update()
@@ -123,15 +121,15 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         float _dodgeTimeScale = 0.75f;
 
+        _gameManager.SetTimeScale(_dodgeTimeScale);
+
         _rigidbody.AddTorque(_torqueDirection * _torquePower);
 
         _shootingSystem.enabled = false;
 
         _collider.enabled = false;
 
-        _gameManager.SetTimeScale(_dodgeTimeScale);
-
-        _torqueTimer += (Time.deltaTime * Time.timeScale);
+        _dodgeTimer += (Time.deltaTime * Time.timeScale);
     }
 
     private void DisableDodge()
@@ -146,19 +144,19 @@ public class PlayerMovementSystem : MonoBehaviour
 
         _collider.enabled = true;
 
-        if (_torqueTimer >= _dodgeStateChangingValue)
+        if (_dodgeTimer >= _dodgeStateChangingValue)
         {
             Debug.LogError("baza");
             StartCoroutine(SlowTorque(slowingTimer));
         }
-        if (_torqueTimer < _dodgeStateChangingValue)
+        if (_dodgeTimer < _dodgeStateChangingValue)
         {
             float _torqueStopDelay = 0.5f;
             Debug.LogWarning("too short");
             StartCoroutine(StopTorque(_torqueStopDelay));
         }
 
-        _torqueTimer = 0;
+        _dodgeTimer = 0;
     }
 
     private IEnumerator SlowTorque(float delay)

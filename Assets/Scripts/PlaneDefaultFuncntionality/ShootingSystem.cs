@@ -15,6 +15,10 @@ public class ShootingSystem : MonoBehaviour
     private float _bulletFireElapsedTime;
     private float _bombFireElapsedTime;
 
+    // enemy auto shooting
+    public float time;
+    public float shootingRate;
+
     private void Start()
     {
         _bulletFireElapsedTime = 0f;
@@ -23,7 +27,9 @@ public class ShootingSystem : MonoBehaviour
 
     void Update()
     {
-        AssignFireType();
+        //AssignFireType();
+        PlayerFire();
+        ShooterEnemyFire();
     }
 
     private void AssignFireType()
@@ -73,8 +79,7 @@ public class ShootingSystem : MonoBehaviour
 
     private void ShooterEnemyFire()
     {
-        if (Input.GetKeyDown(KeyCode.F)) InvokeRepeating("ShootBullet", 1, 10);
-
+        InvokeRepeating("ShootBullet", 1, 10);
 
         // manual testing
         //if (Input.GetKeyDown(KeyCode.F))

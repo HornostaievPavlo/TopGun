@@ -6899,7 +6899,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 352600655}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.14, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 0.45000002, y: 0.45000002, z: 0.45000002}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -17410,8 +17410,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -883.8, y: 457.4}
-  m_SizeDelta: {x: 90.5127, y: 115.5434}
+  m_AnchoredPosition: {x: -830.7818, y: 457.4}
+  m_SizeDelta: {x: 196.5491, y: 115.5434}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &620296125
 MonoBehaviour:
@@ -18054,7 +18054,6 @@ MonoBehaviour:
   slowingTimer: 0.1
   stopTimer: 3
   _slowingMultiplier: 150
-  _torqueTimer: 0
 --- !u!1 &759933518
 GameObject:
   m_ObjectHideFlags: 0
@@ -18650,7 +18649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912007809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.86, y: 3.14, z: 0}
+  m_LocalPosition: {x: 25.86, y: 4, z: 0}
   m_LocalScale: {x: 0.45000002, y: 0.45000002, z: 0.45000002}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -18989,7 +18988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409d4726471e16040ad641ee1c944665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalMovementSpeed: 0
+  _verticalMovementSpeed: 3
 --- !u!4 &1159276845
 Transform:
   m_ObjectHideFlags: 0
@@ -19055,6 +19054,8 @@ MonoBehaviour:
   _bombSpawner: {fileID: 312081719}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
   _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
+  time: 1
+  shootingRate: 10
 --- !u!114 &1159276852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20634,7 +20635,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592786692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.32, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39502,7 +39503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damagedMaterial: {fileID: 2100000, guid: 50ba06f99a2a7084ea1ff6e07751e64f, type: 2}
-  _health: 4
+  _health: 20
   _isDeath: 0
   hpText: {fileID: 620296125}
 --- !u!114 &8296172667624262495
@@ -39539,6 +39540,8 @@ MonoBehaviour:
   _bombSpawner: {fileID: 63013672}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
   _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
+  time: 0
+  shootingRate: 0
 --- !u!23 &8405317063729894632
 MeshRenderer:
   m_ObjectHideFlags: 0
