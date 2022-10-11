@@ -73,18 +73,38 @@ public class ShootingSystem : MonoBehaviour
 
     private void ShooterEnemyFire()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F)) InvokeRepeating("ShootBullet", 1, 10);
+
+
+        // manual testing
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    Debug.LogWarning("Switch to ENEMY BULLET mode");
+
+        //    Instantiate(_bulletPrefab, _bulletSpawner.position, transform.rotation);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    Debug.LogWarning("Switch to ENEMY BOMB mode");
+
+        //    Instantiate(_bombPrefab, _bombSpawner.position, transform.rotation);
+        //}
+    }
+
+    private void ShootBullet()
+    {
+        float bulletFireDelay = 0.3f;
+
+        _bulletFireElapsedTime += Time.deltaTime;
+
+        if (_bulletFireElapsedTime > bulletFireDelay)
         {
-            Debug.LogWarning("Switch to ENEMY BULLET mode");
+            Debug.Log("Switch to ENEMY BULLET mode");
+
+            _bulletFireElapsedTime = 0;
 
             Instantiate(_bulletPrefab, _bulletSpawner.position, transform.rotation);
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Debug.LogWarning("Switch to ENEMY BOMB mode");
-
-            Instantiate(_bombPrefab, _bombSpawner.position, transform.rotation);
         }
     }
 }

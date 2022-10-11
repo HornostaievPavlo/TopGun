@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(CollisionSystem))]
@@ -15,6 +16,8 @@ public class HealthSystem : MonoBehaviour
 
     public bool _isDeath;
 
+    [SerializeField] private TMP_Text hpText;
+
     void Start()
     {
         InitializeVariables();
@@ -23,6 +26,8 @@ public class HealthSystem : MonoBehaviour
     void Update()
     {
         UpdateState();
+
+        if (hpText != null) hpText.text = _health.ToString();
     }
 
     private void InitializeVariables()
@@ -48,9 +53,9 @@ public class HealthSystem : MonoBehaviour
         if (_health <= 2)
         {
             _bodyMeshRenderer.material = _damagedMaterial;
-            
-            if(_collisionSystem._fireParticleSystem != null)
-            _collisionSystem._fireParticleSystem.SetActive(true);
+
+            if (_collisionSystem._fireParticleSystem != null)
+                _collisionSystem._fireParticleSystem.SetActive(true);
         }
     }
 }
