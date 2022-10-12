@@ -1,9 +1,8 @@
 using UnityEngine;
 
+[RequireComponent(typeof(GameEntity))]
 public class ShootingSystem : MonoBehaviour
 {
-    [SerializeField] private PlaneType _planeType;
-
     [SerializeField] private Transform _bulletSpawner;
 
     [SerializeField] private Transform _bombSpawner;
@@ -11,6 +10,10 @@ public class ShootingSystem : MonoBehaviour
     [SerializeField] private GameObject _bulletPrefab;
 
     [SerializeField] private GameObject _bombPrefab;
+
+    public EnemyShootingSystem _enemyShootingSystem;
+
+    public PlaneType _planeType;
 
     private float _bulletFireElapsedTime;
     private float _bombFireElapsedTime;
@@ -21,8 +24,15 @@ public class ShootingSystem : MonoBehaviour
 
     private void Start()
     {
+        InitializeVariables();
+    }
+
+    private void InitializeVariables()
+    {
         _bulletFireElapsedTime = 0f;
         _bombFireElapsedTime = 0f;
+
+        _planeType = GetComponent<GameEntity>()._type;
     }
 
     void Update()
@@ -50,7 +60,7 @@ public class ShootingSystem : MonoBehaviour
         }
     }
 
-    private void PlayerFire()
+    public void PlayerFire()
     {
         float bombFireDelay = 3f;
         float bulletFireDelay = 0.15f;

@@ -4,17 +4,15 @@ public class EnemyMovementSystem : MonoBehaviour
 {
     [SerializeField] private GameObject _movePointsParent;
 
+    [SerializeField] private float _moveSpeed;
+
     private HealthSystem _healthSystem;
 
     private CollisionSystem _collisionSystem;
 
-    // moving through points array
+    private Transform[] _movePoints;
 
-    public Transform[] _movePoints;
-
-    public float _moveSpeed;
-
-    public int _currentIndex;
+    private int _currentIndex;
 
     private void Start()
     {
@@ -57,40 +55,4 @@ public class EnemyMovementSystem : MonoBehaviour
             _collisionSystem.FallDown();
         }
     }
-
-    // left for testing
-    //[SerializeField]
-    //[Range(0, 10)] private float _verticalMovementSpeed;
-
-    //private bool _isMovingUp;
-
-    //private void UpSideDownMovement()
-    //{
-    //    if (!_healthSystem._isDeath)
-    //    {
-    //        int movingRestrictionPoint = Screen.height / 270;
-
-    //        if (transform.position.y > movingRestrictionPoint)
-    //        {
-    //            _isMovingUp = false;
-    //        }
-    //        if (transform.position.y < -movingRestrictionPoint)
-    //        {
-    //            _isMovingUp = true;
-    //        }
-
-    //        if (!_isMovingUp)
-    //        {
-    //            transform.Translate(Vector3.down * Time.deltaTime * _verticalMovementSpeed);
-    //        }
-    //        else
-    //        {
-    //            transform.Translate(Vector3.up * Time.deltaTime * _verticalMovementSpeed);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        _collisionSystem.FallDown();
-    //    }
-    //}
 }
