@@ -19127,7 +19127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159276842}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 9, y: -5.61, z: 0}
+  m_LocalPosition: {x: 3.22, y: 0.11, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -19179,14 +19179,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053dd53661d705f428f1651669dd1d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _planeType: 0
   _bulletSpawner: {fileID: 261368716}
   _bombSpawner: {fileID: 312081719}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
   _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
-  _enemyShootingSystem: {fileID: 0}
-  _planeType: 1
-  time: 1
-  shootingRate: 10
 --- !u!114 &1159276852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30091,7 +30088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &8296172667624262492
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30150,14 +30147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053dd53661d705f428f1651669dd1d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _planeType: 0
   _bulletSpawner: {fileID: 119638108}
   _bombSpawner: {fileID: 63013672}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
   _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
-  _enemyShootingSystem: {fileID: 0}
-  _planeType: 0
-  time: 0
-  shootingRate: 0
 --- !u!114 &8296172667624262497
 MonoBehaviour:
   m_ObjectHideFlags: 0

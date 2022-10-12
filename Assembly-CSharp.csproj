@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\GameEntity.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\EnemyShootingSystem.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Player\PlayerShootingSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
