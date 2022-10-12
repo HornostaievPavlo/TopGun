@@ -52,7 +52,7 @@ public class ShootingSystem : MonoBehaviour
 
     private void PlayerFire()
     {
-        //float bombFireDelay = 3f;
+        float bombFireDelay = 3f;
         float bulletFireDelay = 0.15f;
 
         _bulletFireElapsedTime += Time.deltaTime;
@@ -67,7 +67,7 @@ public class ShootingSystem : MonoBehaviour
             Instantiate(_bulletPrefab, _bulletSpawner.position, transform.rotation);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))// && _bombFireElapsedTime > bombFireDelay)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && _bombFireElapsedTime > bombFireDelay)
         {
             Debug.Log("Switch to PLAYER BOMB mode");
 
