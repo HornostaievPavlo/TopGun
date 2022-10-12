@@ -28,8 +28,8 @@ public class ShootingSystem : MonoBehaviour
     void Update()
     {
         //AssignFireType();
-        PlayerFire();
-        ShooterEnemyFire();
+        //PlayerFire();
+        //ShooterEnemyFire();
     }
 
     private void AssignFireType()

@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\UI\CreditsUpMovement.cs" />
-    <Compile Include="Assets\Scripts\LerpTest.cs" />
     <Compile Include="Assets\Scripts\LevelReloader.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\EnemyMovementSystem.cs" />
     <Compile Include="Assets\Scripts\Ammo\AmmoType.cs" />
