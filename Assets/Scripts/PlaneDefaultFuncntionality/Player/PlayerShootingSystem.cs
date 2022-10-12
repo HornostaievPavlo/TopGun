@@ -16,6 +16,11 @@ public class PlayerShootingSystem : MonoBehaviour
 
     private void Start()
     {
+        InitializeVariables();
+    }
+
+    private void InitializeVariables()
+    {
         Debug.Log("Hello from player shooting system");
 
         _shootingSystem = GetComponent<ShootingSystem>();
@@ -36,6 +41,7 @@ public class PlayerShootingSystem : MonoBehaviour
     private void Update()
     {
         Fire();
+        this.enabled = _shootingSystem.enabled;
     }
 
     public void Fire()

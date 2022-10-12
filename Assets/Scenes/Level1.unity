@@ -6445,7 +6445,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307440429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.002, y: 1.914, z: 0}
+  m_LocalPosition: {x: -6.51, y: 4.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17464,7 +17464,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602630396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: -2.96, z: 0}
+  m_LocalPosition: {x: -0.85, y: 4.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19154,6 +19154,7 @@ MonoBehaviour:
   _explosionParticleSystem: {fileID: 2461939709458799138}
   _fireParticleSystem: {fileID: 4515095248861645392}
   _explosionForce: 1
+  fallingSpeed: 2
 --- !u!65 &1159276848
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19179,7 +19180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053dd53661d705f428f1651669dd1d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planeType: 0
   _bulletSpawner: {fileID: 261368716}
   _bombSpawner: {fileID: 312081719}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
@@ -26471,7 +26471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1777764579}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.28, y: 1.87, z: 0}
+  m_LocalPosition: {x: 4.03, y: 4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30088,7 +30088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &8296172667624262492
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30115,7 +30115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damagedMaterial: {fileID: 2100000, guid: 50ba06f99a2a7084ea1ff6e07751e64f, type: 2}
-  _health: 20
+  _health: 50
   _isDeath: 0
   hpText: {fileID: 620296125}
 --- !u!114 &8296172667624262495
@@ -30135,6 +30135,7 @@ MonoBehaviour:
   _explosionParticleSystem: {fileID: 1732064887}
   _fireParticleSystem: {fileID: 537422005}
   _explosionForce: 0
+  fallingSpeed: 2
 --- !u!114 &8296172667624262496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30147,7 +30148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053dd53661d705f428f1651669dd1d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planeType: 0
   _bulletSpawner: {fileID: 119638108}
   _bombSpawner: {fileID: 63013672}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}

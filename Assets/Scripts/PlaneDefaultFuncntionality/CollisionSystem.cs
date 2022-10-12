@@ -11,6 +11,8 @@ public class CollisionSystem : MonoBehaviour
 
     private HealthSystem _healthSystem;
 
+    private ShootingSystem _shootingSystem;
+
     private Rigidbody _parentRigidbody;
 
     public GameObject _fireParticleSystem;
@@ -18,6 +20,8 @@ public class CollisionSystem : MonoBehaviour
     private Collider[] _childColliders;
 
     [SerializeField] private float _explosionForce;
+
+    [SerializeField] private float fallingSpeed;
 
     private void Start()
     {
@@ -27,6 +31,8 @@ public class CollisionSystem : MonoBehaviour
     private void InitializeVariables()
     {
         _healthSystem = GetComponent<HealthSystem>();
+
+        _shootingSystem = GetComponent<ShootingSystem>();
 
         _parentRigidbody = GetComponentInChildren<Rigidbody>();
 
@@ -77,6 +83,8 @@ public class CollisionSystem : MonoBehaviour
     {
         _healthSystem._isDeath = true;
 
+        _shootingSystem.enabled = false;
+
         float _explosionRadius = 1;
 
         float _explodedRigidbodyMass = 1;
@@ -111,7 +119,8 @@ public class CollisionSystem : MonoBehaviour
 
     public void FallDown()
     {
-        float fallSpeed = 1.5f;
+        //float fallSpeed = 1.5f;
+        float fallSpeed = fallingSpeed;
 
         Vector3 fallDirection = new Vector3(0.5f, -1, 0);
 
