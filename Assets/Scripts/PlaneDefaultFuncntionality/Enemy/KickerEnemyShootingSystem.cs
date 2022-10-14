@@ -5,11 +5,9 @@ public class KickerEnemyShootingSystem : MonoBehaviour
 {
     private EnemyMovementSystem _enemyMovementSystem;
 
-    private ShootingSystem _shootingSystem;
+    private HealthSystem _healthSystem;
 
-    public Transform _player;
-
-    public float _movementSpeed;
+    private Transform _player;
 
     void Start()
     {
@@ -19,9 +17,9 @@ public class KickerEnemyShootingSystem : MonoBehaviour
 
         _enemyMovementSystem.enabled = false;
 
-        _shootingSystem = GetComponent<ShootingSystem>();
+        _healthSystem = GetComponent<HealthSystem>();
 
-        _player = _shootingSystem._player;
+        _player = GameObject.Find("Player").transform;
     }
 
     void Update()
@@ -31,8 +29,11 @@ public class KickerEnemyShootingSystem : MonoBehaviour
 
     private void FollowPlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position,
-                                                _player.position,
-                                                2 * Time.deltaTime);
+        if (!_healthSystem._isDeath)
+        {
+            transform.position = Vector3.MoveTowards(transform.position,
+                                        _player.position,
+                                        2 * Time.deltaTime);
+        }
     }
 }

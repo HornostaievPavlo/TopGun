@@ -13,8 +13,6 @@ public class ShootingSystem : MonoBehaviour
 
     public GameObject _bombPrefab;
 
-    public Transform _player;
-
     private void Start()
     {
         _planeType = GetComponent<GameEntity>()._type;
@@ -27,8 +25,6 @@ public class ShootingSystem : MonoBehaviour
         switch (_planeType)
         {
             case PlaneType.Player:
-
-                Debug.Log("We have a player");
 
                 gameObject.AddComponent<PlayerShootingSystem>();
 

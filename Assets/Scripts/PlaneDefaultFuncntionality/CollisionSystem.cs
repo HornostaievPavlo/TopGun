@@ -43,13 +43,16 @@ public class CollisionSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        AmmoType hitType = other.gameObject.GetComponent<AmmoController>().type;
+        AmmoType _hitType = other.gameObject.GetComponent<AmmoController>().type;
 
-        switch (hitType)
+        //PlaneType _planeType = other.gameObject.GetComponent<GameEntity>()._type;
+
+        switch (_hitType)
         {
             case AmmoType.Bullet:
 
                 ApplyBulletDamage();
+
                 break;
 
             case AmmoType.Bomb:
@@ -59,19 +62,16 @@ public class CollisionSystem : MonoBehaviour
         }
 
         Destroy(other.gameObject);
+
     }
 
     private void ApplyBulletDamage()
     {
-        //Debug.LogWarning("Bullet hit");
-
         _healthSystem._health -= 1;
     }
 
     private void ApplyBombDamage()
     {
-        //Debug.LogError("Bomb hit");
-
         Explode();
 
         _gameManager.SetTimeScale(_explosionTimeScaleValue);
@@ -134,8 +134,6 @@ public class CollisionSystem : MonoBehaviour
 
         if (transform.position.y < -10)
         {
-            Debug.LogWarning("Out of the game");
-
             Destroy(gameObject);
         }
     }

@@ -294,7 +294,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &32716628
 GameObject:
@@ -20152,6 +20152,7 @@ MonoBehaviour:
   _horizontalMovementSpeed: 5
   _verticalMovementSpeed: 5
   _gameManager: {fileID: 1743662300}
+  _system: {fileID: 0}
   _torquePower: 1.25
   slowingTimer: 0.1
   stopTimer: 3
@@ -20747,7 +20748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &800241768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20764,7 +20765,6 @@ MonoBehaviour:
   _bombSpawner: {fileID: 1081323229}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
   _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
-  _player: {fileID: 5006512736903526728}
 --- !u!114 &800241769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20855,7 +20855,7 @@ Transform:
   - {fileID: 1143705254}
   - {fileID: 518869375}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &803721142
 GameObject:
@@ -21240,7 +21240,6 @@ MonoBehaviour:
   _bombSpawner: {fileID: 1330819121}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
   _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
-  _player: {fileID: 0}
 --- !u!114 &954749252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22554,7 +22553,6 @@ MonoBehaviour:
   _bombSpawner: {fileID: 312081719}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
   _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
-  _player: {fileID: 0}
 --- !u!114 &1159276852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32804,7 +32802,7 @@ RectTransform:
   - {fileID: 1289812802}
   - {fileID: 620296124}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -35521,7 +35519,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172667624262491}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.83, y: 2.99, z: 0}
+  m_LocalPosition: {x: 0.75, y: 2.99, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -36819,7 +36817,6 @@ MonoBehaviour:
   _bombSpawner: {fileID: 63013672}
   _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
   _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
-  _player: {fileID: 0}
 --- !u!114 &8296172667624262497
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,8 @@ public class PlayerMovementSystem : MonoBehaviour
 
     private ShootingSystem _shootingSystem;
 
+    public PlayerShootingSystem _system;
+
     //
 
     private Rigidbody _rigidbody;
@@ -59,6 +61,8 @@ public class PlayerMovementSystem : MonoBehaviour
         _torqueDirection = new Vector3(-1, 0, 0);
 
         _dodgeTimer = 0f;
+
+        StartCoroutine(SearchForShootingSystem());
     }
 
     private void Update()
@@ -125,7 +129,11 @@ public class PlayerMovementSystem : MonoBehaviour
 
         _rigidbody.AddTorque(_torqueDirection * _torquePower);
 
-        _shootingSystem.enabled = false;
+        //_shootingSystem.enabled = false;
+
+        //PlayerShootingSystem _system = GetComponent<PlayerShootingSystem>();
+
+        _system.enabled = false;
 
         _collider.enabled = false;
 
@@ -140,19 +148,23 @@ public class PlayerMovementSystem : MonoBehaviour
 
         StartCoroutine(_gameManager.ResetTimeScale(_timeScaleResetDelay));
 
-        _shootingSystem.enabled = true;
+        //_shootingSystem.enabled = true;
+
+        //PlayerShootingSystem _system = GetComponent<PlayerShootingSystem>();
+
+        _system.enabled = true;
 
         _collider.enabled = true;
 
         if (_dodgeTimer >= _dodgeStateChangingValue)
         {
-            Debug.LogError("baza");
+            //Debug.LogWarning("ok dodge");
             StartCoroutine(SlowTorque(slowingTimer));
         }
         if (_dodgeTimer < _dodgeStateChangingValue)
         {
             float _torqueStopDelay = 0.5f;
-            Debug.LogWarning("too short");
+            //Debug.LogWarning("too short");
             StartCoroutine(StopTorque(_torqueStopDelay));
         }
 
@@ -178,5 +190,12 @@ public class PlayerMovementSystem : MonoBehaviour
 
         _rigidbody.isKinematic = true;
         _rigidbody.isKinematic = false;
+    }
+
+    private IEnumerator SearchForShootingSystem()
+    {
+        yield return new WaitForEndOfFrame();
+
+        _system = GetComponent<PlayerShootingSystem>();
     }
 }
