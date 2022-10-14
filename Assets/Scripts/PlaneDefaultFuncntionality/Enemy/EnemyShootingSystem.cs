@@ -5,13 +5,14 @@ public class EnemyShootingSystem : MonoBehaviour
 {
     private ShootingSystem _shootingSystem;
 
-    private Transform _bulletSpawner;
+    private float _ammoFireElapsedTime;
 
-    private GameObject _bulletPrefab;
+    public float _ammoFireDelay;
 
-    private float _bulletFireElapsedTime;
+    public Transform _ammoSpawner;
 
-    // enemy auto shooting
+    public GameObject _ammoPrefab;
+
     public float time;
     public float shootingRate;
 
@@ -22,15 +23,9 @@ public class EnemyShootingSystem : MonoBehaviour
 
     private void InitializeVariables()
     {
-        Debug.Log("Hello from enemy shooting system");
-
         _shootingSystem = GetComponent<ShootingSystem>();
 
-        _bulletSpawner = _shootingSystem._bulletSpawner;
-
-        _bulletPrefab = _shootingSystem._bulletPrefab;
-
-        _bulletFireElapsedTime = 0f;
+        _ammoFireElapsedTime = 0f;
     }
 
     private void Update()
@@ -41,35 +36,18 @@ public class EnemyShootingSystem : MonoBehaviour
 
     private void Fire()
     {
-        InvokeRepeating("FireBullet", 1, 10);
+        InvokeRepeating("FireShot", 1, 10);
     }
 
-    private void FireBullet()
+    private void FireShot()
     {
-        float bulletFireDelay = 0.3f;
+        _ammoFireElapsedTime += Time.deltaTime;
 
-        _bulletFireElapsedTime += Time.deltaTime;
-
-        if (_bulletFireElapsedTime > bulletFireDelay)
+        if (_ammoFireElapsedTime > _ammoFireDelay)
         {
-            _bulletFireElapsedTime = 0;
+            _ammoFireElapsedTime = 0;
 
-            Instantiate(_bulletPrefab, _bulletSpawner.position, transform.rotation);
+            Instantiate(_ammoPrefab, _ammoSpawner.position, transform.rotation);
         }
     }
 }
-
-// manual testing
-//if (Input.GetKeyDown(KeyCode.F))
-//{
-//    Debug.LogWarning("Switch to ENEMY BULLET mode");
-
-//    Instantiate(_bulletPrefab, _bulletSpawner.position, transform.rotation);
-//}
-
-//if (Input.GetKeyDown(KeyCode.G))
-//{
-//    Debug.LogWarning("Switch to ENEMY BOMB mode");
-
-//    Instantiate(_bombPrefab, _bombSpawner.position, transform.rotation);
-//}

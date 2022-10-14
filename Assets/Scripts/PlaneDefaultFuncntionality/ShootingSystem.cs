@@ -34,9 +34,31 @@ public class ShootingSystem : MonoBehaviour
 
             case PlaneType.Shooter_Enemy:
 
-                Debug.Log("We have a shooter enemy");
+                var _shootingSystem = gameObject.AddComponent<EnemyShootingSystem>();
 
-                gameObject.AddComponent<EnemyShootingSystem>();
+                _shootingSystem._ammoSpawner = _bulletSpawner;
+
+                _shootingSystem._ammoPrefab = _bulletPrefab;
+
+                _shootingSystem._ammoFireDelay = 0.3f;
+
+                break;
+
+            case PlaneType.Bomber_Enemy:
+
+                var _bombingSystem = gameObject.AddComponent<EnemyShootingSystem>();
+
+                _bombingSystem._ammoSpawner = _bombSpawner;
+
+                _bombingSystem._ammoPrefab = _bombPrefab;
+
+                _bombingSystem._ammoFireDelay = 3.0f;
+
+                break;
+
+            case PlaneType.Kicker_Enemy:
+
+                gameObject.AddComponent<KickerEnemyShootingSystem>();
 
                 break;
         }
