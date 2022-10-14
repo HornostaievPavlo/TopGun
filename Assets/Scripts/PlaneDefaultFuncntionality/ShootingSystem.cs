@@ -13,6 +13,8 @@ public class ShootingSystem : MonoBehaviour
 
     public GameObject _bombPrefab;
 
+    public Transform _player;
+
     private void Start()
     {
         _planeType = GetComponent<GameEntity>()._type;
