@@ -21221,7 +21221,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &954749251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21284,8 +21284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409d4726471e16040ad641ee1c944665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movePointsParent: {fileID: 67552917}
-  _moveSpeed: 0
+  _movePointsParent: {fileID: 1057551130}
+  _moveSpeed: 3
 --- !u!114 &954749255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22471,7 +22471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1159276843
 MonoBehaviour:
   m_ObjectHideFlags: 0

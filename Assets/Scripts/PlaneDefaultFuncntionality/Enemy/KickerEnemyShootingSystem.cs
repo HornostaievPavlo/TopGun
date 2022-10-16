@@ -5,11 +5,15 @@ public class KickerEnemyShootingSystem : MonoBehaviour
 {
     private HealthSystem _healthSystem;
 
+    private CollisionSystem _collisionSystem;
+
     private Transform _player;
 
     private void Start()
     {
         _healthSystem = GetComponent<HealthSystem>();
+
+        _collisionSystem = GetComponent<CollisionSystem>();
 
         _player = GameObject.Find("Player").transform;
     }
@@ -27,10 +31,9 @@ public class KickerEnemyShootingSystem : MonoBehaviour
                                         _player.position,
                                         2 * Time.deltaTime);
         }
-    }
-
-    private void FallDown()
-    {
-
+        else
+        {
+            _collisionSystem.FallDown();
+        }
     }
 }
