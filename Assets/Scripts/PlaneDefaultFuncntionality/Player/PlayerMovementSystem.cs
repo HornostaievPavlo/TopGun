@@ -11,15 +11,15 @@ public class PlayerMovementSystem : MonoBehaviour
     [Tooltip("3 should be ok for game ready")]
     [Range(0, 10)] private float _verticalMovementSpeed;
 
+    //
+
     [SerializeField] private GameManager _gameManager;
 
     private HealthSystem _healthSystem;
 
     private CollisionSystem _collisionSystem;
 
-    private ShootingSystem _shootingSystem;
-
-    public PlayerShootingSystem _system;
+    private PlayerShootingSystem _shootingSystem;
 
     //
 
@@ -52,8 +52,6 @@ public class PlayerMovementSystem : MonoBehaviour
 
         _collisionSystem = GetComponent<CollisionSystem>();
 
-        _shootingSystem = GetComponent<ShootingSystem>();
-
         _rigidbody = GetComponentInChildren<Rigidbody>();
 
         _collider = GetComponent<BoxCollider>();
@@ -62,7 +60,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
         _dodgeTimer = 0f;
 
-        StartCoroutine(SearchForShootingSystem());
+        StartCoroutine(GetShootingSystem());
     }
 
     private void Update()
@@ -129,11 +127,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
         _rigidbody.AddTorque(_torqueDirection * _torquePower);
 
-        //_shootingSystem.enabled = false;
-
-        //PlayerShootingSystem _system = GetComponent<PlayerShootingSystem>();
-
-        _system.enabled = false;
+        _shootingSystem.enabled = false;
 
         _collider.enabled = false;
 
@@ -142,26 +136,22 @@ public class PlayerMovementSystem : MonoBehaviour
 
     private void DisableDodge()
     {
-        float _dodgeStateChangingValue = 1f;
+        float _dodgeStateChangeTime = 1f;
 
         float _timeScaleResetDelay = 2f;
 
         StartCoroutine(_gameManager.ResetTimeScale(_timeScaleResetDelay));
 
-        //_shootingSystem.enabled = true;
-
-        //PlayerShootingSystem _system = GetComponent<PlayerShootingSystem>();
-
-        _system.enabled = true;
+        _shootingSystem.enabled = true;
 
         _collider.enabled = true;
 
-        if (_dodgeTimer >= _dodgeStateChangingValue)
+        if (_dodgeTimer >= _dodgeStateChangeTime)
         {
             //Debug.LogWarning("ok dodge");
             StartCoroutine(SlowTorque(slowingTimer));
         }
-        if (_dodgeTimer < _dodgeStateChangingValue)
+        if (_dodgeTimer < _dodgeStateChangeTime)
         {
             float _torqueStopDelay = 0.5f;
             //Debug.LogWarning("too short");
@@ -192,10 +182,10 @@ public class PlayerMovementSystem : MonoBehaviour
         _rigidbody.isKinematic = false;
     }
 
-    private IEnumerator SearchForShootingSystem()
+    private IEnumerator GetShootingSystem()
     {
         yield return new WaitForEndOfFrame();
 
-        _system = GetComponent<PlayerShootingSystem>();
+        _shootingSystem = GetComponent<PlayerShootingSystem>();
     }
 }

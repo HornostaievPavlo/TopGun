@@ -43,23 +43,42 @@ public class CollisionSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        AmmoType _hitType = other.gameObject.GetComponent<AmmoController>().type;
+        //AmmoType _hitType = other.gameObject.GetComponent<AmmoController>().type;
 
         //PlaneType _planeType = other.gameObject.GetComponent<GameEntity>()._type;
 
-        switch (_hitType)
+        bool _isAmmoControllerAttached = other.gameObject.TryGetComponent<AmmoController>(out AmmoController _ammoController);
+
+        if (_isAmmoControllerAttached)
         {
-            case AmmoType.Bullet:
+            switch (_ammoController._type)
+            {
+                case AmmoType.Bullet:
 
-                ApplyBulletDamage();
+                    ApplyBulletDamage();
 
-                break;
+                    break;
 
-            case AmmoType.Bomb:
+                case AmmoType.Bomb:
 
-                ApplyBombDamage();
-                break;
+                    ApplyBombDamage();
+                    break;
+            }
         }
+
+
+        //switch (_planeType)
+        //{
+        //    case PlaneType.Kicker_Enemy:
+
+        //        ApplyBombDamage();
+
+        //        break;
+
+        //        //case PlaneType:
+
+        //        //    break;
+        //}
 
         Destroy(other.gameObject);
 
@@ -84,6 +103,8 @@ public class CollisionSystem : MonoBehaviour
         _healthSystem._isDeath = true;
 
         _shootingSystem.enabled = false;
+
+        this.enabled = false;
 
         float _explosionRadius = 1;
 

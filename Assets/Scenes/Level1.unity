@@ -20152,7 +20152,6 @@ MonoBehaviour:
   _horizontalMovementSpeed: 5
   _verticalMovementSpeed: 5
   _gameManager: {fileID: 1743662300}
-  _system: {fileID: 0}
   _torquePower: 1.25
   slowingTimer: 0.1
   stopTimer: 3
@@ -20737,18 +20736,18 @@ GameObject:
   m_Component:
   - component: {fileID: 800241774}
   - component: {fileID: 800241773}
+  - component: {fileID: 800241775}
   - component: {fileID: 800241772}
-  - component: {fileID: 800241771}
   - component: {fileID: 800241770}
   - component: {fileID: 800241769}
   - component: {fileID: 800241768}
   m_Layer: 0
-  m_Name: Enemy (2)
+  m_Name: Kicker Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &800241768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20799,20 +20798,6 @@ MonoBehaviour:
   _fireParticleSystem: {fileID: 1143705251}
   _explosionForce: 1
   fallingSpeed: 2
---- !u!114 &800241771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800241767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409d4726471e16040ad641ee1c944665, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movePointsParent: {fileID: 1057551130}
-  _moveSpeed: 2
 --- !u!114 &800241772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20847,7 +20832,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800241767}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 13.004, y: 4.542, z: 0}
+  m_LocalPosition: {x: 7.999, y: 4.182, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -20857,6 +20842,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &800241775
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800241767}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.018216372, y: 0.8431443, z: 1.4790277}
+  m_Center: {x: 0.77533543, y: 0.023891069, z: -0.015391856}
 --- !u!1 &803721142
 GameObject:
   m_ObjectHideFlags: 0
@@ -21218,7 +21216,7 @@ GameObject:
   - component: {fileID: 954749252}
   - component: {fileID: 954749251}
   m_Layer: 0
-  m_Name: Enemy (1)
+  m_Name: 'Bomber Enemy '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21272,7 +21270,7 @@ MonoBehaviour:
   _gameManager: {fileID: 1743662300}
   _explosionParticleSystem: {fileID: 1856967283}
   _fireParticleSystem: {fileID: 1897223166}
-  _explosionForce: 1
+  _explosionForce: 0.1
   fallingSpeed: 2
 --- !u!114 &954749254
 MonoBehaviour:
@@ -21286,8 +21284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409d4726471e16040ad641ee1c944665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movePointsParent: {fileID: 1057551130}
-  _moveSpeed: 2
+  _movePointsParent: {fileID: 67552917}
+  _moveSpeed: 0
 --- !u!114 &954749255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21312,8 +21310,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.404922, y: 0.8431443, z: 1.4790277}
-  m_Center: {x: -0.11110067, y: 0.023891069, z: -0.015391856}
+  m_Size: {x: 1.0958529, y: 0.8431443, z: 1.4790277}
+  m_Center: {x: 0.043433905, y: 0.023891069, z: -0.015391856}
 --- !u!4 &954749257
 Transform:
   m_ObjectHideFlags: 0
@@ -21322,7 +21320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954749250}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 9.27, y: -4.32, z: 0}
+  m_LocalPosition: {x: 6.35, y: 3.63, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -22468,7 +22466,7 @@ GameObject:
   - component: {fileID: 1159276852}
   - component: {fileID: 1159276851}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Shooter Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22487,7 +22485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movePointsParent: {fileID: 67552917}
-  _moveSpeed: 5
+  _moveSpeed: 2
 --- !u!4 &1159276845
 Transform:
   m_ObjectHideFlags: 0
@@ -22496,7 +22494,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159276842}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 9.41, y: -4.34, z: 0}
+  m_LocalPosition: {x: 6.56, y: 3.37, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -22535,8 +22533,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.404922, y: 0.8431443, z: 1.4790277}
-  m_Center: {x: -0.11110067, y: 0.023891069, z: -0.015391856}
+  m_Size: {x: 1.1360192, y: 0.8431443, z: 1.4790277}
+  m_Center: {x: -0.24555206, y: 0.023891069, z: -0.015391856}
 --- !u!114 &1159276851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32298,7 +32296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1777764579}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.09, y: 0.88, z: 0}
+  m_LocalPosition: {x: 6.12, y: 3.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -36765,8 +36763,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.2574143, y: 1.0034249, z: 3.579414}
-  m_Center: {x: -0.24002194, y: 0.4517431, z: 0.007722775}
+  m_Size: {x: 3.2574143, y: 1.6427238, z: 3.579414}
+  m_Center: {x: -0.24002194, y: 0.13209382, z: 0.007722775}
 --- !u!114 &8296172667624262494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36799,7 +36797,7 @@ MonoBehaviour:
   _gameManager: {fileID: 1743662300}
   _explosionParticleSystem: {fileID: 1732064887}
   _fireParticleSystem: {fileID: 537422005}
-  _explosionForce: 0
+  _explosionForce: 0.1
   fallingSpeed: 2
 --- !u!114 &8296172667624262496
 MonoBehaviour:

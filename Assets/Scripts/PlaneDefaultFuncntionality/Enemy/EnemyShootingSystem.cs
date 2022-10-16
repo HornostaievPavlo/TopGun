@@ -31,7 +31,7 @@ public class EnemyShootingSystem : MonoBehaviour
     private void Update()
     {
         Fire();
-        this.enabled = _shootingSystem.enabled;
+        enabled = _shootingSystem.enabled;
     }
 
     private void Fire()

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class AmmoController : MonoBehaviour
 {
-    [SerializeField] private float ammoSpeed;
+    [SerializeField] private float _ammoSpeed;
 
-    public AmmoType type;
+    public AmmoType _type;
 
     private int _rightBoundary = 9;
 
@@ -12,7 +12,7 @@ public class AmmoController : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.right * ammoSpeed * Time.deltaTime);
+        transform.Translate(Vector3.right * _ammoSpeed * Time.deltaTime);
 
         if (transform.position.x > _rightBoundary || transform.position.x < _leftBoundary)
         {
