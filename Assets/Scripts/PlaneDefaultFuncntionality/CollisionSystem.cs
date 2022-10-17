@@ -65,14 +65,10 @@ public class CollisionSystem : MonoBehaviour
 
         if (_isGameEntityAttached)
         {
-            switch (_gameEntity._type)
-            {
-                case PlaneType.Bomber_Enemy:
-                    Debug.Log("olo");
-                    ApplyBombDamage(gameObject);
-                    ApplyBombDamage(collision.gameObject);
-                    break;
-            }
+            Debug.Log("baza");
+
+            ApplyBombDamage(gameObject);
+            ApplyBombDamage(collision.gameObject);
         }
     }
 
@@ -115,6 +111,10 @@ public class CollisionSystem : MonoBehaviour
                 Rigidbody rb = collider.gameObject.AddComponent<Rigidbody>();
 
                 rb.AddExplosionForce(_explosionForce, forceStartPos, _explosionRadius);
+
+                rb.useGravity = true;
+
+                GetComponent<Rigidbody>().useGravity = true;
             }
         }
 
