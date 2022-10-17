@@ -13,11 +13,11 @@ public class CollisionSystem : MonoBehaviour
 
     private ShootingSystem _shootingSystem;
 
-    private Rigidbody _parentRigidbody;
 
     public GameObject _fireParticleSystem;
 
-    private Collider[] _childColliders;
+
+    public Collider[] _childColliders;
 
     [SerializeField] private float _explosionForce;
 
@@ -34,19 +34,11 @@ public class CollisionSystem : MonoBehaviour
 
         _shootingSystem = GetComponent<ShootingSystem>();
 
-        _parentRigidbody = GetComponentInChildren<Rigidbody>();
-
         _childColliders = GetComponentsInChildren<Collider>();
-
-        //_explosionForce = Random.Range(1, 1000);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //AmmoType _hitType = other.gameObject.GetComponent<AmmoController>().type;
-
-        //PlaneType _planeType = other.gameObject.GetComponent<GameEntity>()._type;
-
         bool _isAmmoControllerAttached = collision.gameObject.TryGetComponent<AmmoController>(out AmmoController _ammoController);
 
         if (_isAmmoControllerAttached)
@@ -54,38 +46,34 @@ public class CollisionSystem : MonoBehaviour
             switch (_ammoController._type)
             {
                 case AmmoType.Bullet:
-                    Debug.Log("bullet");
+                    //Debug.Log("bullet");
                     ApplyBulletDamage();
 
                     break;
 
                 case AmmoType.Bomb:
-                    Debug.Log("bomb");
-                    ApplyBombDamage();
+                    //Debug.Log("bomb");
+                    ApplyBombDamage(gameObject);
+                    break;
+            }
+
+            Destroy(collision.GetContact(0).otherCollider.gameObject);
+
+        }
+
+        bool _isGameEntityAttached = collision.gameObject.TryGetComponent<GameEntity>(out GameEntity _gameEntity);
+
+        if (_isGameEntityAttached)
+        {
+            switch (_gameEntity._type)
+            {
+                case PlaneType.Bomber_Enemy:
+                    Debug.Log("olo");
+                    ApplyBombDamage(gameObject);
+                    ApplyBombDamage(collision.gameObject);
                     break;
             }
         }
-
-        //TODO: additional pair of rigidbody and collider on new layer to interact via OnCollisionEnter()
-        // or try to set up box collider + isTrigger on plane parent
-
-        //bool _isGameEntityAttached = other.gameObject.TryGetComponent<GameEntity>(out GameEntity _gameEntity);
-
-        //if (_isGameEntityAttached)
-        //{
-        //    switch (_gameEntity._type)
-        //    {
-        //        case PlaneType.Shooter_Enemy:
-        //            Debug.Log("olo");
-        //            ApplyBombDamage();
-
-        //            break;
-        //    }
-        //}
-        Debug.LogError(collision.gameObject);
-
-        Destroy(collision.gameObject);
-
     }
 
     private void ApplyBulletDamage()
@@ -93,45 +81,40 @@ public class CollisionSystem : MonoBehaviour
         _healthSystem._health -= 1;
     }
 
-    private void ApplyBombDamage()
+    private void ApplyBombDamage(GameObject _objectToExplode)
     {
-        Explode();
+        Explode(_objectToExplode);
 
         _gameManager.SetTimeScale(_explosionTimeScaleValue);
 
         StartCoroutine(_gameManager.ResetTimeScale(2));
     }
 
-    private void Explode()
+    private void Explode(GameObject _objectToExplode)
     {
+        HealthSystem _healthSystem = _objectToExplode.GetComponent<HealthSystem>();
+        ShootingSystem _shootingSystem = _objectToExplode.GetComponent<ShootingSystem>();
+        //CollisionSystem _collisionSystem = _objectToExplode.GetComponent<CollisionSystem>();
+
         _healthSystem._isDeath = true;
 
         _shootingSystem.enabled = false;
 
-        this.enabled = false;
+        //_collisionSystem.enabled = false;
 
         float _explosionRadius = 1;
 
-        float _explodedRigidbodyMass = 1;
-        float _explodedRigidbodyDrag = 1;
+        Vector3 forceStartPos = _objectToExplode.transform.position;
 
-        Vector3 forceStartPos = transform.position;
+        Collider[] a = _objectToExplode.GetComponent<CollisionSystem>()._childColliders;
 
-        foreach (Collider collider in _childColliders)
+        foreach (Collider collider in a)
         {
-            Rigidbody rb = collider.GetComponent<Rigidbody>();
-
-            if (rb != null)
+            if (collider.gameObject.GetComponent<Rigidbody>() == null)
             {
-                rb.mass = _explodedRigidbodyMass;
-
-                rb.drag = _explodedRigidbodyDrag;
-
-                rb.isKinematic = false;
+                Rigidbody rb = collider.gameObject.AddComponent<Rigidbody>();
 
                 rb.AddExplosionForce(_explosionForce, forceStartPos, _explosionRadius);
-
-                rb.useGravity = true;
             }
         }
 
@@ -153,7 +136,7 @@ public class CollisionSystem : MonoBehaviour
 
         transform.Translate(fallDirection * Time.deltaTime * fallSpeed);
 
-        _parentRigidbody.AddRelativeTorque(torqueDirection);
+        //_parentRigidbody.AddRelativeTorque(torqueDirection);
 
         StartCoroutine(DestroyColliders());
 

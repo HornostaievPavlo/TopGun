@@ -17,8 +17,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
     private HealthSystem _healthSystem;
 
-    //private CollisionSystem _collisionSystem;
-    private Playground _collisionSystem;
+    private CollisionSystem _collisionSystem;
 
     private PlayerShootingSystem _shootingSystem;
 
@@ -51,8 +50,7 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         _healthSystem = GetComponent<HealthSystem>();
 
-        //_collisionSystem = GetComponent<CollisionSystem>();
-        _collisionSystem = GetComponent<Playground>();
+        _collisionSystem = GetComponent<CollisionSystem>();
 
         _rigidbody = GetComponentInChildren<Rigidbody>();
 
