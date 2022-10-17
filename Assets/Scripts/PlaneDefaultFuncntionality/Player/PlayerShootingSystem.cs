@@ -55,7 +55,7 @@ public class PlayerShootingSystem : MonoBehaviour
 
             _bulletFireElapsedTime = 0;
 
-            Instantiate(_bulletPrefab, _bulletSpawner.position, transform.rotation);
+            Instantiate(_bulletPrefab, _bulletSpawner.position, _bulletSpawner.rotation);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))// && _bombFireElapsedTime > bombFireDelay)
@@ -64,7 +64,7 @@ public class PlayerShootingSystem : MonoBehaviour
 
             _bombFireElapsedTime = 0;
 
-            Instantiate(_bombPrefab, _bombSpawner.position, transform.rotation);
+            Instantiate(_bombPrefab, _bombSpawner.position, _bombSpawner.rotation);
         }
     }
 }

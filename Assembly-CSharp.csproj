@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PropellerRotator.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\KickerEnemyShootingSystem.cs" />
+    <Compile Include="Assets\Scripts\Playground.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
