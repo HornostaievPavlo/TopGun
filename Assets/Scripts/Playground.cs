@@ -17,7 +17,7 @@ public class Playground : MonoBehaviour
 
     public GameObject _fireParticleSystem;
 
-    public Transform[] children;
+    //public Transform[] children;
 
     public Collider[] _childColliders;
 
@@ -38,17 +38,17 @@ public class Playground : MonoBehaviour
 
         //_parentRigidbody = GetComponentInChildren<Rigidbody>();
 
-        children = GetComponentsInChildren<Transform>();
+        //children = GetComponentsInChildren<Transform>();
 
         //foreach (var i in children)
         //{
         //    i.gameObject.AddComponent<BoxCollider>();
         //}
 
-        for (int i = 1; i < children.Length - 1; i++)
-        {
-            children[i].gameObject.AddComponent<BoxCollider>();
-        }
+        //for (int i = 1; i < children.Length - 1; i++)
+        //{
+        //    children[i].gameObject.AddComponent<BoxCollider>();
+        //}
 
         _childColliders = GetComponentsInChildren<Collider>();
 
@@ -78,6 +78,9 @@ public class Playground : MonoBehaviour
                     ApplyBombDamage(gameObject);
                     break;
             }
+
+            Destroy(collision.GetContact(0).otherCollider.gameObject);
+
         }
 
         //TODO: additional pair of rigidbody and collider on new layer to interact via OnCollisionEnter()
@@ -96,11 +99,6 @@ public class Playground : MonoBehaviour
                     break;
             }
         }
-
-        //Debug.Log(collision.contacts[0].otherCollider.gameObject);
-        Debug.Log(collision.GetContact(0).otherCollider.gameObject);
-        Destroy(collision.GetContact(0).otherCollider.gameObject);
-
     }
 
     private void ApplyBulletDamage()
