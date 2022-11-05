@@ -457,6 +457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 145409594}
+  - component: {fileID: 145409595}
   m_Layer: 0
   m_Name: Meshes
   m_TagString: Untagged
@@ -504,6 +505,22 @@ Transform:
   m_Father: {fileID: 1159276845}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &145409595
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145409593}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &156871819
 GameObject:
   m_ObjectHideFlags: 0
@@ -17266,7 +17283,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159276842}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 409d4726471e16040ad641ee1c944665, type: 3}
   m_Name: 
@@ -17313,6 +17330,7 @@ MonoBehaviour:
   _explosionRadius: 10
   parentCollider: {fileID: 0}
   parentRigidbody: {fileID: 0}
+  torqueRigidbody: {fileID: 145409595}
   meshColliders: []
   childMeshes:
   - {fileID: 759933519}
@@ -34865,8 +34883,21 @@ MonoBehaviour:
   _explosionRadius: 0
   parentCollider: {fileID: 0}
   parentRigidbody: {fileID: 0}
+  torqueRigidbody: {fileID: 2059061920}
   meshColliders: []
-  childMeshes: []
+  childMeshes:
+  - {fileID: 1054900591521063396}
+  - {fileID: 3240097727839538129}
+  - {fileID: 1088933727328270297}
+  - {fileID: 2367121251475310120}
+  - {fileID: 1055331856976863888}
+  - {fileID: 2682296451495459260}
+  - {fileID: 5005230086423869024}
+  - {fileID: 4246088127187954994}
+  - {fileID: 3347449717060295729}
+  - {fileID: 1520427555920900377}
+  - {fileID: 8681866909818186734}
+  - {fileID: 3562121496543263170}
 --- !u!114 &8296172667624262496
 MonoBehaviour:
   m_ObjectHideFlags: 0

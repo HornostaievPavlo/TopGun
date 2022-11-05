@@ -34,6 +34,8 @@ public class CollisionSystem : MonoBehaviour
 
     public Rigidbody parentRigidbody;
 
+    public Rigidbody torqueRigidbody;
+
     public List<MeshCollider> meshColliders;
 
     public Transform[] childMeshes;
@@ -168,8 +170,12 @@ public class CollisionSystem : MonoBehaviour
         StartCoroutine(DestroyColliders());
     }
 
+    
+
     public void FallDown()
     {
+        Debug.Log("fall down");
+
         float fallSpeed = 1.5f;
 
         Vector3 fallDirection = new Vector3(0.5f, -1, 0);
@@ -178,7 +184,7 @@ public class CollisionSystem : MonoBehaviour
 
         transform.Translate(fallDirection * Time.deltaTime * fallSpeed);
 
-        parentRigidbody.AddTorque(torqueDirection);
+        if (parentRigidbody) torqueRigidbody.AddTorque(torqueDirection);
 
         StartCoroutine(DestroyColliders());
 
@@ -194,10 +200,10 @@ public class CollisionSystem : MonoBehaviour
 
         foreach (Collider item in meshColliders)
         {
-            //if (item != null)
-            //{
-            Destroy(item.gameObject.GetComponent<Collider>());
-            //}
+            if (item != null)
+            {
+                Destroy(item.gameObject.GetComponent<Collider>());
+            }
         }
     }
 }
