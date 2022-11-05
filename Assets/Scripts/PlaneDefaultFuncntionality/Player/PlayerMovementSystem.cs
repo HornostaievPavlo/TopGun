@@ -3,17 +3,30 @@ using UnityEngine;
 
 public class PlayerMovementSystem : MonoBehaviour
 {
-    [SerializeField]
-    [Tooltip("3 should be ok for game ready")]
-    [Range(0, 10)] private float _horizontalMovementSpeed;
-
-    [SerializeField]
-    [Tooltip("3 should be ok for game ready")]
-    [Range(0, 10)] private float _verticalMovementSpeed;
-
-    //
-
     [SerializeField] private GameManager _gameManager;
+
+    [Header("Movement")]
+    [Space(10)]
+
+    [Range(0, 10)]
+    [SerializeField] private float horizontalMovementSpeed; // 3 should be ok for game ready
+
+    [Range(0, 10)]
+    [SerializeField] private float verticalMovementSpeed; // 3 should be ok for game ready
+
+    [Header("Dodge feature")]
+    [Space(10)]
+
+    [SerializeField] private float torquePower = 1f; // 1
+
+    [Tooltip("Time until slowing begins")]
+    [SerializeField] private float slowingTimer = 0.1f; // 0.1f
+
+    [Tooltip("Time until stopping begins")]
+    [SerializeField] private float stopTimer = 3f; // 3
+
+    [Tooltip("Multiplier for opposite torque")]
+    [SerializeField] private float slowingMultiplier = 150f; // 150
 
     private HealthSystem _healthSystem;
 
@@ -21,38 +34,22 @@ public class PlayerMovementSystem : MonoBehaviour
 
     private PlayerShootingSystem _shootingSystem;
 
-    //
-
-    private Rigidbody _rigidbody;
-    private Vector3 _torqueDirection;
-    private float _dodgeTimer;
+    public Rigidbody torqueRigidbody;
     private BoxCollider _collider;
 
-    [SerializeField] private float _torquePower; // 1
-
-    [Tooltip("Time until slowing begins")]
-    [SerializeField] private float slowingTimer; // 0.1f
-
-    [Tooltip("Time until stopping begins")]
-    [SerializeField] private float stopTimer; // 3
-
-    [Tooltip("Multiplier for opposite torque")]
-    [SerializeField] private float _slowingMultiplier; // 150
-
-    //public float timeScale; // test
+    private Vector3 _torqueDirection;
+    private float _dodgeTimer;
 
     private void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
-    private void InitializeVariables()
+    private void InitializeFields()
     {
         _healthSystem = GetComponent<HealthSystem>();
 
         _collisionSystem = GetComponent<CollisionSystem>();
-
-        _rigidbody = GetComponentInChildren<Rigidbody>();
 
         _collider = GetComponent<BoxCollider>();
 
@@ -77,10 +74,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
         if (!_healthSystem._isDeath)
         {
-            if (Input.GetKey(KeyCode.W) ||
-            Input.GetKey(KeyCode.A) ||
-            Input.GetKey(KeyCode.S) ||
-            Input.GetKey(KeyCode.D)) transform.Translate(direction * Time.deltaTime * _horizontalMovementSpeed);
+            transform.Translate(direction * Time.deltaTime * horizontalMovementSpeed);
 
             if (transform.position.y > verticalBorder)
             {
@@ -121,11 +115,11 @@ public class PlayerMovementSystem : MonoBehaviour
 
     private void EnableDodge()
     {
-        float _dodgeTimeScale = 0.75f;
+        float dodgeTimeScale = 0.5f;
 
-        _gameManager.SetTimeScale(_dodgeTimeScale);
+        _gameManager.SetTimeScale(dodgeTimeScale);
 
-        _rigidbody.AddTorque(_torqueDirection * _torquePower);
+        torqueRigidbody.AddRelativeTorque(_torqueDirection * torquePower, ForceMode.VelocityChange);
 
         _shootingSystem.enabled = false;
 
@@ -148,13 +142,11 @@ public class PlayerMovementSystem : MonoBehaviour
 
         if (_dodgeTimer >= _dodgeStateChangeTime)
         {
-            //Debug.LogWarning("ok dodge");
             StartCoroutine(SlowTorque(slowingTimer));
         }
         if (_dodgeTimer < _dodgeStateChangeTime)
         {
             float _torqueStopDelay = 0.5f;
-            //Debug.LogWarning("too short");
             StartCoroutine(StopTorque(_torqueStopDelay));
         }
 
@@ -165,7 +157,7 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delay);
 
-        _rigidbody.AddTorque(_torqueDirection * (-_torquePower * _slowingMultiplier));
+        torqueRigidbody.AddTorque(_torqueDirection * (-torquePower * slowingMultiplier));
 
         StartCoroutine(StopTorque(stopTimer));
     }
@@ -174,12 +166,12 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delay);
 
-        Vector3 _currentRotation = new Vector3(_rigidbody.transform.eulerAngles.x, _rigidbody.transform.eulerAngles.y, _rigidbody.transform.eulerAngles.z);
+        Vector3 _currentRotation = new Vector3(torqueRigidbody.transform.eulerAngles.x, torqueRigidbody.transform.eulerAngles.y, torqueRigidbody.transform.eulerAngles.z);
 
-        _rigidbody.transform.eulerAngles = _currentRotation;
+        torqueRigidbody.transform.eulerAngles = _currentRotation;
 
-        _rigidbody.isKinematic = true;
-        _rigidbody.isKinematic = false;
+        torqueRigidbody.isKinematic = true;
+        torqueRigidbody.isKinematic = false;
     }
 
     private IEnumerator GetShootingSystem()
