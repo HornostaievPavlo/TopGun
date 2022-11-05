@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
         Time.fixedDeltaTime = _fixedDeltaTime * Time.timeScale;
 
-        visualizer.SetActive(true);
+        //visualizer.SetActive(true);
     }
 
     /// <summary>
@@ -61,6 +61,6 @@ public class GameManager : MonoBehaviour
 
         SetTimeScale(defaultTimeScale);
 
-        visualizer.SetActive(false);
+        //visualizer.SetActive(false);
     }
 }

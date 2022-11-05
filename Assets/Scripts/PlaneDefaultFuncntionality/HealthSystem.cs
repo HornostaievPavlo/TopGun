@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(CollisionSystem))]
+//[RequireComponent(typeof(CollisionSystem))]
 public class HealthSystem : MonoBehaviour
 {
     [SerializeField] private Material _damagedMaterial;
