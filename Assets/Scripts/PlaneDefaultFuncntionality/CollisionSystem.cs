@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CollisionSystem : MonoBehaviour
 {
+    // all from scratch
+
     [Range(0, 1)] public float _explosionTimeScaleValue;
 
     [SerializeField] private GameManager _gameManager;
