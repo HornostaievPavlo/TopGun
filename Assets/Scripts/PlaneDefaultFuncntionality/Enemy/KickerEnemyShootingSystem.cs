@@ -25,7 +25,7 @@ public class KickerEnemyShootingSystem : MonoBehaviour
 
     private void FollowPlayer()
     {
-        if (!_healthSystem._isDeath)
+        if (!_healthSystem.isDeath)
         {
             transform.position = Vector3.MoveTowards(transform.position,
                                         _player.position,

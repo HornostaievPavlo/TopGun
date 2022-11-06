@@ -19,18 +19,10 @@ public class PlayerMovementSystem : MonoBehaviour
 
     [SerializeField] private Rigidbody torqueRigidbody;
 
-    [SerializeField] private float torquePower = 1f; // 1
-
-    [Tooltip("Time until slowing begins")]
-    [SerializeField] private float slowingTimer = 0.1f; // 0.1f
-
-    [Tooltip("Time until stopping begins")]
-    [SerializeField] private float stopTimer = 3f; // 3
-
-    [Tooltip("Multiplier for opposite torque")]
-    [SerializeField] private float slowingMultiplier = 150f; // 150
+    private float torquePower = 1f;
 
     private Vector3 _torqueDirection;
+
     private float _dodgeTimer;
 
     private HealthSystem _healthSystem;
@@ -73,7 +65,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 
-        if (!_healthSystem._isDeath)
+        if (!_healthSystem.isDeath)
         {
             transform.Translate(direction * Time.deltaTime * horizontalMovementSpeed);
 
@@ -135,6 +127,8 @@ public class PlayerMovementSystem : MonoBehaviour
 
         float timeScaleResetDelay = 1f;
 
+        float slowingTimer = 0.1f;
+
         StartCoroutine(_gameManager.ResetTimeScale(timeScaleResetDelay));
 
         _shootingSystem.enabled = true;
@@ -157,6 +151,10 @@ public class PlayerMovementSystem : MonoBehaviour
     private IEnumerator SlowTorque(float delay)
     {
         yield return new WaitForSecondsRealtime(delay);
+
+        float stopTimer = 3f;
+
+        float slowingMultiplier = 150f;
 
         torqueRigidbody.AddTorque(_torqueDirection * (-torquePower * slowingMultiplier));
 

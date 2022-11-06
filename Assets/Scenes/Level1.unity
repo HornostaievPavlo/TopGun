@@ -16767,10 +16767,6 @@ MonoBehaviour:
   horizontalMovementSpeed: 5
   verticalMovementSpeed: 5
   torqueRigidbody: {fileID: 2059061920}
-  torquePower: 1
-  slowingTimer: 0.1
-  stopTimer: 2.5
-  slowingMultiplier: 1
 --- !u!1 &759933518
 GameObject:
   m_ObjectHideFlags: 0
@@ -17323,7 +17319,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1743662300}
-  explosionTimeScaleValue: 0.1
   explosionObjects:
   - {fileID: 759933519}
   - {fileID: 156871820}
@@ -17350,10 +17345,10 @@ MonoBehaviour:
   - {fileID: 1526642663}
   - {fileID: 2056882020}
   - {fileID: 1984278777}
+  explosionTimeScaleValue: 0.1
   explosionParticleSystem: {fileID: 2461939709458799138}
   _explosionForce: 1500
   _explosionRadius: 10
-  _explosionColliders: []
   fallingSpeed: 2
   torqueRigidbody: {fileID: 145409595}
   fireParticleSystem: {fileID: 4515095248861645392}
@@ -17385,10 +17380,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca523f5246937c64db2cf673ebe309e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damagedMaterial: {fileID: 2100000, guid: 50ba06f99a2a7084ea1ff6e07751e64f, type: 2}
-  _health: 3
-  _isDeath: 0
+  health: 3
+  isDeath: 0
   hpText: {fileID: 0}
+  damagedMaterial: {fileID: 2100000, guid: 50ba06f99a2a7084ea1ff6e07751e64f, type: 2}
 --- !u!114 &1159276853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34858,10 +34853,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca523f5246937c64db2cf673ebe309e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damagedMaterial: {fileID: 2100000, guid: 50ba06f99a2a7084ea1ff6e07751e64f, type: 2}
-  _health: 10
-  _isDeath: 0
+  health: 10
+  isDeath: 0
   hpText: {fileID: 620296125}
+  damagedMaterial: {fileID: 2100000, guid: fdb51613dae732c4c8094dc74d9620c0, type: 2}
 --- !u!114 &8296172667624262495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34875,7 +34870,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1743662300}
-  explosionTimeScaleValue: 0.1
   explosionObjects:
   - {fileID: 1054900591521063396}
   - {fileID: 3240097727839538129}
@@ -34889,10 +34883,10 @@ MonoBehaviour:
   - {fileID: 1520427555920900377}
   - {fileID: 8681866909818186734}
   - {fileID: 3562121496543263170}
+  explosionTimeScaleValue: 0.1
   explosionParticleSystem: {fileID: 1732064887}
   _explosionForce: 1500
   _explosionRadius: 10
-  _explosionColliders: []
   fallingSpeed: 2
   torqueRigidbody: {fileID: 2059061920}
   fireParticleSystem: {fileID: 537422005}

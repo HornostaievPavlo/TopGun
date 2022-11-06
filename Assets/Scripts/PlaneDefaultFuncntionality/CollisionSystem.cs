@@ -9,10 +9,10 @@ public class CollisionSystem : MonoBehaviour
     [Header("Explosion")]
     [Space(10)]
 
-    [Range(0, 1)] public float explosionTimeScaleValue = 0.1f;
-
     [Tooltip("All children of object to be exploded")]
     public Transform[] explosionObjects;
+
+    [Range(0, 1)] public float explosionTimeScaleValue = 0.1f;
 
     [SerializeField] private GameObject explosionParticleSystem;
 
@@ -24,7 +24,7 @@ public class CollisionSystem : MonoBehaviour
 
     private Rigidbody _parentRigidbody;
 
-    public List<MeshCollider> _explosionColliders = new List<MeshCollider>();
+    private List<MeshCollider> _explosionColliders = new List<MeshCollider>();
 
     [Header("Bullet Hit")]
     [Space(10)]
@@ -89,7 +89,7 @@ public class CollisionSystem : MonoBehaviour
 
     private void ApplyBulletDamage()
     {
-        _healthSystem._health -= 1;
+        _healthSystem.health -= 1;
     }
 
     private void ApplyBombDamage(GameObject objectToExplode)
@@ -107,7 +107,7 @@ public class CollisionSystem : MonoBehaviour
         ShootingSystem shootingSystem = target.GetComponent<ShootingSystem>();
         CollisionSystem collisionSystem = target.GetComponent<CollisionSystem>();
 
-        healthSystem._isDeath = true;
+        healthSystem.isDeath = true;
         shootingSystem.enabled = false;
         collisionSystem.enabled = false;
 

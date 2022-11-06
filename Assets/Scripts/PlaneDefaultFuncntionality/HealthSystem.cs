@@ -1,10 +1,20 @@
 using TMPro;
 using UnityEngine;
 
-//[RequireComponent(typeof(CollisionSystem))]
 public class HealthSystem : MonoBehaviour
 {
-    [SerializeField] private Material _damagedMaterial;
+    [Header("Health fields")]
+    [Space(10)]
+
+    [Min(1)] public int health;
+
+    public bool isDeath;
+
+    public TMP_Text hpText;
+
+    [Header("Materials")]
+    [Space(10)]
+    [SerializeField] private Material damagedMaterial;
 
     private CollisionSystem _collisionSystem;
 
@@ -12,22 +22,16 @@ public class HealthSystem : MonoBehaviour
 
     private MeshRenderer _bodyMeshRenderer;
 
-    public int _health;
-
-    public bool _isDeath;
-
-    [SerializeField] private TMP_Text hpText;
-
-    void Start()
+    private void Start()
     {
         InitializeFields();
     }
 
-    void Update()
+    private void Update()
     {
-        UpdateState();
+        CheckState();
 
-        if (hpText != null) hpText.text = _health.ToString();
+        if (hpText != null) hpText.text = health.ToString();
     }
 
     private void InitializeFields()
@@ -39,23 +43,23 @@ public class HealthSystem : MonoBehaviour
         _bodyMeshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
-    private void UpdateState()
+    private void CheckState()
     {
-        if (_health == 0)
+        if (health <= 2)
         {
-            _isDeath = true;
+            _bodyMeshRenderer.material = damagedMaterial;
+
+            if (_collisionSystem.fireParticleSystem != null)
+                _collisionSystem.fireParticleSystem.SetActive(true);
+        }
+
+        if (health == 0)
+        {
+            isDeath = true;
 
             _collisionSystem.enabled = false;
 
             _shootingSystem.enabled = false;
-        }
-
-        if (_health <= 2)
-        {
-            _bodyMeshRenderer.material = _damagedMaterial;
-
-            if (_collisionSystem.fireParticleSystem != null)
-                _collisionSystem.fireParticleSystem.SetActive(true);
         }
     }
 }
