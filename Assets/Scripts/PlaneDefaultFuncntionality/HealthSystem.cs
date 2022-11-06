@@ -20,7 +20,7 @@ public class HealthSystem : MonoBehaviour
 
     void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
     void Update()
@@ -30,7 +30,7 @@ public class HealthSystem : MonoBehaviour
         if (hpText != null) hpText.text = _health.ToString();
     }
 
-    private void InitializeVariables()
+    private void InitializeFields()
     {
         _collisionSystem = GetComponent<CollisionSystem>();
 

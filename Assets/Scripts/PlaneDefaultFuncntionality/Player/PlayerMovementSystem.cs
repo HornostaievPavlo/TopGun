@@ -17,6 +17,8 @@ public class PlayerMovementSystem : MonoBehaviour
     [Header("Dodge feature")]
     [Space(10)]
 
+    [SerializeField] private Rigidbody torqueRigidbody;
+
     [SerializeField] private float torquePower = 1f; // 1
 
     [Tooltip("Time until slowing begins")]
@@ -28,21 +30,25 @@ public class PlayerMovementSystem : MonoBehaviour
     [Tooltip("Multiplier for opposite torque")]
     [SerializeField] private float slowingMultiplier = 150f; // 150
 
+    private Vector3 _torqueDirection;
+    private float _dodgeTimer;
+
     private HealthSystem _healthSystem;
 
     private CollisionSystem _collisionSystem;
 
     private PlayerShootingSystem _shootingSystem;
 
-    public Rigidbody torqueRigidbody;
-    private BoxCollider _collider;
-
-    private Vector3 _torqueDirection;
-    private float _dodgeTimer;
+    private BoxCollider _parentCollider;
 
     private void Start()
     {
         InitializeFields();
+    }
+
+    private void Update()
+    {
+        Move();
     }
 
     private void InitializeFields()
@@ -51,7 +57,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
         _collisionSystem = GetComponent<CollisionSystem>();
 
-        _collider = GetComponent<BoxCollider>();
+        _parentCollider = GetComponent<BoxCollider>();
 
         _torqueDirection = new Vector3(-1, 0, 0);
 
@@ -60,37 +66,32 @@ public class PlayerMovementSystem : MonoBehaviour
         StartCoroutine(GetShootingSystem());
     }
 
-    private void Update()
-    {
-        Move();
-    }
-
     private void Move()
     {
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        float verticalScreenBorder = 4.0f;
+        float horizontalScreenBorder = 8.0f;
 
-        float verticalBorder = 4.0f;
-        float horizontalBorder = 8.0f;
+        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 
         if (!_healthSystem._isDeath)
         {
             transform.Translate(direction * Time.deltaTime * horizontalMovementSpeed);
 
-            if (transform.position.y > verticalBorder)
+            if (transform.position.y > verticalScreenBorder)
             {
-                transform.position = new Vector3(transform.position.x, verticalBorder, transform.position.z);
+                transform.position = new Vector3(transform.position.x, verticalScreenBorder, transform.position.z);
             }
-            if (transform.position.y < -verticalBorder)
+            if (transform.position.y < -verticalScreenBorder)
             {
-                transform.position = new Vector3(transform.position.x, -verticalBorder, transform.position.z);
+                transform.position = new Vector3(transform.position.x, -verticalScreenBorder, transform.position.z);
             }
-            if (transform.position.x > horizontalBorder)
+            if (transform.position.x > horizontalScreenBorder)
             {
-                transform.position = new Vector3(horizontalBorder, transform.position.y, transform.position.z);
+                transform.position = new Vector3(horizontalScreenBorder, transform.position.y, transform.position.z);
             }
-            if (transform.position.x < -horizontalBorder)
+            if (transform.position.x < -horizontalScreenBorder)
             {
-                transform.position = new Vector3(-horizontalBorder, transform.position.y, transform.position.z);
+                transform.position = new Vector3(-horizontalScreenBorder, transform.position.y, transform.position.z);
             }
 
             Dodge();
@@ -105,7 +106,7 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            EnableDodge();
+            PerformDodge();
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
@@ -113,7 +114,7 @@ public class PlayerMovementSystem : MonoBehaviour
         }
     }
 
-    private void EnableDodge()
+    private void PerformDodge()
     {
         float dodgeTimeScale = 0.5f;
 
@@ -121,33 +122,33 @@ public class PlayerMovementSystem : MonoBehaviour
 
         torqueRigidbody.AddRelativeTorque(_torqueDirection * torquePower, ForceMode.VelocityChange);
 
-        _shootingSystem.enabled = false;
+        _parentCollider.enabled = false;
 
-        _collider.enabled = false;
+        _shootingSystem.enabled = false;
 
         _dodgeTimer += (Time.deltaTime * Time.timeScale);
     }
 
     private void DisableDodge()
     {
-        float _dodgeStateChangeTime = 1f;
+        float dodgeStateChangeTime = 1f;
 
-        float _timeScaleResetDelay = 2f;
+        float timeScaleResetDelay = 1f;
 
-        StartCoroutine(_gameManager.ResetTimeScale(_timeScaleResetDelay));
+        StartCoroutine(_gameManager.ResetTimeScale(timeScaleResetDelay));
 
         _shootingSystem.enabled = true;
 
-        _collider.enabled = true;
+        _parentCollider.enabled = true;
 
-        if (_dodgeTimer >= _dodgeStateChangeTime)
+        if (_dodgeTimer >= dodgeStateChangeTime)
         {
             StartCoroutine(SlowTorque(slowingTimer));
         }
-        if (_dodgeTimer < _dodgeStateChangeTime)
+        if (_dodgeTimer < dodgeStateChangeTime)
         {
-            float _torqueStopDelay = 0.5f;
-            StartCoroutine(StopTorque(_torqueStopDelay));
+            float torqueStopDelay = 0.5f;
+            StartCoroutine(StopTorque(torqueStopDelay));
         }
 
         _dodgeTimer = 0;
@@ -166,14 +167,22 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delay);
 
-        Vector3 _currentRotation = new Vector3(torqueRigidbody.transform.eulerAngles.x, torqueRigidbody.transform.eulerAngles.y, torqueRigidbody.transform.eulerAngles.z);
+        Vector3 currentRotation = new Vector3(torqueRigidbody.transform.eulerAngles.x,
+                                               torqueRigidbody.transform.eulerAngles.y,
+                                               torqueRigidbody.transform.eulerAngles.z);
 
-        torqueRigidbody.transform.eulerAngles = _currentRotation;
+        torqueRigidbody.transform.eulerAngles = currentRotation;
 
+        // stops rigidbody from endless torque 
         torqueRigidbody.isKinematic = true;
         torqueRigidbody.isKinematic = false;
     }
 
+    /// <summary>
+    /// Waits one frame to let ShootingSystem component
+    /// assign PlayerShootingSystem component
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator GetShootingSystem()
     {
         yield return new WaitForEndOfFrame();

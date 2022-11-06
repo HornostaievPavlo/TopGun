@@ -16766,11 +16766,11 @@ MonoBehaviour:
   _gameManager: {fileID: 1743662300}
   horizontalMovementSpeed: 5
   verticalMovementSpeed: 5
+  torqueRigidbody: {fileID: 2059061920}
   torquePower: 1
   slowingTimer: 0.1
   stopTimer: 2.5
   slowingMultiplier: 1
-  torqueRigidbody: {fileID: 2059061920}
 --- !u!1 &759933518
 GameObject:
   m_ObjectHideFlags: 0
@@ -17264,9 +17264,9 @@ GameObject:
   - component: {fileID: 1159276845}
   - component: {fileID: 1159276855}
   - component: {fileID: 1159276854}
-  - component: {fileID: 1159276847}
   - component: {fileID: 1159276853}
   - component: {fileID: 1159276843}
+  - component: {fileID: 1159276847}
   - component: {fileID: 1159276852}
   - component: {fileID: 1159276851}
   m_Layer: 0
@@ -17324,13 +17324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1743662300}
   explosionTimeScaleValue: 0.1
-  _explosionForce: 1500
-  _explosionRadius: 10
-  parentCollider: {fileID: 0}
-  parentRigidbody: {fileID: 0}
-  torqueRigidbody: {fileID: 145409595}
-  meshColliders: []
-  childMeshes:
+  explosionObjects:
   - {fileID: 759933519}
   - {fileID: 156871820}
   - {fileID: 1934341944}
@@ -17357,8 +17351,12 @@ MonoBehaviour:
   - {fileID: 2056882020}
   - {fileID: 1984278777}
   explosionParticleSystem: {fileID: 2461939709458799138}
-  fireParticleSystem: {fileID: 4515095248861645392}
+  _explosionForce: 1500
+  _explosionRadius: 10
+  _explosionColliders: []
   fallingSpeed: 2
+  torqueRigidbody: {fileID: 145409595}
+  fireParticleSystem: {fileID: 4515095248861645392}
 --- !u!114 &1159276851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34861,7 +34859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damagedMaterial: {fileID: 2100000, guid: 50ba06f99a2a7084ea1ff6e07751e64f, type: 2}
-  _health: 5
+  _health: 10
   _isDeath: 0
   hpText: {fileID: 620296125}
 --- !u!114 &8296172667624262495
@@ -34878,13 +34876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1743662300}
   explosionTimeScaleValue: 0.1
-  _explosionForce: 1500
-  _explosionRadius: 10
-  parentCollider: {fileID: 0}
-  parentRigidbody: {fileID: 0}
-  torqueRigidbody: {fileID: 2059061920}
-  meshColliders: []
-  childMeshes:
+  explosionObjects:
   - {fileID: 1054900591521063396}
   - {fileID: 3240097727839538129}
   - {fileID: 1088933727328270297}
@@ -34898,8 +34890,12 @@ MonoBehaviour:
   - {fileID: 8681866909818186734}
   - {fileID: 3562121496543263170}
   explosionParticleSystem: {fileID: 1732064887}
-  fireParticleSystem: {fileID: 537422005}
+  _explosionForce: 1500
+  _explosionRadius: 10
+  _explosionColliders: []
   fallingSpeed: 2
+  torqueRigidbody: {fileID: 2059061920}
+  fireParticleSystem: {fileID: 537422005}
 --- !u!114 &8296172667624262496
 MonoBehaviour:
   m_ObjectHideFlags: 0

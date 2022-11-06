@@ -18,10 +18,10 @@ public class EnemyShootingSystem : MonoBehaviour
 
     private void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
-    private void InitializeVariables()
+    private void InitializeFields()
     {
         _shootingSystem = GetComponent<ShootingSystem>();
 

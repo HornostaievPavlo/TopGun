@@ -16,10 +16,10 @@ public class EnemyMovementSystem : MonoBehaviour
 
     private void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
-    private void InitializeVariables()
+    private void InitializeFields()
     {
         _healthSystem = GetComponent<HealthSystem>();
 

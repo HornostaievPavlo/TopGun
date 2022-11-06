@@ -16,10 +16,10 @@ public class PlayerShootingSystem : MonoBehaviour
 
     private void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
-    private void InitializeVariables()
+    private void InitializeFields()
     {
         _shootingSystem = GetComponent<ShootingSystem>();
 
