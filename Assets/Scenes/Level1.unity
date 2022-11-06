@@ -17279,7 +17279,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159276842}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 409d4726471e16040ad641ee1c944665, type: 3}
   m_Name: 
@@ -17364,10 +17364,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053dd53661d705f428f1651669dd1d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpawner: {fileID: 261368716}
-  _bombSpawner: {fileID: 312081719}
-  _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
-  _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
+  bulletSpawner: {fileID: 261368716}
+  bombSpawner: {fileID: 312081719}
+  bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
+  bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
 --- !u!114 &1159276852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17396,7 +17396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ff56caebe59f145abfce2e4a27402a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 2
+  type: 3
 --- !u!54 &1159276854
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18178,7 +18178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1590513469}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34902,10 +34902,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053dd53661d705f428f1651669dd1d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpawner: {fileID: 119638108}
-  _bombSpawner: {fileID: 63013672}
-  _bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
-  _bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
+  bulletSpawner: {fileID: 119638108}
+  bombSpawner: {fileID: 63013672}
+  bulletPrefab: {fileID: 6881847376924221652, guid: 77f16789adee94b468dcbc7273a43ee4, type: 3}
+  bombPrefab: {fileID: 6881847376924221652, guid: a5e5a0e64d96da445a6e972480a13656, type: 3}
 --- !u!114 &8296172667624262497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34918,7 +34918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ff56caebe59f145abfce2e4a27402a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
+  type: 0
 --- !u!54 &8296172667624262498
 Rigidbody:
   m_ObjectHideFlags: 0

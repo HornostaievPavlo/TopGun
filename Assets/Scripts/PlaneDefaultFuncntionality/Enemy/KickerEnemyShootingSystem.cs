@@ -20,10 +20,10 @@ public class KickerEnemyShootingSystem : MonoBehaviour
 
     private void Update()
     {
-        FollowPlayer();
+        MoveTowardsPlayer();
     }
 
-    private void FollowPlayer()
+    private void MoveTowardsPlayer()
     {
         if (!_healthSystem.isDeath)
         {

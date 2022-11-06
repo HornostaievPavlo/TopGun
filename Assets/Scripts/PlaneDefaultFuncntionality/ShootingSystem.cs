@@ -1,21 +1,20 @@
 using UnityEngine;
 
-[RequireComponent(typeof(GameEntity))]
 public class ShootingSystem : MonoBehaviour
 {
     private PlaneType _planeType;
 
-    public Transform _bulletSpawner;
+    public Transform bulletSpawner;
 
-    public Transform _bombSpawner;
+    public Transform bombSpawner;
 
-    public GameObject _bulletPrefab;
+    public GameObject bulletPrefab;
 
-    public GameObject _bombPrefab;
+    public GameObject bombPrefab;
 
     private void Start()
     {
-        _planeType = GetComponent<GameEntity>()._type;
+        _planeType = GetComponent<GameEntity>().type;
 
         AssignShootingSystem();
     }
@@ -34,9 +33,9 @@ public class ShootingSystem : MonoBehaviour
 
                 var _shootingSystem = gameObject.AddComponent<EnemyShootingSystem>();
 
-                _shootingSystem._ammoSpawner = _bulletSpawner;
+                _shootingSystem._ammoSpawner = bulletSpawner;
 
-                _shootingSystem._ammoPrefab = _bulletPrefab;
+                _shootingSystem._ammoPrefab = bulletPrefab;
 
                 _shootingSystem._ammoFireDelay = 0.3f;
 
@@ -46,9 +45,9 @@ public class ShootingSystem : MonoBehaviour
 
                 var _bombingSystem = gameObject.AddComponent<EnemyShootingSystem>();
 
-                _bombingSystem._ammoSpawner = _bombSpawner;
+                _bombingSystem._ammoSpawner = bombSpawner;
 
-                _bombingSystem._ammoPrefab = _bombPrefab;
+                _bombingSystem._ammoPrefab = bombPrefab;
 
                 _bombingSystem._ammoFireDelay = 3.0f;
 

@@ -23,13 +23,13 @@ public class PlayerShootingSystem : MonoBehaviour
     {
         _shootingSystem = GetComponent<ShootingSystem>();
 
-        _bulletSpawner = _shootingSystem._bulletSpawner;
+        _bulletSpawner = _shootingSystem.bulletSpawner;
 
-        _bombSpawner = _shootingSystem._bombSpawner;
+        _bombSpawner = _shootingSystem.bombSpawner;
 
-        _bulletPrefab = _shootingSystem._bulletPrefab;
+        _bulletPrefab = _shootingSystem.bulletPrefab;
 
-        _bombPrefab = _shootingSystem._bombPrefab;
+        _bombPrefab = _shootingSystem.bombPrefab;
 
         _bulletFireElapsedTime = 0f;
 
@@ -51,8 +51,6 @@ public class PlayerShootingSystem : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse0) && _bulletFireElapsedTime > bulletFireDelay)
         {
-            //Debug.Log("Switch to PLAYER BULLET mode");
-
             _bulletFireElapsedTime = 0;
 
             Instantiate(_bulletPrefab, _bulletSpawner.position, _bulletSpawner.rotation);
@@ -60,8 +58,6 @@ public class PlayerShootingSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse1))// && _bombFireElapsedTime > bombFireDelay)
         {
-            //Debug.Log("Switch to PLAYER BOMB mode");
-
             _bombFireElapsedTime = 0;
 
             Instantiate(_bombPrefab, _bombSpawner.position, _bombSpawner.rotation);

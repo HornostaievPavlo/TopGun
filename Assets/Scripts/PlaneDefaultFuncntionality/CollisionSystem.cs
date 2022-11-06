@@ -59,7 +59,7 @@ public class CollisionSystem : MonoBehaviour
 
         if (isAmmoControllerAttached)
         {
-            switch (ammoController._type)
+            switch (ammoController.type)
             {
                 case AmmoType.Bullet:
 
