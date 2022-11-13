@@ -4,7 +4,7 @@ public class EnemyMovementSystem : MonoBehaviour
 {
     [SerializeField] public GameObject _movePointsParent;
 
-    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float moveSpeed;
 
     private HealthSystem _healthSystem;
 
@@ -16,10 +16,10 @@ public class EnemyMovementSystem : MonoBehaviour
 
     private void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
-    private void InitializeVariables()
+    private void InitializeFields()
     {
         _healthSystem = GetComponent<HealthSystem>();
 
@@ -39,11 +39,11 @@ public class EnemyMovementSystem : MonoBehaviour
 
     private void Move()
     {
-        if (!_healthSystem._isDeath)
+        if (!_healthSystem.isDeath)
         {
             transform.position = Vector3.MoveTowards(transform.position,
-                                        _movePoints[_currentIndex].position,
-                                        _moveSpeed * Time.deltaTime);
+                                         _movePoints[_currentIndex].position,
+                                         moveSpeed * Time.deltaTime);
 
             if (transform.position == _movePoints[_currentIndex].position) _currentIndex++;
 

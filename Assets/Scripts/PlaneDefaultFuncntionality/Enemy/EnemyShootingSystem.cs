@@ -5,38 +5,37 @@ public class EnemyShootingSystem : MonoBehaviour
 {
     private ShootingSystem _shootingSystem;
 
-    private float _ammoFireElapsedTime;
+    private float _ammoFireElapsedTime = 0f;
 
-    public float _ammoFireDelay;
+    [HideInInspector] public float _ammoFireDelay;
 
-    public Transform _ammoSpawner;
+    [HideInInspector] public Transform _ammoSpawner;
 
-    public GameObject _ammoPrefab;
+    [HideInInspector] public GameObject _ammoPrefab;
 
     public float time;
     public float shootingRate;
 
     private void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
-    private void InitializeVariables()
+    private void InitializeFields()
     {
         _shootingSystem = GetComponent<ShootingSystem>();
-
-        _ammoFireElapsedTime = 0f;
     }
 
     private void Update()
     {
         Fire();
+
         enabled = _shootingSystem.enabled;
     }
 
     private void Fire()
     {
-        InvokeRepeating("FireShot", 1, 10);
+        InvokeRepeating("FireShot", time, shootingRate);
     }
 
     private void FireShot()

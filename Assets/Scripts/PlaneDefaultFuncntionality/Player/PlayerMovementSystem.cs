@@ -3,17 +3,27 @@ using UnityEngine;
 
 public class PlayerMovementSystem : MonoBehaviour
 {
-    [SerializeField]
-    [Tooltip("3 should be ok for game ready")]
-    [Range(0, 10)] private float _horizontalMovementSpeed;
-
-    [SerializeField]
-    [Tooltip("3 should be ok for game ready")]
-    [Range(0, 10)] private float _verticalMovementSpeed;
-
-    //
-
     [SerializeField] private GameManager _gameManager;
+
+    [Header("Movement")]
+    [Space(10)]
+
+    [Range(0, 10)]
+    [SerializeField] private float horizontalMovementSpeed; // 3 should be ok for game ready
+
+    [Range(0, 10)]
+    [SerializeField] private float verticalMovementSpeed; // 3 should be ok for game ready
+
+    [Header("Dodge feature")]
+    [Space(10)]
+
+    [SerializeField] private Rigidbody torqueRigidbody;
+
+    private float torquePower = 1f;
+
+    private Vector3 _torqueDirection;
+
+    private float _dodgeTimer;
 
     private HealthSystem _healthSystem;
 
@@ -21,40 +31,25 @@ public class PlayerMovementSystem : MonoBehaviour
 
     private PlayerShootingSystem _shootingSystem;
 
-    //
-
-    private Rigidbody _rigidbody;
-    private Vector3 _torqueDirection;
-    private float _dodgeTimer;
-    private BoxCollider _collider;
-
-    [SerializeField] private float _torquePower; // 1
-
-    [Tooltip("Time until slowing begins")]
-    [SerializeField] private float slowingTimer; // 0.1f
-
-    [Tooltip("Time until stopping begins")]
-    [SerializeField] private float stopTimer; // 3
-
-    [Tooltip("Multiplier for opposite torque")]
-    [SerializeField] private float _slowingMultiplier; // 150
-
-    //public float timeScale; // test
+    private BoxCollider _parentCollider;
 
     private void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
-    private void InitializeVariables()
+    private void Update()
+    {
+        Move();
+    }
+
+    private void InitializeFields()
     {
         _healthSystem = GetComponent<HealthSystem>();
 
         _collisionSystem = GetComponent<CollisionSystem>();
 
-        _rigidbody = GetComponentInChildren<Rigidbody>();
-
-        _collider = GetComponent<BoxCollider>();
+        _parentCollider = GetComponent<BoxCollider>();
 
         _torqueDirection = new Vector3(-1, 0, 0);
 
@@ -63,40 +58,32 @@ public class PlayerMovementSystem : MonoBehaviour
         StartCoroutine(GetShootingSystem());
     }
 
-    private void Update()
-    {
-        Move();
-    }
-
     private void Move()
     {
+        float verticalScreenBorder = 4.0f;
+        float horizontalScreenBorder = 8.0f;
+
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 
-        float verticalBorder = 4.0f;
-        float horizontalBorder = 8.0f;
-
-        if (!_healthSystem._isDeath)
+        if (!_healthSystem.isDeath)
         {
-            if (Input.GetKey(KeyCode.W) ||
-            Input.GetKey(KeyCode.A) ||
-            Input.GetKey(KeyCode.S) ||
-            Input.GetKey(KeyCode.D)) transform.Translate(direction * Time.deltaTime * _horizontalMovementSpeed);
+            transform.Translate(direction * Time.deltaTime * horizontalMovementSpeed);
 
-            if (transform.position.y > verticalBorder)
+            if (transform.position.y > verticalScreenBorder)
             {
-                transform.position = new Vector3(transform.position.x, verticalBorder, transform.position.z);
+                transform.position = new Vector3(transform.position.x, verticalScreenBorder, transform.position.z);
             }
-            if (transform.position.y < -verticalBorder)
+            if (transform.position.y < -verticalScreenBorder)
             {
-                transform.position = new Vector3(transform.position.x, -verticalBorder, transform.position.z);
+                transform.position = new Vector3(transform.position.x, -verticalScreenBorder, transform.position.z);
             }
-            if (transform.position.x > horizontalBorder)
+            if (transform.position.x > horizontalScreenBorder)
             {
-                transform.position = new Vector3(horizontalBorder, transform.position.y, transform.position.z);
+                transform.position = new Vector3(horizontalScreenBorder, transform.position.y, transform.position.z);
             }
-            if (transform.position.x < -horizontalBorder)
+            if (transform.position.x < -horizontalScreenBorder)
             {
-                transform.position = new Vector3(-horizontalBorder, transform.position.y, transform.position.z);
+                transform.position = new Vector3(-horizontalScreenBorder, transform.position.y, transform.position.z);
             }
 
             Dodge();
@@ -111,7 +98,7 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            EnableDodge();
+            PerformDodge();
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
@@ -119,43 +106,43 @@ public class PlayerMovementSystem : MonoBehaviour
         }
     }
 
-    private void EnableDodge()
+    private void PerformDodge()
     {
-        float _dodgeTimeScale = 0.75f;
+        float dodgeTimeScale = 0.5f;
 
-        _gameManager.SetTimeScale(_dodgeTimeScale);
+        _gameManager.SetTimeScale(dodgeTimeScale);
 
-        _rigidbody.AddTorque(_torqueDirection * _torquePower);
+        torqueRigidbody.AddRelativeTorque(_torqueDirection * torquePower, ForceMode.VelocityChange);
+
+        _parentCollider.enabled = false;
 
         _shootingSystem.enabled = false;
-
-        _collider.enabled = false;
 
         _dodgeTimer += (Time.deltaTime * Time.timeScale);
     }
 
     private void DisableDodge()
     {
-        float _dodgeStateChangeTime = 1f;
+        float dodgeStateChangeTime = 1f;
 
-        float _timeScaleResetDelay = 2f;
+        float timeScaleResetDelay = 1f;
 
-        StartCoroutine(_gameManager.ResetTimeScale(_timeScaleResetDelay));
+        float slowingTimer = 0.1f;
+
+        StartCoroutine(_gameManager.ResetTimeScale(timeScaleResetDelay));
 
         _shootingSystem.enabled = true;
 
-        _collider.enabled = true;
+        _parentCollider.enabled = true;
 
-        if (_dodgeTimer >= _dodgeStateChangeTime)
+        if (_dodgeTimer >= dodgeStateChangeTime)
         {
-            //Debug.LogWarning("ok dodge");
             StartCoroutine(SlowTorque(slowingTimer));
         }
-        if (_dodgeTimer < _dodgeStateChangeTime)
+        if (_dodgeTimer < dodgeStateChangeTime)
         {
-            float _torqueStopDelay = 0.5f;
-            //Debug.LogWarning("too short");
-            StartCoroutine(StopTorque(_torqueStopDelay));
+            float torqueStopDelay = 0.5f;
+            StartCoroutine(StopTorque(torqueStopDelay));
         }
 
         _dodgeTimer = 0;
@@ -165,7 +152,11 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delay);
 
-        _rigidbody.AddTorque(_torqueDirection * (-_torquePower * _slowingMultiplier));
+        float stopTimer = 3f;
+
+        float slowingMultiplier = 150f;
+
+        torqueRigidbody.AddTorque(_torqueDirection * (-torquePower * slowingMultiplier));
 
         StartCoroutine(StopTorque(stopTimer));
     }
@@ -174,14 +165,22 @@ public class PlayerMovementSystem : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delay);
 
-        Vector3 _currentRotation = new Vector3(_rigidbody.transform.eulerAngles.x, _rigidbody.transform.eulerAngles.y, _rigidbody.transform.eulerAngles.z);
+        Vector3 currentRotation = new Vector3(torqueRigidbody.transform.eulerAngles.x,
+                                               torqueRigidbody.transform.eulerAngles.y,
+                                               torqueRigidbody.transform.eulerAngles.z);
 
-        _rigidbody.transform.eulerAngles = _currentRotation;
+        torqueRigidbody.transform.eulerAngles = currentRotation;
 
-        _rigidbody.isKinematic = true;
-        _rigidbody.isKinematic = false;
+        // stops rigidbody from endless torque 
+        torqueRigidbody.isKinematic = true;
+        torqueRigidbody.isKinematic = false;
     }
 
+    /// <summary>
+    /// Waits one frame to let ShootingSystem component
+    /// assign PlayerShootingSystem component
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator GetShootingSystem()
     {
         yield return new WaitForEndOfFrame();

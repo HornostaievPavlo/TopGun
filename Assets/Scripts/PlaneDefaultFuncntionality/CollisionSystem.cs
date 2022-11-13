@@ -1,144 +1,163 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CollisionSystem : MonoBehaviour
 {
-    [Range(0, 1)] public float _explosionTimeScaleValue;
+    [SerializeField] private GameManager gameManager;
 
-    [SerializeField] private GameManager _gameManager;
+    [Header("Explosion")]
+    [Space(10)]
 
-    [SerializeField] private GameObject _explosionParticleSystem;
+    [Tooltip("All children of object to be exploded")]
+    [SerializeField] private Transform[] explosionObjects;
+
+    [SerializeField] private GameObject explosionParticleSystem;
+
+    private BoxCollider _parentCollider;
+
+    private Rigidbody _parentRigidbody;
+
+    private List<MeshCollider> _explosionColliders = new List<MeshCollider>();
+
+    private float _explosionForce;
+
+    private float _explosionTimeScale = 0.1f;
+
+    [Header("Bullet Hit")]
+    [Space(10)]
+
+    public Rigidbody torqueRigidbody;
+
+    public GameObject fireParticleSystem;
 
     private HealthSystem _healthSystem;
 
-    private ShootingSystem _shootingSystem;
-
-
-    public GameObject _fireParticleSystem;
-
-
-    public Collider[] _childColliders;
-
-    [SerializeField] private float _explosionForce;
-
-    [SerializeField] private float fallingSpeed;
+    private float _fallingSpeed;
 
     private void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
-    private void InitializeVariables()
+    private void OnCollisionEnter(Collision collision) // collision between planes
     {
-        _healthSystem = GetComponent<HealthSystem>();
+        bool isGameEntityAttached = collision.gameObject.TryGetComponent<GameEntity>(out GameEntity gameEntity);
 
-        _shootingSystem = GetComponent<ShootingSystem>();
-
-        _childColliders = GetComponentsInChildren<Collider>();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        bool _isAmmoControllerAttached = collision.gameObject.TryGetComponent<AmmoController>(out AmmoController _ammoController);
-
-        if (_isAmmoControllerAttached)
+        if (isGameEntityAttached)
         {
-            switch (_ammoController._type)
+            ApplyBombDamage(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) // trigger collision with bullet and bomb
+    {
+        bool isAmmoControllerAttached = other.gameObject.TryGetComponent<AmmoController>(out AmmoController ammoController);
+
+        if (isAmmoControllerAttached)
+        {
+            switch (ammoController.type)
             {
                 case AmmoType.Bullet:
-                    //Debug.Log("bullet");
+
                     ApplyBulletDamage();
 
                     break;
 
                 case AmmoType.Bomb:
-                    //Debug.Log("bomb");
+
                     ApplyBombDamage(gameObject);
+
                     break;
             }
-
-            Destroy(collision.GetContact(0).otherCollider.gameObject);
-
         }
 
-        bool _isGameEntityAttached = collision.gameObject.TryGetComponent<GameEntity>(out GameEntity _gameEntity);
+        Destroy(other.gameObject);
+    }
 
-        if (_isGameEntityAttached)
-        {
-            Debug.Log("baza");
+    private void InitializeFields()
+    {
+        _healthSystem = GetComponent<HealthSystem>();
 
-            ApplyBombDamage(gameObject);
-            ApplyBombDamage(collision.gameObject);
-        }
+        _parentCollider = GetComponent<BoxCollider>();
+
+        _parentRigidbody = GetComponent<Rigidbody>();
+
+        _explosionForce = Random.Range(1000f, 5000f);
+
+        _fallingSpeed = Random.Range(1f, 3f);
     }
 
     private void ApplyBulletDamage()
     {
-        _healthSystem._health -= 1;
+        _healthSystem.health -= 1;
     }
 
-    private void ApplyBombDamage(GameObject _objectToExplode)
+    private void ApplyBombDamage(GameObject objectToExplode)
     {
-        Explode(_objectToExplode);
+        Explode(objectToExplode);
 
-        _gameManager.SetTimeScale(_explosionTimeScaleValue);
+        gameManager.SetTimeScale(_explosionTimeScale);
 
-        StartCoroutine(_gameManager.ResetTimeScale(2));
+        StartCoroutine(gameManager.ResetTimeScale(2));
     }
 
-    private void Explode(GameObject _objectToExplode)
+    private void Explode(GameObject target)
     {
-        HealthSystem _healthSystem = _objectToExplode.GetComponent<HealthSystem>();
-        ShootingSystem _shootingSystem = _objectToExplode.GetComponent<ShootingSystem>();
-        //CollisionSystem _collisionSystem = _objectToExplode.GetComponent<CollisionSystem>();
+        HealthSystem healthSystem = target.GetComponent<HealthSystem>();
+        ShootingSystem shootingSystem = target.GetComponent<ShootingSystem>();
+        CollisionSystem collisionSystem = target.GetComponent<CollisionSystem>();
 
-        _healthSystem._isDeath = true;
+        healthSystem.isDeath = true;
+        shootingSystem.enabled = false;
+        collisionSystem.enabled = false;
 
-        _shootingSystem.enabled = false;
+        Destroy(_parentCollider);
 
-        //_collisionSystem.enabled = false;
+        Destroy(_parentRigidbody);
 
-        float _explosionRadius = 1;
-
-        Vector3 forceStartPos = _objectToExplode.transform.position;
-
-        Collider[] a = _objectToExplode.GetComponent<CollisionSystem>()._childColliders;
-
-        foreach (Collider collider in a)
+        for (int i = 0; i < explosionObjects.Length; i++)
         {
-            if (collider.gameObject.GetComponent<Rigidbody>() == null)
-            {
-                Rigidbody rb = collider.gameObject.AddComponent<Rigidbody>();
+            var collider = explosionObjects[i].gameObject.AddComponent<MeshCollider>();
 
-                rb.AddExplosionForce(_explosionForce, forceStartPos, _explosionRadius);
+            collider.convex = true;
 
-                rb.useGravity = true;
-
-                GetComponent<Rigidbody>().useGravity = true;
-            }
+            _explosionColliders.Add(explosionObjects[i].GetComponent<MeshCollider>());
         }
 
-        _explosionParticleSystem.SetActive(true);
+        Vector3 forceStartPos = target.transform.position;
 
-        Destroy(_fireParticleSystem.gameObject);
+        float explosionRadius = 10f;
+
+        foreach (Collider collider in _explosionColliders)
+        {
+            Rigidbody rb = collider.gameObject.AddComponent<Rigidbody>();
+
+            rb.AddExplosionForce(_explosionForce, forceStartPos, explosionRadius);
+
+            rb.drag = 1.5f;
+
+            rb.useGravity = true;
+
+            _parentRigidbody.useGravity = true;
+        }
+
+        explosionParticleSystem.SetActive(true);
+
+        Destroy(fireParticleSystem.gameObject);
 
         StartCoroutine(DestroyColliders());
     }
 
     public void FallDown()
     {
-        //float fallSpeed = 1.5f;
-        float fallSpeed = fallingSpeed;
-
         Vector3 fallDirection = new Vector3(0.5f, -1, 0);
 
         Vector3 torqueDirection = new Vector3(7.5f, 0, 5);
 
-        transform.Translate(fallDirection * Time.deltaTime * fallSpeed);
+        transform.Translate(fallDirection * Time.deltaTime * _fallingSpeed);
 
-        //_parentRigidbody.AddRelativeTorque(torqueDirection);
-
-        StartCoroutine(DestroyColliders());
+        if (_parentRigidbody) torqueRigidbody.AddTorque(torqueDirection);
 
         if (transform.position.y < -10)
         {
@@ -150,12 +169,9 @@ public class CollisionSystem : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.1f);
 
-        foreach (Collider item in _childColliders)
+        foreach (Collider item in _explosionColliders)
         {
-            if (item != null)
-            {
-                Destroy(item.gameObject.GetComponent<Collider>());
-            }
+            Destroy(item);
         }
     }
 }
