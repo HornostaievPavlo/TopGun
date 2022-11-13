@@ -37,7 +37,7 @@ public class ShootingSystem : MonoBehaviour
 
                 _shootingSystem._ammoPrefab = bulletPrefab;
 
-                _shootingSystem._ammoFireDelay = 0.3f;
+                _shootingSystem._ammoFireDelay = 0.5f;
 
                 break;
 
@@ -49,7 +49,7 @@ public class ShootingSystem : MonoBehaviour
 
                 _bombingSystem._ammoPrefab = bombPrefab;
 
-                _bombingSystem._ammoFireDelay = 3.0f;
+                _bombingSystem._ammoFireDelay = 4.0f;
 
                 break;
 

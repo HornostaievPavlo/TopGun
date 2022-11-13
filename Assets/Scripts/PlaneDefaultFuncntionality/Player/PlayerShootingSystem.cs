@@ -11,8 +11,8 @@ public class PlayerShootingSystem : MonoBehaviour
     private GameObject _bulletPrefab;
     private GameObject _bombPrefab;
 
-    private float _bulletFireElapsedTime;
-    private float _bombFireElapsedTime;
+    private float _bulletFireElapsedTime = 0f;
+    private float _bombFireElapsedTime = 0f;
 
     private void Start()
     {
@@ -30,21 +30,19 @@ public class PlayerShootingSystem : MonoBehaviour
         _bulletPrefab = _shootingSystem.bulletPrefab;
 
         _bombPrefab = _shootingSystem.bombPrefab;
-
-        _bulletFireElapsedTime = 0f;
-
-        _bombFireElapsedTime = 0f;
     }
 
     private void Update()
     {
         Fire();
+
+        enabled = _shootingSystem.enabled;
     }
 
-    public void Fire()
+    private void Fire()
     {
-        float bulletFireDelay = 0.15f;
-        //float bombFireDelay = 3f;
+        float bulletFireDelay = 0.2f;
+        float bombFireDelay = 3f;
 
         _bulletFireElapsedTime += Time.deltaTime;
         _bombFireElapsedTime += Time.deltaTime;
@@ -56,7 +54,7 @@ public class PlayerShootingSystem : MonoBehaviour
             Instantiate(_bulletPrefab, _bulletSpawner.position, _bulletSpawner.rotation);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))// && _bombFireElapsedTime > bombFireDelay)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && _bombFireElapsedTime > bombFireDelay)
         {
             _bombFireElapsedTime = 0;
 
