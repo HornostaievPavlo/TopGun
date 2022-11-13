@@ -1,48 +1,47 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CollisionSystem))]
 public class HealthSystem : MonoBehaviour
 {
-    [SerializeField] private Material _damagedMaterial;
+    [Min(1)] public int health;
+
+    [HideInInspector] public bool isDeath;
 
     private CollisionSystem _collisionSystem;
 
-    private MeshRenderer _bodyMeshRenderer;
+    private ShootingSystem _shootingSystem;
 
-    public int _health;
-
-    public bool _isDeath;
-
-    void Start()
+    private void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
-    void Update()
+    private void Update()
     {
-        UpdateState();
+        CheckState();
     }
 
-    private void InitializeVariables()
+    private void InitializeFields()
     {
         _collisionSystem = GetComponent<CollisionSystem>();
 
-        _bodyMeshRenderer = GetComponentInChildren<MeshRenderer>();
+        _shootingSystem = GetComponent<ShootingSystem>();
     }
 
-    private void UpdateState()
+    private void CheckState()
     {
-        if (_health == 0)
+        if (health <= 2)
         {
-            _isDeath = true;
+            if (_collisionSystem.fireParticleSystem != null)
+                _collisionSystem.fireParticleSystem.SetActive(true);
         }
 
-        if (_health <= 2)
+        if (health == 0)
         {
-            _bodyMeshRenderer.material = _damagedMaterial;
-            
-            if(_collisionSystem._fireParticleSystem != null)
-            _collisionSystem._fireParticleSystem.SetActive(true);
+            isDeath = true;
+
+            _collisionSystem.enabled = false;
+
+            _shootingSystem.enabled = false;
         }
     }
 }

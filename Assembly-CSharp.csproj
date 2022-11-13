@@ -58,18 +58,21 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\UI\CreditsUpMovement.cs" />
-    <Compile Include="Assets\Scripts\LerpTest.cs" />
     <Compile Include="Assets\Scripts\LevelReloader.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\EnemyMovementSystem.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\EnemyShootingSystem.cs" />
     <Compile Include="Assets\Scripts\Ammo\AmmoType.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Player\PlayerShootingSystem.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Player\PlayerMovementSystem.cs" />
     <Compile Include="Assets\Scripts\Ammo\AmmoController.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\CollisionSystem.cs" />
     <Compile Include="Assets\Scripts\Background\BackgroundMovementSystem.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\ShootingSystem.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\GameEntity.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PropellerRotator.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\KickerEnemyShootingSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -343,6 +346,12 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Android.Types">
+      <HintPath>C:\UNITY\2022.1.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Android.Gradle">
+      <HintPath>C:\UNITY\2022.1.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\UNITY\2022.1.16f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
