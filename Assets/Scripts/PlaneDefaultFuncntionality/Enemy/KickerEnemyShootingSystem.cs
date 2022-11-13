@@ -27,9 +27,11 @@ public class KickerEnemyShootingSystem : MonoBehaviour
     {
         if (!_healthSystem.isDeath)
         {
+            float movementSpeed = 4f;
+
             transform.position = Vector3.MoveTowards(transform.position,
                                         _player.position,
-                                        2 * Time.deltaTime);
+                                        movementSpeed * Time.deltaTime);
         }
         else
         {

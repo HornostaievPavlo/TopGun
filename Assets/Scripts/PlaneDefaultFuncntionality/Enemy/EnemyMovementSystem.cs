@@ -4,6 +4,8 @@ public class EnemyMovementSystem : MonoBehaviour
 {
     [SerializeField] public GameObject _movePointsParent;
 
+    [SerializeField] private float moveSpeed;
+
     private HealthSystem _healthSystem;
 
     private CollisionSystem _collisionSystem;
@@ -37,8 +39,6 @@ public class EnemyMovementSystem : MonoBehaviour
 
     private void Move()
     {
-        float moveSpeed = 3f;
-
         if (!_healthSystem.isDeath)
         {
             transform.position = Vector3.MoveTowards(transform.position,
