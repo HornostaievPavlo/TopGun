@@ -10,15 +10,9 @@ public class CollisionSystem : MonoBehaviour
     [Space(10)]
 
     [Tooltip("All children of object to be exploded")]
-    public Transform[] explosionObjects;
-
-    [Range(0, 1)] public float explosionTimeScaleValue = 0.1f;
+    [SerializeField] private Transform[] explosionObjects;
 
     [SerializeField] private GameObject explosionParticleSystem;
-
-    public float _explosionForce; // make private on ready state
-
-    public float _explosionRadius; // make private on ready state
 
     private BoxCollider _parentCollider;
 
@@ -26,17 +20,20 @@ public class CollisionSystem : MonoBehaviour
 
     private List<MeshCollider> _explosionColliders = new List<MeshCollider>();
 
+    private float _explosionForce;
+
+    private float _explosionTimeScale = 0.1f;
+
     [Header("Bullet Hit")]
     [Space(10)]
-
-    [Tooltip("Speed with which killed plane falls down")]
-    [SerializeField] private float fallingSpeed; // make private on ready state
 
     public Rigidbody torqueRigidbody;
 
     public GameObject fireParticleSystem;
 
     private HealthSystem _healthSystem;
+
+    private float _fallingSpeed;
 
     private void Start()
     {
@@ -85,6 +82,10 @@ public class CollisionSystem : MonoBehaviour
         _parentCollider = GetComponent<BoxCollider>();
 
         _parentRigidbody = GetComponent<Rigidbody>();
+
+        _explosionForce = Random.Range(1000f, 5000f);
+
+        _fallingSpeed = Random.Range(1f, 3f);
     }
 
     private void ApplyBulletDamage()
@@ -96,7 +97,7 @@ public class CollisionSystem : MonoBehaviour
     {
         Explode(objectToExplode);
 
-        gameManager.SetTimeScale(explosionTimeScaleValue);
+        gameManager.SetTimeScale(_explosionTimeScale);
 
         StartCoroutine(gameManager.ResetTimeScale(2));
     }
@@ -126,13 +127,15 @@ public class CollisionSystem : MonoBehaviour
 
         Vector3 forceStartPos = target.transform.position;
 
+        float explosionRadius = 10f;
+
         foreach (Collider collider in _explosionColliders)
         {
             Rigidbody rb = collider.gameObject.AddComponent<Rigidbody>();
 
-            rb.AddExplosionForce(_explosionForce, forceStartPos, _explosionRadius);
+            rb.AddExplosionForce(_explosionForce, forceStartPos, explosionRadius);
 
-            rb.drag = 2f;
+            rb.drag = 1.5f;
 
             rb.useGravity = true;
 
@@ -148,13 +151,11 @@ public class CollisionSystem : MonoBehaviour
 
     public void FallDown()
     {
-        float fallSpeed = 1.5f;
-
         Vector3 fallDirection = new Vector3(0.5f, -1, 0);
 
         Vector3 torqueDirection = new Vector3(7.5f, 0, 5);
 
-        transform.Translate(fallDirection * Time.deltaTime * fallSpeed);
+        transform.Translate(fallDirection * Time.deltaTime * _fallingSpeed);
 
         if (_parentRigidbody) torqueRigidbody.AddTorque(torqueDirection);
 

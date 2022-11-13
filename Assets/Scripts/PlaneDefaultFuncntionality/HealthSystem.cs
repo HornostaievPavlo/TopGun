@@ -1,26 +1,14 @@
-using TMPro;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    [Header("Health fields")]
-    [Space(10)]
-
     [Min(1)] public int health;
 
-    public bool isDeath;
-
-    public TMP_Text hpText;
-
-    [Header("Materials")]
-    [Space(10)]
-    [SerializeField] private Material damagedMaterial;
+    [HideInInspector] public bool isDeath;
 
     private CollisionSystem _collisionSystem;
 
     private ShootingSystem _shootingSystem;
-
-    private MeshRenderer _bodyMeshRenderer;
 
     private void Start()
     {
@@ -30,8 +18,6 @@ public class HealthSystem : MonoBehaviour
     private void Update()
     {
         CheckState();
-
-        if (hpText != null) hpText.text = health.ToString();
     }
 
     private void InitializeFields()
@@ -39,16 +25,12 @@ public class HealthSystem : MonoBehaviour
         _collisionSystem = GetComponent<CollisionSystem>();
 
         _shootingSystem = GetComponent<ShootingSystem>();
-
-        _bodyMeshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
     private void CheckState()
     {
         if (health <= 2)
         {
-            _bodyMeshRenderer.material = damagedMaterial;
-
             if (_collisionSystem.fireParticleSystem != null)
                 _collisionSystem.fireParticleSystem.SetActive(true);
         }
