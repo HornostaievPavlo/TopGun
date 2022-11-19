@@ -10786,6 +10786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movePointsParent: {fileID: 0}
+  moveSpeed: 0
 --- !u!114 &7068270186309623665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10805,25 +10806,12 @@ MonoBehaviour:
   - {fileID: 7068270185398567270}
   - {fileID: 7068270185931649211}
   - {fileID: 7068270185730788560}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 7068270184970319371}
   - {fileID: 7068270184772265350}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 7068270186058508692}
   - {fileID: 7068270185295739025}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 7068270186310132433}
   - {fileID: 7068270184781730713}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 7068270185448507047}
   explosionParticleSystem: {fileID: 4628886054812347516}
   torqueRigidbody: {fileID: 7068270185023271013}
