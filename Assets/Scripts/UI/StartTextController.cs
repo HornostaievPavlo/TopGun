@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -6,9 +7,6 @@ public class StartTextController : MonoBehaviour
     [SerializeField] private TMP_Text startText;
 
     public float startTextSpeed;
-
-    [SerializeField] private Transform player;
-
 
     private void Update()
     {
@@ -25,5 +23,14 @@ public class StartTextController : MonoBehaviour
         {
             startText.rectTransform.anchoredPosition = new Vector3(0, upScreenBorder, 0);
         }
+
+        StartCoroutine(DestroyText());
+    }
+
+    private IEnumerator DestroyText()
+    {
+        yield return new WaitForSecondsRealtime(10f);
+
+        Destroy(startText);
     }
 }
