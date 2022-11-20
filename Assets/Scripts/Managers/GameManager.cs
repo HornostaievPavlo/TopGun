@@ -1,35 +1,13 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Scene reloading
-    public bool isGameOver = false;
-
-    private float restartDelay;
-
-    // Time
-
     private float _fixedDeltaTime;
 
     private void Awake()
     {
         _fixedDeltaTime = Time.fixedDeltaTime;
-    }
-
-    public void EndGame()
-    {
-        if (isGameOver == false)
-        {
-            isGameOver = true;
-            Invoke("RestartLevel", restartDelay);
-        }
-    }
-
-    private void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     /// <summary>

@@ -7,11 +7,13 @@ public class ScoreManager : MonoBehaviour
 
     public HealthSystem playerHealthSystem;
 
+    public int enemiesCounter;
+
     private void Update()
     {
         UpdateEnemiesList();
 
-        IsLevelWon();
+        enemiesCounter = enemiesArr.Count;
     }
 
     private void UpdateEnemiesList()
@@ -20,8 +22,6 @@ public class ScoreManager : MonoBehaviour
         {
             if (enemiesArr[i] == null)
             {
-                Debug.Log("Found empty");
-
                 enemiesArr.RemoveAt(i);
             }
         }
@@ -29,15 +29,8 @@ public class ScoreManager : MonoBehaviour
 
     public bool IsLevelWon()
     {
-        if (playerHealthSystem.isDead)
+        if (!playerHealthSystem.isDead && enemiesArr.Count == 0)
         {
-            Debug.Log("Player is dead");
-            return false;
-        }
-        
-        else if (!playerHealthSystem.isDead && enemiesArr.Count == 0)
-        {
-            Debug.Log("All enemies are dead");
             return true;
         }
 

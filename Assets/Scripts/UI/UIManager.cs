@@ -7,24 +7,40 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TMP_Text mainText;
 
+    [SerializeField] private TMP_Text enemiesCounter;
+
+    [SerializeField] private GameObject menu;
+
     private void Update()
     {
-        SetCounterText();
+        UpdateGameUI();
     }
 
-    private void SetCounterText()
+    private void UpdateGameUI()
     {
-        if (scoreManager.playerHealthSystem.isDead)
+        bool isVictory = scoreManager.IsLevelWon();
+
+        bool isFail = scoreManager.playerHealthSystem.isDead;
+
+        if (isFail)
         {
+            enemiesCounter.gameObject.SetActive(false);
+
             mainText.text = "Level failed";
+
+            menu.SetActive(true);
         }
-        else if (scoreManager.IsLevelWon())
+        else if (isVictory)
         {
+            enemiesCounter.gameObject.SetActive(false);
+
             mainText.text = "Level completed";
+
+            menu.SetActive(true);
         }
         else
         {
-            mainText.text = string.Empty;
+            enemiesCounter.text = scoreManager.enemiesCounter.ToString() + " enemies left";
         }
     }
 }

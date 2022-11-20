@@ -62,7 +62,7 @@
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\EnemyMovementSystem.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\EnemyShootingSystem.cs" />
     <Compile Include="Assets\Scripts\Ammo\AmmoType.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Player\PlayerShootingSystem.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Player\PlayerMovementSystem.cs" />
     <Compile Include="Assets\Scripts\Ammo\AmmoController.cs" />
@@ -71,12 +71,13 @@
     <Compile Include="Assets\Scripts\UI\StartTextController.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\ShootingSystem.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\GameEntity.cs" />
-    <Compile Include="Assets\Scripts\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PropellerRotator.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\HealthBar.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\KickerEnemyShootingSystem.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
+    <Compile Include="Assets\Scripts\SceneLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
