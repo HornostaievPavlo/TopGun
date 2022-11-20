@@ -50,8 +50,7 @@ public class EnemyShootingSystem : MonoBehaviour
 
     private IEnumerator DelayFire()
     {
-        //float delayToFireStart = 10f;
-        float delayToFireStart = 0.1f;
+        float delayToFireStart = 10f;
 
         yield return new WaitForSecondsRealtime(delayToFireStart);
 

@@ -29,7 +29,7 @@ public class StartTextController : MonoBehaviour
 
     private IEnumerator DestroyText()
     {
-        yield return new WaitForSecondsRealtime(10f);
+        yield return new WaitForSecondsRealtime(8f);
 
         Destroy(startText);
     }
