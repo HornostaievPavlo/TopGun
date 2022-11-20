@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\HealthBar.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\KickerEnemyShootingSystem.cs" />
+    <Compile Include="Assets\Scripts\ScoreManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

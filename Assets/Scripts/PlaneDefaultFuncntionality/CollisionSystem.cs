@@ -6,6 +6,8 @@ public class CollisionSystem : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
 
+    [SerializeField] private ScoreManager scoreManager;
+
     [Header("Explosion")]
     [Space(10)]
 
@@ -97,8 +99,6 @@ public class CollisionSystem : MonoBehaviour
 
     private void ApplyBombDamage(GameObject objectToExplode)
     {
-        _healthSystem.ModifyHealth(_healthSystem.maxHealth);
-
         Explode(objectToExplode);
 
         gameManager.SetTimeScale(_explosionTimeScale);
@@ -160,8 +160,6 @@ public class CollisionSystem : MonoBehaviour
         Vector3 fallDirection = new Vector3(0.5f, -1, 0);
 
         Vector3 torqueDirection = new Vector3(7.5f, 0, 5);
-
-
 
         transform.Translate(fallDirection * Time.deltaTime * _fallingSpeed);
 
