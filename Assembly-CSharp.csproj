@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\GameEntity.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PropellerRotator.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
+    <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\HealthBar.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\KickerEnemyShootingSystem.cs" />
   </ItemGroup>
   <ItemGroup>

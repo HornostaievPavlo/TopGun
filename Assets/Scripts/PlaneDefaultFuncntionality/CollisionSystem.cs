@@ -27,6 +27,8 @@ public class CollisionSystem : MonoBehaviour
     [Header("Bullet Hit")]
     [Space(10)]
 
+    const int BULLET_DAMAGE = 1;
+
     public Rigidbody torqueRigidbody;
 
     public GameObject fireParticleSystem;
@@ -90,11 +92,13 @@ public class CollisionSystem : MonoBehaviour
 
     private void ApplyBulletDamage()
     {
-        _healthSystem.health -= 1;
+        _healthSystem.ModifyHealth(BULLET_DAMAGE);
     }
 
     private void ApplyBombDamage(GameObject objectToExplode)
     {
+        _healthSystem.ModifyHealth(_healthSystem.maxHealth);
+
         Explode(objectToExplode);
 
         gameManager.SetTimeScale(_explosionTimeScale);
@@ -115,6 +119,8 @@ public class CollisionSystem : MonoBehaviour
         Destroy(_parentCollider);
 
         Destroy(_parentRigidbody);
+
+        Destroy(GetComponentInChildren<HealthBar>().gameObject);
 
         for (int i = 0; i < explosionObjects.Length; i++)
         {
@@ -154,6 +160,8 @@ public class CollisionSystem : MonoBehaviour
         Vector3 fallDirection = new Vector3(0.5f, -1, 0);
 
         Vector3 torqueDirection = new Vector3(7.5f, 0, 5);
+
+
 
         transform.Translate(fallDirection * Time.deltaTime * _fallingSpeed);
 
