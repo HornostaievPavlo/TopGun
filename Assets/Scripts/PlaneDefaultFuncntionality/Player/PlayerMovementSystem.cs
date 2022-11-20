@@ -65,7 +65,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 
-        if (!_healthSystem.isDeath)
+        if (!_healthSystem.isDead)
         {
             transform.Translate(direction * Time.deltaTime * horizontalMovementSpeed);
 

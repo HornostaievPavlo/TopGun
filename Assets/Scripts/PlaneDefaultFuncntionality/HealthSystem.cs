@@ -8,7 +8,7 @@ public class HealthSystem : MonoBehaviour
     private int _currentHealth;
 
     //[HideInInspector] 
-    public bool isDeath;
+    public bool isDead;
 
     public event Action<float> OnHealthPercentChanged = delegate { };
 
@@ -62,7 +62,7 @@ public class HealthSystem : MonoBehaviour
             if (healthBar != null)
                 Destroy(healthBar.gameObject);
 
-            isDeath = true;
+            isDead = true;
 
             _collisionSystem.enabled = false;
 

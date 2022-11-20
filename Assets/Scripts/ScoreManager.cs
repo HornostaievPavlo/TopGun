@@ -5,17 +5,16 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private List<GameEntity> enemiesArr;
 
-    private void Start()
-    {
-
-    }
+    public HealthSystem playerHealthSystem;
 
     private void Update()
     {
-        CalculateEnemies();
+        UpdateEnemiesList();
+
+        IsLevelWon();
     }
 
-    private void CalculateEnemies()
+    private void UpdateEnemiesList()
     {
         for (int i = 0; i < enemiesArr.Count; i++)
         {
@@ -26,10 +25,22 @@ public class ScoreManager : MonoBehaviour
                 enemiesArr.RemoveAt(i);
             }
         }
+    }
 
-        if (enemiesArr.Count == 0)
+    public bool IsLevelWon()
+    {
+        if (playerHealthSystem.isDead)
         {
-            Debug.Log("viskas");
+            Debug.Log("Player is dead");
+            return false;
         }
+        
+        else if (!playerHealthSystem.isDead && enemiesArr.Count == 0)
+        {
+            Debug.Log("All enemies are dead");
+            return true;
+        }
+
+        return false;
     }
 }

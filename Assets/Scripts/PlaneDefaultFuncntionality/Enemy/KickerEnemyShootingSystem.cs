@@ -25,7 +25,7 @@ public class KickerEnemyShootingSystem : MonoBehaviour
 
     private void MoveTowardsPlayer()
     {
-        if (!_healthSystem.isDeath)
+        if (!_healthSystem.isDead)
         {
             float movementSpeed = 2f;
 

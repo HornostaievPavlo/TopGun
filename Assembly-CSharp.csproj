@@ -71,11 +71,12 @@
     <Compile Include="Assets\Scripts\UI\StartTextController.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\ShootingSystem.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\GameEntity.cs" />
+    <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PropellerRotator.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\HealthBar.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\KickerEnemyShootingSystem.cs" />
-    <Compile Include="Assets\Scripts\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

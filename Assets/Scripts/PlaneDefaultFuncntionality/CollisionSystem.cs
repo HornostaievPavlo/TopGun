@@ -112,7 +112,7 @@ public class CollisionSystem : MonoBehaviour
         ShootingSystem shootingSystem = target.GetComponent<ShootingSystem>();
         CollisionSystem collisionSystem = target.GetComponent<CollisionSystem>();
 
-        healthSystem.isDeath = true;
+        healthSystem.isDead = true;
         shootingSystem.enabled = false;
         collisionSystem.enabled = false;
 
