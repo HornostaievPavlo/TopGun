@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
 
     public HealthSystem playerHealthSystem;
 
-    public int enemiesCounter;
+    [HideInInspector] public int enemiesCounter;
 
     private void Update()
     {

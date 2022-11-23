@@ -9,6 +9,8 @@ public class KickerEnemyShootingSystem : MonoBehaviour
 
     private Transform _player;
 
+    private float _movementSpeed;
+
     private void Start()
     {
         _healthSystem = GetComponent<HealthSystem>();
@@ -16,6 +18,8 @@ public class KickerEnemyShootingSystem : MonoBehaviour
         _collisionSystem = GetComponent<CollisionSystem>();
 
         _player = GameObject.Find("Player").transform;
+
+        _movementSpeed = Random.Range(2f, 3f);
     }
 
     private void Update()
@@ -27,11 +31,9 @@ public class KickerEnemyShootingSystem : MonoBehaviour
     {
         if (!_healthSystem.isDead)
         {
-            float movementSpeed = 2f;
-
             transform.position = Vector3.MoveTowards(transform.position,
                                         _player.position,
-                                        movementSpeed * Time.deltaTime);
+                                        _movementSpeed * Time.deltaTime);
         }
         else
         {
