@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private List<GameEntity> enemiesArr;
+    [SerializeField] private List<GameEntity> enemies;
 
     public HealthSystem playerHealthSystem;
 
@@ -13,23 +13,23 @@ public class ScoreManager : MonoBehaviour
     {
         UpdateEnemiesList();
 
-        enemiesCounter = enemiesArr.Count;
+        enemiesCounter = enemies.Count;
     }
 
     private void UpdateEnemiesList()
     {
-        for (int i = 0; i < enemiesArr.Count; i++)
+        for (int i = 0; i < enemies.Count; i++)
         {
-            if (enemiesArr[i] == null)
+            if (enemies[i] == null)
             {
-                enemiesArr.RemoveAt(i);
+                enemies.RemoveAt(i);
             }
         }
     }
 
     public bool IsLevelWon()
     {
-        if (!playerHealthSystem.isDead && enemiesArr.Count == 0)
+        if (!playerHealthSystem.isDead && enemies.Count == 0)
         {
             return true;
         }

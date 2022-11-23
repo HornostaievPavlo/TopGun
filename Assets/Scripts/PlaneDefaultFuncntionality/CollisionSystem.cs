@@ -29,7 +29,7 @@ public class CollisionSystem : MonoBehaviour
     [Header("Bullet Hit")]
     [Space(10)]
 
-    const int BULLET_DAMAGE = 1;
+    private const int BULLET_DAMAGE = 1;
 
     public Rigidbody torqueRigidbody;
 
