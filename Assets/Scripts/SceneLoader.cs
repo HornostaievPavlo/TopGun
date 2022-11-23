@@ -15,5 +15,10 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void ExitApplication()
+    {
+        Application.Quit();
+    }
+
     #endregion
 }
