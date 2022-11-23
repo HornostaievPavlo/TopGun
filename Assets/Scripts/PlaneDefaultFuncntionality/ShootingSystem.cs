@@ -33,11 +33,11 @@ public class ShootingSystem : MonoBehaviour
 
                 var _shootingSystem = gameObject.AddComponent<EnemyShootingSystem>();
 
-                _shootingSystem._ammoSpawner = bulletSpawner;
+                _shootingSystem.ammoSpawner = bulletSpawner;
 
-                _shootingSystem._ammoPrefab = bulletPrefab;
+                _shootingSystem.ammoPrefab = bulletPrefab;
 
-                _shootingSystem._ammoFireDelay = 0.75f;
+                _shootingSystem.ammoFireDelay = 0.75f;
 
                 break;
 
@@ -45,11 +45,11 @@ public class ShootingSystem : MonoBehaviour
 
                 var _bombingSystem = gameObject.AddComponent<EnemyShootingSystem>();
 
-                _bombingSystem._ammoSpawner = bombSpawner;
+                _bombingSystem.ammoSpawner = bombSpawner;
 
-                _bombingSystem._ammoPrefab = bombPrefab;
+                _bombingSystem.ammoPrefab = bombPrefab;
 
-                _bombingSystem._ammoFireDelay = 4.0f;
+                _bombingSystem.ammoFireDelay = 4.0f;
 
                 break;
 

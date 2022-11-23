@@ -39,7 +39,7 @@ public class EnemyMovementSystem : MonoBehaviour
 
     private void Move()
     {
-        if (!_healthSystem.isDeath)
+        if (!_healthSystem.isDead)
         {
             transform.position = Vector3.MoveTowards(transform.position,
                                          _movePoints[_currentIndex].position,

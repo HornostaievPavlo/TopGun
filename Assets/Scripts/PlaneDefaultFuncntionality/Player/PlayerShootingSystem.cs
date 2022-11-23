@@ -42,7 +42,7 @@ public class PlayerShootingSystem : MonoBehaviour
     private void Fire()
     {
         float bulletFireDelay = 0.2f;
-        //float bombFireDelay = 3f;
+        float bombFireDelay = 3f;
 
         _bulletFireElapsedTime += Time.deltaTime;
         _bombFireElapsedTime += Time.deltaTime;
@@ -54,7 +54,7 @@ public class PlayerShootingSystem : MonoBehaviour
             Instantiate(_bulletPrefab, _bulletSpawner.position, _bulletSpawner.rotation);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))// && _bombFireElapsedTime > bombFireDelay)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && _bombFireElapsedTime > bombFireDelay)
         {
             _bombFireElapsedTime = 0;
 

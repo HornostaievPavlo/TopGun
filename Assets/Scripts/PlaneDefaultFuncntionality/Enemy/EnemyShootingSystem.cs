@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(ShootingSystem))]
@@ -7,14 +8,11 @@ public class EnemyShootingSystem : MonoBehaviour
 
     private float _ammoFireElapsedTime = 0f;
 
-    [HideInInspector] public float _ammoFireDelay;
+    [HideInInspector] public float ammoFireDelay;
 
-    [HideInInspector] public Transform _ammoSpawner;
+    [HideInInspector] public Transform ammoSpawner;
 
-    [HideInInspector] public GameObject _ammoPrefab;
-
-    public float time;
-    public float shootingRate;
+    [HideInInspector] public GameObject ammoPrefab;
 
     private void Start()
     {
@@ -28,25 +26,34 @@ public class EnemyShootingSystem : MonoBehaviour
 
     private void Update()
     {
-        Fire();
+        StartCoroutine(DelayFire());
 
         enabled = _shootingSystem.enabled;
     }
 
     private void Fire()
     {
-        InvokeRepeating("FireShot", time, shootingRate);
+        InvokeRepeating("FireShot", 0f, 0f);
     }
 
     private void FireShot()
     {
         _ammoFireElapsedTime += Time.deltaTime;
 
-        if (_ammoFireElapsedTime > _ammoFireDelay)
+        if (_ammoFireElapsedTime > ammoFireDelay)
         {
             _ammoFireElapsedTime = 0;
 
-            Instantiate(_ammoPrefab, _ammoSpawner.position, transform.rotation);
+            Instantiate(ammoPrefab, ammoSpawner.position, transform.rotation);
         }
+    }
+
+    private IEnumerator DelayFire()
+    {
+        float delayToFireStart = 10f;
+
+        yield return new WaitForSecondsRealtime(delayToFireStart);
+
+        Fire();
     }
 }

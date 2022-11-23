@@ -6,6 +6,8 @@ public class CollisionSystem : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
 
+    [SerializeField] private ScoreManager scoreManager;
+
     [Header("Explosion")]
     [Space(10)]
 
@@ -26,6 +28,8 @@ public class CollisionSystem : MonoBehaviour
 
     [Header("Bullet Hit")]
     [Space(10)]
+
+    private const int BULLET_DAMAGE = 1;
 
     public Rigidbody torqueRigidbody;
 
@@ -90,7 +94,7 @@ public class CollisionSystem : MonoBehaviour
 
     private void ApplyBulletDamage()
     {
-        _healthSystem.health -= 1;
+        _healthSystem.ModifyHealth(BULLET_DAMAGE);
     }
 
     private void ApplyBombDamage(GameObject objectToExplode)
@@ -108,13 +112,15 @@ public class CollisionSystem : MonoBehaviour
         ShootingSystem shootingSystem = target.GetComponent<ShootingSystem>();
         CollisionSystem collisionSystem = target.GetComponent<CollisionSystem>();
 
-        healthSystem.isDeath = true;
+        healthSystem.isDead = true;
         shootingSystem.enabled = false;
         collisionSystem.enabled = false;
 
         Destroy(_parentCollider);
 
         Destroy(_parentRigidbody);
+
+        Destroy(GetComponentInChildren<HealthBar>().gameObject);
 
         for (int i = 0; i < explosionObjects.Length; i++)
         {

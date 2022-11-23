@@ -19,7 +19,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
     [SerializeField] private Rigidbody torqueRigidbody;
 
-    private float torquePower = 1f;
+    private float _torquePower = 1f;
 
     private Vector3 _torqueDirection;
 
@@ -65,7 +65,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 
-        if (!_healthSystem.isDeath)
+        if (!_healthSystem.isDead)
         {
             transform.Translate(direction * Time.deltaTime * horizontalMovementSpeed);
 
@@ -112,7 +112,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
         _gameManager.SetTimeScale(dodgeTimeScale);
 
-        torqueRigidbody.AddRelativeTorque(_torqueDirection * torquePower, ForceMode.VelocityChange);
+        torqueRigidbody.AddRelativeTorque(_torqueDirection * _torquePower, ForceMode.VelocityChange);
 
         _parentCollider.enabled = false;
 
@@ -156,7 +156,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
         float slowingMultiplier = 150f;
 
-        torqueRigidbody.AddTorque(_torqueDirection * (-torquePower * slowingMultiplier));
+        torqueRigidbody.AddTorque(_torqueDirection * (-_torquePower * slowingMultiplier));
 
         StartCoroutine(StopTorque(stopTimer));
     }

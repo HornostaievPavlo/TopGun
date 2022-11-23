@@ -1,14 +1,25 @@
+using System;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    [Min(1)] public int health;
+    public int maxHealth;
 
-    [HideInInspector] public bool isDeath;
+    private int _currentHealth;
+
+    //[HideInInspector] 
+    public bool isDead;
+
+    public event Action<float> OnHealthPercentChanged = delegate { };
 
     private CollisionSystem _collisionSystem;
 
     private ShootingSystem _shootingSystem;
+
+    private void OnEnable()
+    {
+        _currentHealth = maxHealth;
+    }
 
     private void Start()
     {
@@ -27,17 +38,31 @@ public class HealthSystem : MonoBehaviour
         _shootingSystem = GetComponent<ShootingSystem>();
     }
 
+    public void ModifyHealth(int amount)
+    {
+        _currentHealth -= amount;
+
+        float currentHealthPercent = (float)_currentHealth / (float)maxHealth;
+
+        OnHealthPercentChanged(currentHealthPercent);
+    }
+
     private void CheckState()
     {
-        if (health <= 2)
+        if (_currentHealth <= 2)
         {
             if (_collisionSystem.fireParticleSystem != null)
                 _collisionSystem.fireParticleSystem.SetActive(true);
         }
 
-        if (health == 0)
+        if (_currentHealth == 0)
         {
-            isDeath = true;
+            HealthBar healthBar = GetComponentInChildren<HealthBar>();
+
+            if (healthBar != null)
+                Destroy(healthBar.gameObject);
+
+            isDead = true;
 
             _collisionSystem.enabled = false;
 
