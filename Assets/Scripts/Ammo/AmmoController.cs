@@ -4,9 +4,9 @@ public class AmmoController : MonoBehaviour
 {
     public AmmoType type;
 
-    [SerializeField] private float ammoSpeed;
+    public float ammoSpeed;
 
-    private const int RIGHT_BOUNDARY = 9;
+    public int RIGHT_BOUNDARY = 9;
 
     private const int LEFT_BOUNDARY = -9;
 
@@ -15,7 +15,7 @@ public class AmmoController : MonoBehaviour
         MoveAmmoItem();
     }
 
-    private void MoveAmmoItem()
+    public void MoveAmmoItem()
     {
         transform.Translate(Vector3.right * ammoSpeed * Time.deltaTime);
 

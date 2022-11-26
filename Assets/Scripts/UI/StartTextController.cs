@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartTextController : MonoBehaviour
 {
-    [SerializeField] private TMP_Text startText;
+    public TMP_Text startText;
 
     public float startTextSpeed;
 
@@ -13,7 +13,7 @@ public class StartTextController : MonoBehaviour
         StartTextMovement();
     }
 
-    private void StartTextMovement()
+    public void StartTextMovement()
     {
         float upScreenBorder = (Screen.height / 2) - 50;
 

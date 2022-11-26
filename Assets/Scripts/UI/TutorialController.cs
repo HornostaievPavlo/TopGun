@@ -4,23 +4,23 @@ using UnityEngine.UI;
 
 public class TutorialController : MonoBehaviour
 {
-    [SerializeField] private Image controls;
+    public Image controls;
 
-    [SerializeField] private Button button;
+    public Button button;
 
-    private void Awake()
+    private void Start()
     {
         controls.gameObject.SetActive(true);
 
         StartCoroutine(ShowButton());
     }
 
-    private IEnumerator ShowButton()
+    public IEnumerator ShowButton()
     {
         float secondsToReadTutorial = 5f;
 
         yield return new WaitForSeconds(secondsToReadTutorial);
 
         button.gameObject.SetActive(true);
-    }    
+    }
 }

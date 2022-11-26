@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyMovementSystem : MonoBehaviour
 {
-    [SerializeField] public GameObject _movePointsParent;
+    public GameObject _movePointsParent;
 
     [SerializeField] private float moveSpeed;
 
