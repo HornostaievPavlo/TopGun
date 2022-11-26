@@ -1483,6 +1483,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 431440709586652036, guid: d20ec6fdb6145f1448cb63c77018a4a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 431440710803307971, guid: d20ec6fdb6145f1448cb63c77018a4a7, type: 3}
       propertyPath: m_Name
       value: Overlay Canvas
@@ -1577,7 +1581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 431440710814884430, guid: d20ec6fdb6145f1448cb63c77018a4a7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 431440711199344176, guid: d20ec6fdb6145f1448cb63c77018a4a7, type: 3}
       propertyPath: m_text

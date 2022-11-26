@@ -704,6 +704,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2384440365516865092, guid: 710cc919b75ef00408c7d38978722824, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8579227631096821320, guid: 710cc919b75ef00408c7d38978722824, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1238,6 +1242,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 431440709586652036, guid: d20ec6fdb6145f1448cb63c77018a4a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 431440710803307971, guid: d20ec6fdb6145f1448cb63c77018a4a7, type: 3}
       propertyPath: m_Name
       value: Overlay Canvas
@@ -1329,6 +1337,10 @@ PrefabInstance:
     - target: {fileID: 431440710803307975, guid: d20ec6fdb6145f1448cb63c77018a4a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 431440710814884430, guid: d20ec6fdb6145f1448cb63c77018a4a7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
