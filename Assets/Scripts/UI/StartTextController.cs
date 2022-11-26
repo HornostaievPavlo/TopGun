@@ -10,10 +10,10 @@ public class StartTextController : MonoBehaviour
 
     private void Update()
     {
-        ControlsTextMovement();
+        StartTextMovement();
     }
 
-    private void ControlsTextMovement()
+    private void StartTextMovement()
     {
         float upScreenBorder = (Screen.height / 2) - 50;
 

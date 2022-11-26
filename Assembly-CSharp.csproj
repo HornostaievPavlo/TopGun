@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\LevelReloader.cs" />
+    <Compile Include="Assets\Scripts\Main Menu\FocalPointMovement.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\EnemyMovementSystem.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\EnemyShootingSystem.cs" />
     <Compile Include="Assets\Scripts\Ammo\AmmoType.cs" />
@@ -77,7 +78,7 @@
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\PlaneType.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\HealthBar.cs" />
     <Compile Include="Assets\Scripts\PlaneDefaultFuncntionality\Enemy\KickerEnemyShootingSystem.cs" />
-    <Compile Include="Assets\Scripts\Main Menu\FocalPointMovement.cs" />
+    <Compile Include="Assets\Scripts\UI\TutorialController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
