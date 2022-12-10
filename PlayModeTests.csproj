@@ -56,10 +56,10 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Tests\PlayMode\UIBehaviorTesting.cs" />
     <Compile Include="Assets\Tests\PlayMode\GameEntityTesting.cs" />
     <Compile Include="Assets\Tests\PlayMode\AmmoTesting.cs" />
     <Compile Include="Assets\Tests\PlayMode\GameManagerTesting.cs" />
-    <Compile Include="Assets\Tests\PlayMode\UIBehaviorTesting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Tests\PlayMode\PlayModeTests.asmdef" />
