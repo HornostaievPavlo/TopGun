@@ -1,48 +1,72 @@
+using System;
 using UnityEngine;
 
-[RequireComponent(typeof(CollisionSystem))]
 public class HealthSystem : MonoBehaviour
 {
-    [SerializeField] private Material _damagedMaterial;
+    public int maxHealth;
+
+    private int _currentHealth;
+
+    //[HideInInspector] 
+    public bool isDead;
+
+    public event Action<float> OnHealthPercentChanged = delegate { };
 
     private CollisionSystem _collisionSystem;
 
-    private MeshRenderer _bodyMeshRenderer;
+    private ShootingSystem _shootingSystem;
 
-    public int _health;
-
-    public bool _isDeath;
-
-    void Start()
+    private void OnEnable()
     {
-        InitializeVariables();
+        _currentHealth = maxHealth;
     }
 
-    void Update()
+    private void Start()
     {
-        UpdateState();
+        InitializeFields();
     }
 
-    private void InitializeVariables()
+    private void Update()
+    {
+        CheckState();
+    }
+
+    private void InitializeFields()
     {
         _collisionSystem = GetComponent<CollisionSystem>();
 
-        _bodyMeshRenderer = GetComponentInChildren<MeshRenderer>();
+        _shootingSystem = GetComponent<ShootingSystem>();
     }
 
-    private void UpdateState()
+    public void ModifyHealth(int amount)
     {
-        if (_health == 0)
+        _currentHealth -= amount;
+
+        float currentHealthPercent = (float)_currentHealth / (float)maxHealth;
+
+        OnHealthPercentChanged(currentHealthPercent);
+    }
+
+    private void CheckState()
+    {
+        if (_currentHealth <= 2)
         {
-            _isDeath = true;
+            if (_collisionSystem.fireParticleSystem != null)
+                _collisionSystem.fireParticleSystem.SetActive(true);
         }
 
-        if (_health <= 2)
+        if (_currentHealth == 0)
         {
-            _bodyMeshRenderer.material = _damagedMaterial;
-            
-            if(_collisionSystem._fireParticleSystem != null)
-            _collisionSystem._fireParticleSystem.SetActive(true);
+            HealthBar healthBar = GetComponentInChildren<HealthBar>();
+
+            if (healthBar != null)
+                Destroy(healthBar.gameObject);
+
+            isDead = true;
+
+            _collisionSystem.enabled = false;
+
+            _shootingSystem.enabled = false;
         }
     }
 }

@@ -2,87 +2,62 @@ using UnityEngine;
 
 public class ShootingSystem : MonoBehaviour
 {
-    [SerializeField] private PlaneType _planeType;
+    private PlaneType _planeType;
 
-    [SerializeField] private Transform _ammoSpawner;
+    public Transform bulletSpawner;
 
-    [SerializeField] private GameObject _bulletPrefab;
+    public Transform bombSpawner;
 
-    [SerializeField] private GameObject _bombPrefab;
+    public GameObject bulletPrefab;
 
-    private float _bulletFireElapsedTime;
-    private float _bombFireElapsedTime;
+    public GameObject bombPrefab;
 
     private void Start()
     {
-        _bulletFireElapsedTime = 0f;
-        _bombFireElapsedTime = 0f;
+        _planeType = GetComponent<GameEntity>().type;
+
+        AssignShootingSystem();
     }
 
-    void Update()
-    {
-        AssignFireType();
-    }
-
-    private void AssignFireType()
+    private void AssignShootingSystem()
     {
         switch (_planeType)
         {
             case PlaneType.Player:
 
-                PlayerFire();
+                gameObject.AddComponent<PlayerShootingSystem>();
 
                 break;
 
             case PlaneType.Shooter_Enemy:
 
-                ShooterEnemyFire();
+                var _shootingSystem = gameObject.AddComponent<EnemyShootingSystem>();
+
+                _shootingSystem.ammoSpawner = bulletSpawner;
+
+                _shootingSystem.ammoPrefab = bulletPrefab;
+
+                _shootingSystem.ammoFireDelay = 0.75f;
 
                 break;
-        }
-    }
 
-    private void PlayerFire()
-    {
-        //float bombFireDelay = 3f;
-        float bulletFireDelay = 0.15f;
+            case PlaneType.Bomber_Enemy:
 
-        _bulletFireElapsedTime += Time.deltaTime;
-        _bombFireElapsedTime += Time.deltaTime;
+                var _bombingSystem = gameObject.AddComponent<EnemyShootingSystem>();
 
-        if (Input.GetKey(KeyCode.Mouse0) && _bulletFireElapsedTime > bulletFireDelay)
-        {
-            Debug.Log("Switch to PLAYER BULLET mode");
+                _bombingSystem.ammoSpawner = bombSpawner;
 
-            _bulletFireElapsedTime = 0;
+                _bombingSystem.ammoPrefab = bombPrefab;
 
-            Instantiate(_bulletPrefab, _ammoSpawner.position, transform.rotation);
-        }
+                _bombingSystem.ammoFireDelay = 4.0f;
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))// && _bombFireElapsedTime > bombFireDelay)
-        {
-            Debug.Log("Switch to PLAYER BOMB mode");
+                break;
 
-            _bombFireElapsedTime = 0;
+            case PlaneType.Kicker_Enemy:
 
-            Instantiate(_bombPrefab, _ammoSpawner.position, transform.rotation);
-        }
-    }
+                gameObject.AddComponent<KickerEnemyShootingSystem>();
 
-    private void ShooterEnemyFire()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.LogWarning("Switch to ENEMY BOMB mode");
-
-            Instantiate(_bombPrefab, _ammoSpawner.position, transform.rotation);
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Debug.LogWarning("Switch to ENEMY BULLET mode");
-
-            Instantiate(_bulletPrefab, _ammoSpawner.position, transform.rotation);
+                break;
         }
     }
 }

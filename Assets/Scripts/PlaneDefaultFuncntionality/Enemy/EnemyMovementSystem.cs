@@ -2,29 +2,34 @@ using UnityEngine;
 
 public class EnemyMovementSystem : MonoBehaviour
 {
-    // try the hor movement added to enemy for better interactability
-    //[SerializeField]
-    //[Range(1, 10)] private float horizontalMovementSpeed;
+    public GameObject _movePointsParent;
 
-    [SerializeField]
-    [Range(0, 10)] private float _verticalMovementSpeed;
+    [SerializeField] private float moveSpeed;
 
     private HealthSystem _healthSystem;
 
     private CollisionSystem _collisionSystem;
 
-    private bool _isMovingUp;
+    private Transform[] _movePoints;
+
+    private int _currentIndex;
 
     private void Start()
     {
-        InitializeVariables();
+        InitializeFields();
     }
 
-    private void InitializeVariables()
+    private void InitializeFields()
     {
         _healthSystem = GetComponent<HealthSystem>();
 
         _collisionSystem = GetComponent<CollisionSystem>();
+
+        _currentIndex = 1;
+
+        _movePoints = _movePointsParent.GetComponentsInChildren<Transform>();
+
+        transform.position = _movePoints[_currentIndex].position;
     }
 
     private void Update()
@@ -34,27 +39,16 @@ public class EnemyMovementSystem : MonoBehaviour
 
     private void Move()
     {
-        if (!_healthSystem._isDeath)
+        if (!_healthSystem.isDead)
         {
-            int movingRestrictionPoint = Screen.height / 270;
+            transform.position = Vector3.MoveTowards(transform.position,
+                                         _movePoints[_currentIndex].position,
+                                         moveSpeed * Time.deltaTime);
 
-            if (transform.position.y > movingRestrictionPoint)
-            {
-                _isMovingUp = false;
-            }
-            if (transform.position.y < -movingRestrictionPoint)
-            {
-                _isMovingUp = true;
-            }
+            if (transform.position == _movePoints[_currentIndex].position) _currentIndex++;
 
-            if (!_isMovingUp)
-            {
-                transform.Translate(Vector3.down * Time.deltaTime * _verticalMovementSpeed);
-            }
-            else
-            {
-                transform.Translate(Vector3.up * Time.deltaTime * _verticalMovementSpeed);
-            }
+            if (_currentIndex == _movePoints.Length) _currentIndex = 1;
+
         }
         else
         {
