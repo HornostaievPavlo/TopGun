@@ -120,7 +120,7 @@ public class CollisionSystem : MonoBehaviour
 
         Destroy(_parentRigidbody);
 
-        Destroy(GetComponentInChildren<HealthBar>().gameObject);
+        Destroy(GetComponentInChildren<HealthBar>(true).gameObject);
 
         for (int i = 0; i < explosionObjects.Length; i++)
         {
