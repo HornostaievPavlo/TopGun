@@ -8,7 +8,7 @@ public class HealthSystem : MonoBehaviour
 
     private int _currentHealth;
 
-    //[HideInInspector] 
+    [HideInInspector]
     public bool isDead;
 
     public event Action<float> OnHealthPercentChanged = delegate { };
