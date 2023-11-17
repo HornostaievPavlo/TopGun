@@ -12,12 +12,12 @@ public class HealthBar : MonoBehaviour
 
     private void Awake()
     {
-        GetComponentInParent<HealthSystem>().OnHealthPercentChanged += HandleHealtChange;
+        GetComponentInParent<HealthSystem>().OnHealthPercentChanged += HandleHealthChange;
 
         foregroundImage.color = gradient.Evaluate(1f);
     }
 
-    private void HandleHealtChange(float percent)
+    private void HandleHealthChange(float percent)
     {
         StartCoroutine(ChangeToPercent(percent));
     }

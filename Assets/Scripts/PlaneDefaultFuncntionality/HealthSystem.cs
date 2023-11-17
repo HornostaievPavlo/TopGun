@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
@@ -16,6 +17,8 @@ public class HealthSystem : MonoBehaviour
 
     private ShootingSystem _shootingSystem;
 
+    public HealthBar healthBar;
+
     private void OnEnable()
     {
         _currentHealth = maxHealth;
@@ -24,6 +27,9 @@ public class HealthSystem : MonoBehaviour
     private void Start()
     {
         InitializeFields();
+
+        healthBar = GetComponentInChildren<HealthBar>();
+        healthBar.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -40,11 +46,15 @@ public class HealthSystem : MonoBehaviour
 
     public void ModifyHealth(int amount)
     {
+        healthBar.gameObject.SetActive(true);
+
         _currentHealth -= amount;
 
         float currentHealthPercent = (float)_currentHealth / (float)maxHealth;
 
         OnHealthPercentChanged(currentHealthPercent);
+
+        StartCoroutine(HideHealthBar());
     }
 
     private void CheckState()
@@ -68,5 +78,13 @@ public class HealthSystem : MonoBehaviour
 
             _shootingSystem.enabled = false;
         }
+    }
+
+    private IEnumerator HideHealthBar()
+    {
+        float delay = 3f;
+        yield return new WaitForSecondsRealtime(delay);
+
+        healthBar.gameObject.SetActive(false);
     }
 }
